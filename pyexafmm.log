@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.5.4)  24 MAY 2021 11:05
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.5.4)  24 MAY 2021 14:03
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -335,77 +335,70 @@ LaTeX Info: Redefining \nameref on input line 18.
 \openout3 = `pyexafmm.out'.
 
 LaTeX Font Info:    Font shape `OT1/phv/b/it' in size <9.5> not available
-(Font)              Font shape `OT1/phv/b/sl' tried instead on input line 40.
-LaTeX Font Info:    Calculating math sizes for size <9.5> on input line 41.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <9.5> on input line 41.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6.64996> on input line 41.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <4.75> on input line 41.
+(Font)              Font shape `OT1/phv/b/sl' tried instead on input line 39.
 
 
-/home/sri/Documents/Papers/pyexafmm/pyexafmm.tex:45: LaTeX Error: There's no line here to end.
+/home/sri/Documents/Papers/pyexafmm/pyexafmm.tex:44: LaTeX Error: There's no line here to end.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.45 
+l.44 
      
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-/home/sri/Documents/Papers/pyexafmm/pyexafmm.tex:45: LaTeX Error: There's no line here to end.
+/home/sri/Documents/Papers/pyexafmm/pyexafmm.tex:44: LaTeX Error: There's no line here to end.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.45 
+l.44 
      
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-Underfull \hbox (badness 1831) in paragraph at lines 47--48
+Underfull \hbox (badness 1831) in paragraph at lines 46--47
 \OT1/ptm/m/n/10.53937 ground in-for-ma-tion (in-clud-ing rel-e-vant ref-er-
  []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-LaTeX Font Info:    Calculating math sizes for size <10.53937> on input line 50.
+LaTeX Font Info:    Calculating math sizes for size <10.53937> on input line 49.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <10.53937> on input line 50.
+(Font)              <10.53937> on input line 49.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7.37752> on input line 50.
+(Font)              <7.37752> on input line 49.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5.26968> on input line 50.
+(Font)              <5.26968> on input line 49.
 
-Underfull \hbox (badness 10000) in paragraph at lines 50--51
+Underfull \hbox (badness 10000) in paragraph at lines 49--50
 \OT1/ptm/m/n/10.53937 ed-i-tor at https://www.overleaf.com/blog/278-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 50--51
+Underfull \hbox (badness 10000) in paragraph at lines 49--50
 \OT1/ptm/m/n/10.53937 how-to-use-overleaf-with-ieee-collabratec-your-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 50--51
+Underfull \hbox (badness 10000) in paragraph at lines 49--50
 \OT1/ptm/m/n/10.53937 quick-guide-to-getting-started#.xsVp6tpPkrKM9.
  []
 
 
-Underfull \hbox (badness 7308) in paragraph at lines 50--51
+Underfull \hbox (badness 7308) in paragraph at lines 49--50
 \OT1/ptm/m/n/10.53937 Please ref-fer the IEEE-tran[]HOWTO.pdf is
  []
 
-LaTeX Font Info:    Trying to load font information for TS1+phv on input line 51.
+LaTeX Font Info:    Trying to load font information for TS1+phv on input line 50.
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1phv.fd
 File: ts1phv.fd 2001/06/04 scalable font definitions for TS1/phv.
 )
@@ -426,24 +419,24 @@ Overfull \vbox (7.9474pt too high) has occurred while \output is active []
 Overfull \vbox (6.27187pt too high) has occurred while \output is active []
 
  [2]
-<fig1.png, id=36, 249.3315pt x 189.22694pt>
+<fig1.png, id=35, 249.3315pt x 189.22694pt>
 File: fig1.png Graphic file (type png)
 <use fig1.png>
-Package pdftex.def Info: fig1.png  used on input line 113.
+Package pdftex.def Info: fig1.png  used on input line 112.
 (pdftex.def)             Requested size: 222.0pt x 168.48363pt.
 File: fig1.png Graphic file (type png)
 <use fig1.png>
-Package pdftex.def Info: fig1.png  used on input line 118.
+Package pdftex.def Info: fig1.png  used on input line 117.
 (pdftex.def)             Requested size: 312.0pt x 236.80449pt.
-LaTeX Font Info:    Calculating math sizes for size <8.5> on input line 126.
+LaTeX Font Info:    Calculating math sizes for size <8.5> on input line 125.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8.5> on input line 126.
+(Font)              <8.5> on input line 125.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5.94997> on input line 126.
+(Font)              <5.94997> on input line 125.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <4.25> on input line 126.
+(Font)              <4.25> on input line 125.
 
-Underfull \hbox (badness 10000) in paragraph at lines 126--186
+Underfull \hbox (badness 10000) in paragraph at lines 125--185
 [][]
  []
 
@@ -459,12 +452,12 @@ Overfull \hbox (18.0pt too wide) has occurred while \output is active
  []
 
 [3 </home/sri/Documents/Papers/pyexafmm/fig1.png (PNG copy)>]
-Underfull \hbox (badness 1609) in paragraph at lines 201--202
+Underfull \hbox (badness 1609) in paragraph at lines 200--201
 []\OT1/ptm/m/n/10.53937 If mul-ti-ple ap-pen-dices are re-quired, they
  []
 
 
-LaTeX Warning: Citation `CC1' on page 4 undefined on input line 215.
+LaTeX Warning: Citation `CC1' on page 4 undefined on input line 214.
 
 
 Overfull \vbox (7.9474pt too high) has occurred while \output is active []
@@ -473,24 +466,24 @@ Overfull \vbox (7.9474pt too high) has occurred while \output is active []
 Overfull \vbox (6.27187pt too high) has occurred while \output is active []
 
  [4]
-Underfull \hbox (badness 1377) in paragraph at lines 233--240
+Underfull \hbox (badness 1377) in paragraph at lines 232--239
 \OT1/ptm/m/n/10.53937 ment for for-mats and ex-am-ples of com-mon
  []
 
 LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <8> not available
-(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 253.
+(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 252.
 
-Underfull \hbox (badness 7099) in paragraph at lines 256--257
+Underfull \hbox (badness 7099) in paragraph at lines 255--256
 []\OT1/phv/m/n/8 IBM Cor-po-ra-tion, IBM Knowl-edge Cen-ter - IBM
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 256--257
+Underfull \hbox (badness 10000) in paragraph at lines 255--256
 \OT1/phv/m/n/8 [On-line]. Avail-able: https://www.ibm.com/support/
  []
 
 
-Overfull \hbox (2.75003pt too wide) in paragraph at lines 256--257
+Overfull \hbox (2.75003pt too wide) in paragraph at lines 255--256
 \OT1/phv/m/n/8 knowledgecenter/en/HW11R/com.ibm.hwmca.kc[]se.doc/
  []
 
@@ -503,7 +496,7 @@ Overfull \hbox (18.0pt too wide) has occurred while \output is active
  []
 
 [5]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 290.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 292.
 
 Overfull \vbox (7.9474pt too high) has occurred while \output is active []
 
@@ -513,10 +506,10 @@ Overfull \vbox (6.27187pt too high) has occurred while \output is active []
  [6
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 290.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 292.
  (/home/sri/Documents/Papers/pyexafmm/pyexafmm.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 290.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 290.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 292.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 292.
 
 
 Package rerunfilecheck Warning: File `pyexafmm.out' has changed.
@@ -525,28 +518,28 @@ Package rerunfilecheck Warning: File `pyexafmm.out' has changed.
 
 Package rerunfilecheck Info: Checksums for `pyexafmm.out':
 (rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  CFC35F72B698AD23C174E79DFAD9A1A7;1218.
+(rerunfilecheck)             After:  3C128E0805E7B90CC8158C7646A09D3D;1281.
 
 LaTeX Warning: There were undefined references.
 
 
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 290.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 292.
  ) 
 Here is how much of TeX's memory you used:
- 6478 strings out of 481239
- 101415 string characters out of 5920378
+ 6460 strings out of 481239
+ 101161 string characters out of 5920378
  369631 words of memory out of 5000000
- 21574 multiletter control sequences out of 15000+600000
- 596922 words of font info for 125 fonts, out of 8000000 for 9000
+ 21558 multiletter control sequences out of 15000+600000
+ 596010 words of font info for 122 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  38i,13n,29p,1016b,444s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/euler/eurm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvbo8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on /home/sri/Documents/Papers/pyexafmm/pyexafmm.pdf (6 pages, 200272 bytes).
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/euler/eurm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvbo8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on /home/sri/Documents/Papers/pyexafmm/pyexafmm.pdf (6 pages, 193525 bytes).
 PDF statistics:
- 161 PDF objects out of 1000 (max. 8388607)
- 131 compressed objects within 2 object streams
- 41 named destinations out of 1000 (max. 500000)
+ 158 PDF objects out of 1000 (max. 8388607)
+ 129 compressed objects within 2 object streams
+ 42 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -20,7 +20,7 @@
 \sptitle{Department: Head}
 \editor{Editor: Name, xxxx@email}
 
-\title{PyExaFMM: A case study in designing high performance software in Python}
+\title{PyExaFMM: Designing a highly-performant particle fast multipole solver in Python with Numba and CuPy}
 
 \author{S. Kailasa}
 \affil{Department of Mathematics, University College London}
@@ -34,11 +34,10 @@
 \author{\\\\L. A. Barba}
 \affil{Department of Mechanical and Aerospace Engineering, The George Washington University}
 
-
 \markboth{Department Head}{Paper title}
 
 \begin{abstract}
-Abstract text goes here. This single paragraph ($\le$200 words) summarizes the significant aspects of the manuscript. Often it indicates whether the manuscript is a report of new work, a review or overview, or a combination of thereof. Do not cite references in the abstract. Papers must not have been published previously, must fit into the theme of an open Call for Papers, and must be targeted toward the general technical reader. This journal provides early access to all full manuscript submissions; if your paper is not cleared at the time you submit your full paper for peer review, please alert the IEEE Admin. CS Magazine authors will need to obtain official IEEE Computer Society clearance for publication. During the editorial/production process, IEEE Publications, Editorial Services, will provide production services throughout the publication process.
+We present PyExaFMM, a kernel-independent particle fast multipole method (FMM) implementation, built on the success of the ExaFMM project, to answer the question: can we develop a highly-performant scientific code, without resorting to a lower level language, that is competitive with the state of the art C++ implementation? The FMM represents a good case study for understanding the utility of Python's high-performance ecosystem. Performant FMM implementations have to take special care to handle the complex hierarchical adaptive-octree datastructure on which it is dependent. As many of Python's numerical libraries are built to accelerate computations over simple arrays, making PyExaFMM performant is not as trivial as the availability of `drop-in' tools may make it seem.
 \end{abstract}
 
 \maketitle
@@ -244,7 +243,7 @@ The manuscript should include a conclusion. In this section, summarize what was 
 
 \section{ACKNOWLEDGMENT}
 
-SK is supported by Engineering and Physical Sciences Resesarch Council (EPSRC) studentship 2417009.
+SK is supported by Engineering and Physical Sciences Research Council Studentship 2417009.
 
 
 \begin{thebibliography}{1}
@@ -278,13 +277,16 @@ C. J. Smith and J. S. Smith, Rocky Mountain Research Laboratories, Boulder, CO, 
 \end{thebibliography}
 
 
-\begin{IEEEbiography}{Srinath Kailasa}{\,} is a graduate student at University College London. He is currently pursuing a PhD in Applied and Computational Mathematics, having received an MPhys (2017) and MSc  (2020) from the University of Durham, and University College London respectively. His research interests are in high-performance computing, specifically in the application of software engineering methods, and parallel and heterogenous computing, to problems in computational electromagnetics. Contact him at srinath.kailasa.18@ucl.ac.uk.
+\begin{IEEEbiography}{Srinath Kailasa}{\,} is a graduate student at University College London. He is currently pursuing a PhD in Computational Mathematics, having received an MPhys in Physics (2017) and an MSc Scientific Computing (2020) from the University of Durham, and University College London respectively. His research interests are in high-performance computing, specifically in the application of software engineering, parallel computing and heterogenous computing systems, to problems in computational electromagnetics. Contact him at srinath.kailasa.18@ucl.ac.uk.
 \end{IEEEbiography}
 
 \begin{IEEEbiography}{Timo Betcke}{\,}is a Professor of Computational Mathematics at University College London. Contact him at t.betcke@ucl.ac.uk.
 \end{IEEEbiography}
 
-\begin{IEEEbiography}{Third C. Author, III,}{\,}is with DEF Corporation, Tokyo, Japan. Dr. Author's biography appears here.  Contact him/her at tcauthor@def.com.
+\begin{IEEEbiography}{Tingyu Wang}{\,}is a PhD student in Mechanical Engineering at the George Washington University. Contact him at twang66@email.gwu.edu.
+\end{IEEEbiography}
+
+\begin{IEEEbiography}{Lorena. A. Barba}{\,}is a Professor of Mechanical and Aerospace Engineering at the George Washington University.  Contact her at labarba@email.gwu.edu.
 \end{IEEEbiography}
 
 \end{document}
