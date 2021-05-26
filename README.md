@@ -33,12 +33,18 @@
 - How did the library design end up looking
 - How did the code end up looking? Because the utility of a full app in Python is that we can easily prototype algorithm implementations.
 - Why is this important? Because these tools are only useful if they make our life easier and deployment of our ideas faster.
-
 - How was code organised, and why. What bottlenecks did the design introduce on performance, if any (reliance on HDF5 for loading/caching operators).
 
+### 2.2 Integration with Other Softwares (BEMPP ?)
+- Using PyExaFMM to solve BEM
+
+
 ## 3. Performance Comparison
+### 3.1 FMM Problem
 - Accuracy, speed, and memory footprint as a function of experimental size. For different geometries. (See KIFMM Ying paper for some of the geometries that they try in that)
 - Probably most important sections tbh...
+
+### 3.2 BEM Problem (?)
 
 ## 4 Conclusion
 - Shows that we can code non-trivial algorithms fairly effectively in Python, but come with their own difficulties - programming to an invisible framework - and learning curve.
