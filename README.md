@@ -6,35 +6,34 @@
 
 ### 1.1 Broad Strokes
 
+- The point of this paper, why are we making another FMM? Tie together reasoning for using Python to code a non-trivial algorithm. (Ease of deployment, interoperbility with Python universe, low barrier to entry for non-software specialists)
 - Particle FMM, why it's useful, and in which contexts.
 - Current advances in written software for it
 - Python, and it's utility.
 - The concept of JIT and Numba, and how they work roughly.
-- The point of this paper, why are we making another FMM? Tie together reasoning for using Python to code a non-trivial algorithm. (Ease of deployment, interoperbility with Python universe, low barrier to entry for non-software specialists)
-- Can we code a HPC library using just Python data/numerics stack? If so it would make our lives as Computational Scientists a lot easier/faster! Allowing you to go from prototype to performance without software engineering hassle.
-- Paper organisation in terms of following sections
+- Can we code a HPC library using just Python data/numerics stack? If so it would make our lives as Computational Scientists a lot easier/faster! Allowing you to go from prototype to performance without software engineering hassle introduced by C++.
+- Paper organisation in terms of following sections ...
 
-### 1.2 Designing an FMM
+### 1.2 Designing a Performant FMM
 - Basic concept behind KIFMM (relevant operations, and algorithm structure)
 - Data structures required, morton representation, (linear) adaptive octree.
 - Optimisations required for practical implementations, requirement to cache and store operators, quickly lookup (precomputed) operators, avoid redundant calculation (transfer vectors).
-- Peculiarities of our FMM in order to achieve performance: rSVD compression of M2L, stability from ncheck_points > nequivalent_points.
+- Peculiarities of our FMM in order to achieve performance: rSVD compression of M2L, stability from ncheck_points > nequivalent_points. Why they help, and how they work - what is the impact on speed and accuracy.
 
 ### 1.3 Numba and Cupy
 - Introduction to Numba, and how it can be useful for scientific computing - JIT compilation, interoperability with cupy/numpy data structures.
 - How numba and cuda are used in this project, spell out where these technologies are actually impactful, and when they are not.
-- Specifics of where they are used (AdaptOctree construction, M2L calculation/compression, P2P and P2M calculations)
+- Specifics of where they are used (AdaptOctree construction, M2L calculation/compression, P2P and P2M calculations) and benchmarks of the impact that they have over not using them.
 
 ## 2. Software Engineering
 
 ### 2.1 Software Design Principles:
 - How much easier is it actually than just writing everything in C/C++?
-- Was it easy to separate concerns, and enforce safety?
+- Was it easy to separate concerns, and enforce safety in a complex software?
 - How did the library design end up looking
-- How did the code end up looking?
+- How did the code end up looking? Because the utility of a full app in Python is that we can easily prototype algorithm implementations.
 - Why is this important? Because these tools are only useful if they make our life easier and deployment of our ideas faster.
 
-### 2.2 Software Design Specifics:
 - How was code organised, and why. What bottlenecks did the design introduce on performance, if any (reliance on HDF5 for loading/caching operators).
 
 ## 3. Performance Comparison
@@ -42,6 +41,6 @@
 - Probably most important sections tbh...
 
 ## 4 Conclusion
-- Still beaten by C++
-- However, shows that we can code non-trivial algorithms fairly effectively in Python, but come with their own difficulties - programming to an invisible framework - and learning curve.
+- Shows that we can code non-trivial algorithms fairly effectively in Python, but come with their own difficulties - programming to an invisible framework - and learning curve.
 - Time wasted on (non-trivial) software issues to cope with/get around Python interpreter, could have been spent on optimising an already performant code.
+- Bottlenecks for data organisation which are done via python where JIT compilation has no effect. Difficult to avoid without degrading software quality - specific examples
