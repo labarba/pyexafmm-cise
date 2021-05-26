@@ -2,12 +2,19 @@
 
 # Outline
 
+## 0 Abstract
+- Question: Can we design a HPC code all in Python? Why this is an important question to answer ...
+- Answer: No, because ...
+- Utility of testing hypothesis with FMM algorithm (and what they are useful for - briefly): complex heirarchical datastructure, non-trivial to apply optimisation tools. Lots of data organisation, which is limited by the interpreter.
+- What this paper presents (implementation and design description - how they are influenced by our tools, convergence testing, benchmarking on different problems)
+
+
 ## 1 Introduction
 
 ### 1.1 Broad Strokes
 
 - The point of this paper, why are we making another FMM? Tie together reasoning for using Python to code a non-trivial algorithm. (Ease of deployment, interoperbility with Python universe, low barrier to entry for non-software specialists)
-- Particle FMM, why it's useful, and in which contexts.
+- Particle FMM, why it's useful, and in which contexts. Relevant references for more in depth discussion in the literature.
 - Current advances in written software for it
 - Python, and it's utility.
 - The concept of JIT and Numba, and how they work roughly.
@@ -20,7 +27,7 @@
 - Optimisations required for practical implementations, requirement to cache and store operators, quickly lookup (precomputed) operators, avoid redundant calculation (transfer vectors).
 - Peculiarities of our FMM in order to achieve performance: rSVD compression of M2L, stability from ncheck_points > nequivalent_points. Why they help, and how they work - what is the impact on speed and accuracy.
 
-### 1.3 Numba and Cupy
+### 1.3 Numba and CuPy
 - Introduction to Numba, and how it can be useful for scientific computing - JIT compilation, interoperability with cupy/numpy data structures.
 - How numba and cuda are used in this project, spell out where these technologies are actually impactful, and when they are not.
 - Specifics of where they are used (AdaptOctree construction, M2L calculation/compression, P2P and P2M calculations) and benchmarks of the impact that they have over not using them.
