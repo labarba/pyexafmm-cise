@@ -26,6 +26,14 @@
 - Data structures required, morton representation, (linear) adaptive octree.
 - Optimisations required for practical implementations, requirement to cache and store operators, quickly lookup (precomputed) operators, avoid redundant calculation (transfer vectors).
 - Peculiarities of our FMM in order to achieve performance: rSVD compression of M2L, stability from ncheck_points > nequivalent_points. Why they help, and how they work - what is the impact on speed and accuracy.
+- Some kind of overview of rSVD
+
+Figures:
+- FMM Tree/algorithm diagram
+- Algorithm structure (table? similar to Lashuk)
+- Illustration of the interaction lists in 2D
+- List of definitions of interaction lists
+- Maybe an illustration of rsvd?
 
 ### 1.3 Numba and CuPy
 - Introduction to Numba, and how it can be useful for scientific computing - JIT compilation, interoperability with cupy/numpy data structures.
@@ -45,11 +53,14 @@
 ### 2.2 Integration with Other Softwares (BEMPP ?)
 - Using PyExaFMM to solve BEM
 
-
 ## 3. Performance Comparison
 ### 3.1 FMM Problem
 - Accuracy, speed, and memory footprint as a function of experimental size. For different geometries. (See KIFMM Ying paper for some of the geometries that they try in that)
 - Probably most important sections tbh...
+
+Figures:
+- Critical graph of convergence for all three experiments.
+- Need to think about the best way to present this
 
 ### 3.2 BEM Problem (?)
 
