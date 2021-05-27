@@ -1,8 +1,8 @@
 # Fdb version 3
-["pdflatex"] 1622117987 "/home/sri/Documents/Papers/pyexafmm/article/pyexafmm.tex" "/home/sri/Documents/Papers/pyexafmm/article/pyexafmm.pdf" "pyexafmm" 1622117987
+["pdflatex"] 1622118429 "/home/sri/Documents/Papers/pyexafmm/article/pyexafmm.tex" "/home/sri/Documents/Papers/pyexafmm/article/pyexafmm.pdf" "pyexafmm" 1622118432
   "/etc/texmf/web2c/texmf.cnf" 1620113249 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/sri/Documents/Papers/pyexafmm/article/pyexafmm.aux" 1622117987 4214 5a4f93ced8a761679962ef7b7f17c794 ""
-  "/home/sri/Documents/Papers/pyexafmm/article/pyexafmm.tex" 1622117987 17374 a87b981c3bbae6934168f3353836b79c ""
+  "/home/sri/Documents/Papers/pyexafmm/article/pyexafmm.aux" 1622118430 4214 5a4f93ced8a761679962ef7b7f17c794 ""
+  "/home/sri/Documents/Papers/pyexafmm/article/pyexafmm.tex" 1622118431 17374 a87b981c3bbae6934168f3353836b79c ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/helvetic/phvb7t.tfm" 1136768653 2240 eb56c13537f4d8a0bd3fafc25572b1bd ""
@@ -113,14 +113,14 @@
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1620113293 8256263 07f51514e83fe97343beee3836b0e27c ""
   "IEEEcsmag.cls" 1564677406 209431 29ef3104328a378baf76189f0b3b7c9a ""
   "figures/fig1.png" 1622117963 13815 9af23e798dccf51edbe98938c641893e ""
-  "pyexafmm.aux" 1622117987 4214 5a4f93ced8a761679962ef7b7f17c794 "pdflatex"
-  "pyexafmm.out" 1622117987 1352 57cbed80ce76534b44afcdcffbec403c "pdflatex"
-  "pyexafmm.tex" 1622117987 17374 a87b981c3bbae6934168f3353836b79c ""
+  "pyexafmm.aux" 1622118430 4214 5a4f93ced8a761679962ef7b7f17c794 "pdflatex"
+  "pyexafmm.out" 1622118430 1352 57cbed80ce76534b44afcdcffbec403c "pdflatex"
+  "pyexafmm.tex" 1622118431 17374 a87b981c3bbae6934168f3353836b79c ""
   "upmath.sty" 1564677456 5601 0c0145178f8621c759713dc3e50b9f9b ""
   (generated)
-  "pyexafmm.aux"
   "pyexafmm.out"
-  "/home/sri/Documents/Papers/pyexafmm/article/pyexafmm.pdf"
-  "/home/sri/Documents/Papers/pyexafmm/article/pyexafmm.log"
   "pyexafmm.log"
   "pyexafmm.pdf"
+  "/home/sri/Documents/Papers/pyexafmm/article/pyexafmm.log"
+  "/home/sri/Documents/Papers/pyexafmm/article/pyexafmm.pdf"
+  "pyexafmm.aux"
