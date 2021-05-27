@@ -22,36 +22,35 @@
 
 \title{PyExaFMM: Designing a highly-performant particle fast multipole solver in Python with Numba and CuPy}
 
-\author{S. Kailasa}
-\affil{Department of Mathematics, University College London}
+\author{\ S. Kailasa}
+\affil{\ Department of Mathematics, University College London}
 
-\author{T. Betcke}
-\affil{Department of Mathematics, University College London}
+\author{\ T. Betcke}
+\affil{\ Department of Mathematics, University College London}
 
-\author{T. Wang}
-\affil{Department of Mechanical and Aerospace Engineering, The George Washington University}
+\author{\ T. Wang}
+\affil{\ Department of Mechanical and Aerospace Engineering, The George Washington University}
 
-\author{\\\\L. A. Barba}
-\affil{Department of Mechanical and Aerospace Engineering, The George Washington University}
+\author{\ L. A. Barba}
+\affil{\ Department of Mechanical and Aerospace Engineering, The George Washington University}
 
 \markboth{Department Head}{Paper title}
 
 \begin{abstract}
-We present PyExaFMM, a kernel-independent particle fast multipole method (FMM) implementation, built on the success of the ExaFMM project, to answer the question: can we develop a highly-performant scientific code, without resorting to a lower level language, that is competitive with the state of the art C++ implementation? The FMM represents a good case study for understanding the utility of Python's high-performance ecosystem. Performant FMM implementations have to take special care to handle the complex hierarchical adaptive-octree datastructure on which it is dependent. As many of Python's numerical libraries are built to accelerate computations over simple arrays, making PyExaFMM performant is not as trivial as the availability of `drop-in' tools may make it seem.
+We present PyExaFMM, a pythonic kernel-independent particle fast multipole method (FMM) implementation, built on the success of the ExaFMM project, to answer the question: can we develop a highly-performant scientific code, without resorting to a lower level language, that remains competitive with the state of the art C++ implementation? The FMM is a good case study to benchmark the utility of Python's high-performance ecosystem to accelerate non-trivial algorithms, due its reliance on a complex heirarchical octree data structure. PyExaFMM is built on top of Numpy, Numba and CuPy. In this paper we offer an overview the FMM algorithm, before introducing Numba and CuPy's role in developing PyExaFMM. We discuss the software development practices adopted to circumvent as much as possible the bottleneck to performance introduced by the Python interpreter, and offer benchmarks of the software's accuracy, speed, and memory footprint in comparison to the state of the art C++ implementation from the ExaFMM project.
 \end{abstract}
 
 \maketitle
 
-
 \chapterinitial{The introduction} should provide background information (including relevant references) and should indicate the purpose of the manuscript. Cite relevant work by others, including research outside your company. Place your work in perspective by referring to other research papers. Inclusion of statements at the end of the introduction regarding the organization of the manuscript can be helpful to the reader.
 
 
-This document is a template for \LaTeX. If you are reading a paper or PDF version of this document, please\vadjust{\vfill\pagebreak} download the electronic file, trans\_jour.tex, from the IEEE Web site at \url{http://www.ieee.org/authortools/trans_jour.tex} so you can use it to prepare your manuscript. If you would prefer to use LaTeX, download IEEE's LaTeX style and sample files from the same Web page. You can also explore using the Overleaf editor at {https://www.overleaf.com/blog/278-how-to-use-overleaf-with-ieee-collabratec-your-quick-guide-to-getting-started\#.xsVp6tpPkrKM9}. Please reffer the IEEEtran\_HOWTO.pdf is the complete guide of \LaTeX\ for manuscript preparation included with this stuff.
+\section{DESIGNING A PERFORMANT FMM}
 
+Sections following the introduction should present your results and findings. The body of the paper should be approximately 6,000 words. The manuscript should evolve so that each sentence, equation, figure, and table flow smoothly and logically from whatever precedes it. Relevant work by others, as well as relevant products from other companies, should be adequately and accurately cited. Sufficient support should be provided (or cited) for the assertions made and conclusions drawn.
 
-\section{COPYRIGHT AND CLEARANCE}
-
-All CS Magazine authors must obtain clearance from IEEE Computer Society before submitting the final manuscript. The ``\href{https://apps.na.collabserv.com/wikis/home?lang=en-us#!/wiki/W18e544042a85_4b63_915a_1d1ed2cf8338/page/Publication\%20clearance}{Publication Clearance}'' wiki provides details about the procedure. Computer Society employees must use the \href{https://mc.manuscriptcentral.com/cs-ieee}{ScholarOne  Manuscripts Clearance} System to obtain publication approval.
+\section{AN OVERVIEW OF NUMBA AND CUPY}
+Sections following the introduction should present your results and findings. The body of the paper should be approximately 6,000 words. The manuscript should evolve so that each sentence, equation, figure, and table flow smoothly and logically from whatever precedes it. Relevant work by others, as well as relevant products from other companies, should be adequately and accurately cited. Sufficient support should be provided (or cited) for the assertions made and conclusions drawn.
 
 \section{SECTIONS}
 
@@ -109,12 +108,12 @@ This journal accepts graphical abstracts, and they must be peer reviewed, which 
 
 
 \begin{figure}
-\centerline{\includegraphics[width=18.5pc]{fig1.png}}
+\centerline{\includegraphics[width=18.5pc]{figures/fig1.png}}
 \caption{Note that ``Figure'' is spelled out. There is a period after the figure number, followed by one space. It is good practice to briefly explain the significance of the figure in the caption. (Used, with permission, from [4].)}
 \end{figure}
 
 \begin{figure*}
-\centerline{\includegraphics[width=26pc]{fig1.png}}
+\centerline{\includegraphics[width=26pc]{figures/fig1.png}}
 \caption{Note that ``Figure'' is spelled out. There is a period after the figure number, followed by one space. It is good practice to briefly explain the significance of the figure in the caption. (Used, with permission, from [4].)}
 \end{figure*}
 
