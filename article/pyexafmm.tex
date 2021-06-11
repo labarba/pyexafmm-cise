@@ -20,7 +20,7 @@
 \sptitle{Department: Head}
 \editor{Editor: Name, xxxx@email}
 
-\title{PyExaFMM: Designing a highly-performant particle fast multipole solver in Python with Numba and CuPy}
+\title{PyExaFMM: Designing a highly-performant particle fast multipole solver in Python with Numba}
 
 \author{\ S. Kailasa}
 \affil{\ Department of Mathematics, University College London}
@@ -37,7 +37,8 @@
 \markboth{Department Head}{Paper title}
 
 \begin{abstract}
-We present PyExaFMM, a pythonic kernel-independent particle fast multipole method (FMM) implementation, built on the success of the ExaFMM project, to answer the question: can we develop a highly-performant scientific code, without resorting to a lower level language, that remains competitive with the state of the art C++ implementation? The FMM is a good case study to benchmark the utility of Python's high-performance ecosystem to accelerate non-trivial algorithms, due its reliance on a complex heirarchical octree data structure. PyExaFMM is built on top of Numpy, Numba and CuPy. In this paper we offer an overview the FMM algorithm, before introducing Numba and CuPy's role in developing PyExaFMM. We discuss the software development practices adopted to circumvent as much as possible the bottleneck to performance introduced by the Python interpreter, and offer benchmarks of the software's accuracy, speed, and memory footprint in comparison to the state of the art C++ implementation from the ExaFMM project.
+PyExaFMM is a pythonic kernel-independent particle fast multipole method (FMM) implementation, built on the success of the ExaFMM project, to answer the question: can we develop a highly-performant scientific code, without resorting to a lower level language? The FMM is a good case study to benchmark the maturity of Python in the development of non-trivial algorithms, due its reliance on a complex heirarchical octree data structure. In this paper we offer an overview the kernel-independent FMM algorithm and the techniques involved in developing performant implementations, before introducing Numba and it's role in developing PyExaFMM. We discuss the software development practices adopted to circumvent as much as possible the bottleneck to performance introduced by the Python interpreter, and offer benchmarks of the software's accuracy, speed, and memory footprint in comparison to the state of the art C++ implementation from the ExaFMM project. We report that we achieve runtimes within O(10) of the state of the art, with comparable accuracy.
+
 \end{abstract}
 
 \maketitle
@@ -242,41 +243,26 @@ The manuscript should include a conclusion. In this section, summarize what was 
 
 \section{ACKNOWLEDGMENT}
 
-SK is supported by Engineering and Physical Sciences Research Council Studentship 2417009.
-
+SK is supported by EPSRC Studentship 2417009.
 
 \begin{thebibliography}{1}
 
-\bibitem{AA1}
-G. M. Amdahl, G. A. Blaauw, and F. P. Brooks, ``Architecture of the IBM System/360,'' {\it IBM J. Res. \& Dev}., vol. 8, no. 2, pp. 87--101, 1964. (journal)
+\bibitem{Lashuk2012}
+I. Lashuk et al.,``A massively parallel adaptive fast multipole method on heterogeneous architectures,'' Commun. ACM, vol. 55, no. 5, pp. 101–109, May 2012.
 
-\bibitem{BB1}
-IBM Corporation, IBM Knowledge Center - IBM Secure Service Container (Secure Service Container). [Online]. Available: {https://www.ibm.com/support/\break knowledgecenter/en/HW11R/com.ibm.hwmca.kc\_se.doc/\break introductiontotheconsole/wn2131zaci.html} (URL)
+\bibitem{Ying2004}
+L. Ying, G. Biros, and D. Zorin, “A kernel-independent adaptive fast multipole algorithm in two and three dimensions,” J. Comput. Phys., vol. 196, no. 2, pp. 591–626, 2004.
 
-\bibitem{CC1}
-J. Williams, ``Narrow-band analyzer,'' PhD dissertation, Dept. of Electrical Eng., Harvard Univ., Cambridge, MA: 1993. (Thesis or dissertation)
+\bibitem{Malhotra2016}
+D. Malhotra and G. Biros, “A Distributed Memory Fast Multipole Method for Volume Potentials,” ACM Trans. Math. Softw., vol. 43, no. 2, pp. 1–27, Sep. 2016.
 
-\bibitem{DD1}
-J. M. P. Martinez, R. B. Llavori, M. J. A. Cabo, et al., ``Integrating data warehouses with web data: A survey,'' {\it IEEE Trans. Knowledge and Data Eng}., preprint, Dec. 21, 2007, doi:10.1109/TKDE.2007.190746. (PrePrint)
+\bibitem{Halko2011}
+N. Halko, P. G. Martinsson, and J. A. Tropp, “Finding Structure with Randomness: Probabilistic Algorithms for Constructing Approximate Matrix Decompositions *,” vol. 53, no. 2, pp. 217–288.
 
-\bibitem{EE1}
-W.-K. Chen, {\it Linear Networks and Systems}, Belmont, CA: Wadsworth, pp. 123--135, 1993. (book)
-
-\bibitem{FF1}
-S. P. Bingulac, ``On the compatibility of adaptive controllers,'' {\it Proc. Fourth Ann. Allerton Conf. Circuits and Systems Theory}, pp. 8--16, 1994. (conference proceedings)\vadjust{\vfill\pagebreak}
-
-\bibitem{GG1}
-K. Elissa, ``An overview of decision theory,'' unpublished. (Unpublished manuscript)
-
-\bibitem{HH1}
-R. Nicole, ``The last word on decision theory,'' {\it J. Computer Vision}, submitted for publication. (Pending publication)
-
-\bibitem{II1}
-C. J. Smith and J. S. Smith, Rocky Mountain Research Laboratories, Boulder, CO, personal communication, 1992. (Personal communication)
 \end{thebibliography}
 
 
-\begin{IEEEbiography}{Srinath Kailasa}{\,} is a graduate student at University College London. He is currently pursuing a PhD in Computational Mathematics, having received an MPhys in Physics (2017) and an MSc Scientific Computing (2020) from the University of Durham, and University College London respectively. His research interests are in high-performance computing, specifically in the application of software engineering, parallel computing and heterogenous computing systems, to problems in computational electromagnetics. Contact him at srinath.kailasa.18@ucl.ac.uk.
+\begin{IEEEbiography}{Srinath Kailasa}{\,} is a graduate student at University College London. He is currently pursuing a PhD in Computational Mathematics, having received an MPhys in Physics (2017) and an MSc Scientific Computing (2020) from the University of Durham, and University College London respectively. His research interests are in high-performance and scientific computing. Contact him at srinath.kailasa.18@ucl.ac.uk.
 \end{IEEEbiography}
 
 \begin{IEEEbiography}{Timo Betcke}{\,}is a Professor of Computational Mathematics at University College London. Contact him at t.betcke@ucl.ac.uk.
