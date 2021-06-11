@@ -37,75 +37,44 @@
 \markboth{Department Head}{Paper title}
 
 \begin{abstract}
-PyExaFMM is a pythonic kernel-independent particle fast multipole method (FMM) implementation, built on the success of the ExaFMM project, to answer the question: can we develop a highly-performant scientific code, without resorting to a lower level language? The FMM is a good case study to benchmark the maturity of Python in the development of non-trivial algorithms, due its reliance on a complex heirarchical octree data structure. In this paper we offer an overview the kernel-independent FMM algorithm and the techniques involved in developing performant implementations, before introducing Numba and it's role in developing PyExaFMM. We discuss the software development practices adopted to circumvent as much as possible the bottleneck to performance introduced by the Python interpreter, and offer benchmarks of the software's accuracy, speed, and memory footprint in comparison to the state of the art C++ implementation from the ExaFMM project. We report that we achieve runtimes within O(10) of the state of the art, with comparable accuracy.
+PyExaFMM is a pythonic kernel-independent particle fast multipole method (FMM) implementation, built on the success of the ExaFMM project, to answer the question: can we develop a highly-performant scientific code without resorting to a lower level language? The FMM is a good case study to understand the maturity of Python in the development of high-performance software, due its reliance on a complex heirarchical octree data structure. In this paper we offer an overview the kernel-independent FMM algorithm and the mathematical and software development techniques we used in order to develop a performant practical implementation. We proceed to benchmark the software's accuracy, speed, and memory footprint with respect to the state of the art C++ implementation from the ExaFMM project. We report that we are able to achieve runtimes within $\mathcal{O}(10)$ of the state of the art, with comparable accuracy.
 
 \end{abstract}
 
 \maketitle
 
-\chapterinitial{The introduction} should provide background information (including relevant references) and should indicate the purpose of the manuscript. Cite relevant work by others, including research outside your company. Place your work in perspective by referring to other research papers. Inclusion of statements at the end of the introduction regarding the organization of the manuscript can be helpful to the reader.
+\chapterinitial{The introduction} What is the appeal of developing HPC codes in Python? Why is it a useful case-study, what does it mean. What is the FMM approximately, where is it used, why is it important? What will we talk about here, and what do we conclude? What will the remaining sections say?
 
 
-\section{DESIGNING A PERFORMANT FMM}
+\section{THE KERNEL-INDEPENDENT FAST MULTIPOLE METHOD}
 
-Sections following the introduction should present your results and findings. The body of the paper should be approximately 6,000 words. The manuscript should evolve so that each sentence, equation, figure, and table flow smoothly and logically from whatever precedes it. Relevant work by others, as well as relevant products from other companies, should be adequately and accurately cited. Sufficient support should be provided (or cited) for the assertions made and conclusions drawn.
+\subsection{Algorithm}
 
-\section{AN OVERVIEW OF NUMBA AND CUPY}
-Sections following the introduction should present your results and findings. The body of the paper should be approximately 6,000 words. The manuscript should evolve so that each sentence, equation, figure, and table flow smoothly and logically from whatever precedes it. Relevant work by others, as well as relevant products from other companies, should be adequately and accurately cited. Sufficient support should be provided (or cited) for the assertions made and conclusions drawn.
+First introduced by Ying \cite{Ying2004}, the kernel-independent fast multipole method (KIFMM) \dots
 
-\section{SECTIONS}
+\section{TECHNIQUES FOR ACHIEVING PERFORMANCE}
 
-Sections following the introduction should present your results and findings. The body of the paper should be approximately 6,000 words. The manuscript should evolve so that each sentence, equation, figure, and table flow smoothly and logically from whatever precedes it. Relevant work by others, as well as relevant products from other companies, should be adequately and accurately cited. Sufficient support should be provided (or cited) for the assertions made and conclusions drawn.
+\subsection{What is Numba?}
 
-Headings may be numbered or unnumbered (``1 Introduction'' and ``1.2 Numbered level 2 head''), with no ending punctuation. As demonstrated in this document, the initial paragraph after a headingis not indented.
+What is does, how is it useful? Where do we use it, and why there. How much difference can it make in an idealized routine. What doesn't work, why doesn't it work. Where to be careful. Programming to an (invisible) framework \dots
 
-\section{JOURNAL STYLE}
+Where is numba used heavily? Tree construction routines on Morton coordinates. Multithreading of tree construction, as well as P2M evaluation. Experiment to demonstrate the speed of kernel evaluation, with caveat that data must be pre-organised.
 
-Use American English when writing your paper. The serial comma should be used (``a, b, and c'' not ``a, b and c''). In American English, periods and commas are within quotation marks, like ``this period.'' Other punctuation is ``outside''! The use of technical jargon, slang, and vague or informal English should be avoided. Generic technical terms should instead be used.
+\subsection{Precomputing Operators}
 
-\subsection{Acronyms and abbreviations}
+Transfer vectors, hashing, HDF5, loading into memory.
 
-All acronyms should be defined at first mention in the abstract and in the main text. Define in figures, tables, and footnotes only if not defined in the discussion of the figure/table. Acronyms consist of capital letters (except where salted with lowercase), but the terms they represent need not be given initial caps unless a proper name is involved (``central processing unit'' [CPU] but ``Fourier transform'' [FT]). Use of ``e.g.'' and ``i.e.'' okay, but refrain from using ``etc.'' It is preferable to use these abbreviations only in parentheses (e.g., like this).
+\subsection{Compressing the M2L step with a randomised SVD}
 
-Abbreviate units of time (s, min, hr, day, mo, yr) only in virgule constructions (10~$\umu$g/hr) and in artwork; otherwise, spell out, e.g., 10 days, 3 months, 25 minutes. Units of measure (Kb, MB, kWh, etc.) should always be abbreviated when used with a numeral. If used alone, spell out (``16 MB of RAM'' but ``these values are measured in micrometers'').
+Introduce rSVD \cite{Halko2011}. Numerical bounds on error out of scope, but show how experiments demonstrate that the FMM error dominates the SVD error.
 
-\subsection{Numbers}
+\subsection{Software Architecture}
 
-Spell out numerals that have no unit of measure or time (one, two, $\ldots$ ten), but always use numerals with units of time and measure. Some examples are as follows: 11 through 999; 1,000; 10,000; twentieth century; twofold, tenfold, 20-fold; 2 times; 0.2 cm; $p = .001$; 25\%; 10\% to 25\%.
+The key is separating routines to be accelerated, and organising data ready to run. The data organisation part (and it's slowness) should be demonstrated as a bottleneck using experiment.
 
-\section{MATH AND EQUATIONS}
+\section{PERFORMANCE COMPARISON WITH STATE OF THE ART}
 
-Scalar {\it variables} and {\it physical constants} should be italicized, and a bold (non-italics) font should be used for {\bf vectors} and {\bf matrices}. Do not italicize subscripts unless they are variables.
-
-Equations should be either display (with a number in parentheses) or inline.
-
-
-Display equations should be flush left and numbered consecutively, with equation numbers in parentheses and flush right.
-
-Be sure the symbols in your equation have been defined before the equation appears or immediately following. Please refer to ``Equation (1),'' not ``Eq. (1)'' or ``equation (1).''
-
-Punctuate display equations when they are part of the sentence preceding it, as in
-\begin{equation}
-A=\pi r^2.
-\end{equation}
-In addition, if the text following the equation flows logically as a part of the display equation,
-\begin{equation}
-A=\pi r^2,
-\end{equation}
-use ending punctuation (comma) after the display equation.
-
-\section{LISTS}
-
-Avoid using lists. Instead, use full sentences and flowing paragraphs. If you absolutely must use a list, use them rarely and keep them short:
-\begin{itemize}
-\item {\it Style for bulleted lists}---This is the style that should be used for bulleted lists.
-
-\item {\it Punctuation in lists}---Each item in the list should end with a period, regardless of whether full sentences are used.
-\end{itemize}
-
-\section{GRAPHICAL ABSTRACTS}
-
-This journal accepts graphical abstracts, and they must be peer reviewed, which means the graphical abstract must be submitted with the full paper. graphical abstracts and their specifications. Please read the additional information provided by \href{http://www.ieee.org/publications_standards/publications/graphical_abstract.pdf}{\underline{IEEE about graphical abstracts}}.
+Description of main experiments, and how they are conducted. What are the main results? Are they expected from theory? What conclusions can be drawn about developing HPC codes entirely in Python, is it worth it?
 
 
 \begin{figure}
@@ -184,62 +153,10 @@ kilogram, H $=$ henry.}
 \label{tab1}
 \end{table}
 
-\section{FIGURES AND TABLES}
-
-\subsection{In-text callouts for figures and tables}
-
-Figures and tables must be cited in the running text in consecutive order. At first mention, the citation should be boldface ({\bf Figure 1}); subsequent mentions should be Roman type (see Figure 1 and {\bf Table 1}). {\bf Figure 2} shows an example of a figure spanning across two columns.
-
-
-Previously published figures or tables require permission to reprint. Please obtain permission. Then, add the following text to the figure/table caption: ``From [reference no.], with permission,'' or ``Adapted from [reference no.], with permission.'' {\it Carefully} explain each figure in the text. Each manuscript should be limited to four figures.\pagebreak
-
-\section{END SECTIONS}
-
-\subsection{Appendices}
-
-If multiple appendices are required, they should labeled ``Appendix A,'' ``Appendix B,'' etc. They appear before the ``Acknowledgment'' or the ``References'' section.
-
-\subsection{Acknowledgment}
-
-The ``Acknowledgment'' (no's) section appears immediately after the conclusion. If applicable, this is where you indicate funding for the work. The preferred spelling of the word ``acknowledgment'' in American English is without an ``e'' after the ``g.'' Avoid expressions such as ``One of us (S.B.A.) would like to thank $\ldots$ .'' Instead, write ``We thank $\ldots$.'' Sponsor and financial support acknowledgments are included in the acknowledgment section. For example: This work was supported in part by the U.S. Department of Commerce under Grant BS123456 (sponsor and financial support acknowledgment goes here). Researchers that contributed information or assistance to the article should also be acknowledged in this section. Also, if corresponding authorship is noted in your paper it will be placed in the acknowledgment section. Note that the acknowledgment section is placed at the end of the paper before the reference section.
-
-\subsection{References}
-
-
-References need not be cited in text. When they are, they appear on the
-line, in square brackets, inside the punctuation. Multiple references are
-each numbered with separate brackets. When citing a section in a book,
-please give the relevant page numbers. In text, refer simply to the
-reference number. Do not use ``Ref.'' or ``reference'' except at the
-beginning of a sentence: ``Reference \cite{CC1} shows $\ldots$ .'' Please do not use
-automatic endnotes in \emph{Word}, rather, type the reference list at the end of the
-paper using the ``References'' style.
-
-Reference numbers are set flush left and form a column of their own, hanging
-out beyond the body of the reference. The reference numbers are on the line,
-end with period. In all references, the given name of the author
-or editor is abbreviated to the initial only and precedes the last name. Use
-them all; use \emph{et al.} only if names are not given. Use commas around Jr.,
-Sr., and III in names. Abbreviate conference titles. When citing IEEE
-transactions, provide the issue number, page range, volume number, year,
-and/or month if available. When referencing a patent, provide the day and
-the month of issue, or application. References may not include all
-information; please obtain and include relevant information. Do not combine
-references. There must be only one reference with each number. If there is a
-URL included with the print reference, it can be included at the end of the
-reference.
-
-Other than books, capitalize only the first word in a paper title, except
-for proper nouns and element symbols. For papers published in translation
-journals, please give the English citation first, followed by the original
-foreign-language citation See the end of this document for formats and
-examples of common\break references. For a complete discussion of references and
-their formats, see the IEEE style manual at
-\url{http://www.ieee.org/authortools}.
 
 \section{CONCLUSION}
 
-The manuscript should include a conclusion. In this section, summarize what was described in your paper. Future directions may also be included in this section. Authors are strongly encouraged not to reference multiple figures or tables in the conclusion; these should be referenced in the body of the paper.
+What have we learned, what will we be working on next?
 
 \section{ACKNOWLEDGMENT}
 
@@ -247,11 +164,12 @@ SK is supported by EPSRC Studentship 2417009.
 
 \begin{thebibliography}{1}
 
+\bibitem{Ying2004}
+L. Ying, G. Biros, and D. Zorin, “A kernel-independent adaptive fast multipole algorithm in two and three dimensions,” J. Comput. Phys., vol. 196, no. 2, pp. 591–626, 2004.
+
 \bibitem{Lashuk2012}
 I. Lashuk et al.,``A massively parallel adaptive fast multipole method on heterogeneous architectures,'' Commun. ACM, vol. 55, no. 5, pp. 101–109, May 2012.
 
-\bibitem{Ying2004}
-L. Ying, G. Biros, and D. Zorin, “A kernel-independent adaptive fast multipole algorithm in two and three dimensions,” J. Comput. Phys., vol. 196, no. 2, pp. 591–626, 2004.
 
 \bibitem{Malhotra2016}
 D. Malhotra and G. Biros, “A Distributed Memory Fast Multipole Method for Volume Potentials,” ACM Trans. Math. Softw., vol. 43, no. 2, pp. 1–27, Sep. 2016.
