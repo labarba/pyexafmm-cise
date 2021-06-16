@@ -10,13 +10,20 @@
 
 ## 1 Introduction
 
-- The point of this paper, why are we making another FMM? Tie together reasoning for using Python to code a non-trivial algorithm. (Ease of deployment, interoperbility with Python universe, low barrier to entry for non-software specialists)
-- Particle FMM, why it's useful, and in which contexts. Relevant references for more in depth discussion in the literature.
+- The point of this paper, why are we making another FMM? What is the FMM?
+-  Tie together reasoning for using Python to code a non-trivial algorithm. (Ease of deployment, interoperbility with Python universe, low barrier to entry for non-software specialists)
+- Particle FMM, why it's useful, and in which contexts. Relevant references for more in depth discussion in the literature. Probably easiest to just introduce it as a problem in computational electromagnetics.
 - Current advances in written software for it
 - Python, and it's utility.
 - The concept of JIT and Numba, and how they work roughly.
 - Can we code a HPC library using just Python data/numerics stack? If so it would make our lives as Computational Scientists a lot easier/faster! Allowing you to go from prototype to performance without software engineering hassle introduced by C++.
 - Paper organisation in terms of following sections ...
+
+References:
+1. Numba, lam, petriou, sievert
+2. FMM implementations that already exist: https://www.swmath.org/?term=FMM
+3. Original Paper, Greengard + Rokhlin
+
 
 ## 2 KIFMM Algorithm
 - Basic concept behind KIFMM (relevant operations, and algorithm structure)
