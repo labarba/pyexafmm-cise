@@ -289,3 +289,9 @@ TSWLatexianTemp*
 
 # IPython
 *.ipynb_checkpoints/*
+*/*.ipynb_checkpoints/*
+*/*/*.ipynb_checkpoints/*
+
+# Data files excluded
+*.hdf5
+*.dat
