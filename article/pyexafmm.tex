@@ -45,6 +45,7 @@ PyExaFMM is a pythonic kernel-independent particle fast multipole method (FMM) i
 
 \chapterinitial{The introduction} What is the appeal of developing HPC codes in Python? Why is it a useful case-study, what does it mean. What is the FMM approximately, where is it used, why is it important? What will we talk about here, and what do we conclude? What will the remaining sections say?
 
+\cite{Ying2004}
 
 \section{THE KERNEL-INDEPENDENT FAST MULTIPOLE METHOD}
 
@@ -66,7 +67,7 @@ Transfer vectors, hashing, HDF5, loading into memory.
 
 \subsection{Compressing the M2L step with a randomised SVD}
 
-Introduce rSVD \cite{Halko2011}. Numerical bounds on error out of scope, but show how experiments demonstrate that the FMM error dominates the SVD error.
+Introduce. Numerical bounds on error out of scope, but show how experiments demonstrate that the FMM error dominates the SVD error.
 
 \subsection{Software Architecture}
 
@@ -161,23 +162,8 @@ What have we learned, what will we be working on next?
 
 SK is supported by EPSRC Studentship 2417009.
 
-\begin{thebibliography}{1}
-
-\bibitem{Ying2004}
-L. Ying, G. Biros, and D. Zorin, “A kernel-independent adaptive fast multipole algorithm in two and three dimensions,” J. Comput. Phys., vol. 196, no. 2, pp. 591–626, 2004.
-
-\bibitem{Lashuk2012}
-I. Lashuk et al.,``A massively parallel adaptive fast multipole method on heterogeneous architectures,'' Commun. ACM, vol. 55, no. 5, pp. 101–109, May 2012.
-
-
-\bibitem{Malhotra2016}
-D. Malhotra and G. Biros, “A Distributed Memory Fast Multipole Method for Volume Potentials,” ACM Trans. Math. Softw., vol. 43, no. 2, pp. 1–27, Sep. 2016.
-
-\bibitem{Halko2011}
-N. Halko, P. G. Martinsson, and J. A. Tropp, “Finding Structure with Randomness: Probabilistic Algorithms for Constructing Approximate Matrix Decompositions *,” vol. 53, no. 2, pp. 217–288.
-
-\end{thebibliography}
-
+\bibliography{pyexafmm}
+\bibliographystyle{ieeetr}
 
 \begin{IEEEbiography}{Srinath Kailasa}{\,} is a graduate student at University College London. He is currently pursuing a PhD in Computational Mathematics, having received an MPhys in Physics (2017) and an MSc Scientific Computing (2020) from the University of Durham, and University College London respectively. His research interests are in high-performance and scientific computing. Contact him at srinath.kailasa.18@ucl.ac.uk.
 \end{IEEEbiography}
