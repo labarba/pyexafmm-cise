@@ -37,15 +37,46 @@
 \markboth{Department Head}{Paper title}
 
 \begin{abstract}
-PyExaFMM is a pythonic kernel-independent particle fast multipole method (FMM) implementation, built on the success of the ExaFMM project, to answer the question: can we develop a highly-performant scientific code without resorting to a lower level language? The FMM is a good case study to understand the maturity of Python in the development of high-performance software, due its reliance on a complex heirarchical octree data structure. In this paper we offer an overview the kernel-independent FMM algorithm and the mathematical and software development techniques we used in order to develop a performant practical implementation. We proceed to benchmark the software's accuracy, speed, and memory footprint with respect to the state of the art C++ implementation from the ExaFMM project. We report that we are able to achieve runtimes within $\mathcal{O}(10)$ of the state of the art, with comparable accuracy.
+PyExaFMM is a pythonic kernel-independent particle fast multipole method [FMM] implementation, built on the success of the ExaFMM project, to answer the question of whether we could develop a highly-performant scientific code without resorting to a lower level language. The FMM is a good case study for understanding the maturity of Python for developing high-performance software, due its reliance on a complex heirarchical octree data structure. In this paper we offer an overview the kernel-independent FMM algorithm, and the key tool from Python's numerical ecosystem for developing high-performance applications, Numba. We also describe the mathematical and software development techniques we used to aid performance. We conclude by benchmarking the software's accuracy, speed, and memory footprint with respect to the state of the art C++ implementation from the ExaFMM project. We report that we are able to achieve runtimes within $\mathcal{O}(10)$ of the state of the art, with comparable accuracy for three dimensional electrostatic problems.
 
 \end{abstract}
 
 \maketitle
 
-\chapterinitial{The introduction} What is the appeal of developing HPC codes in Python? Why is it a useful case-study, what does it mean. What is the FMM approximately, where is it used, why is it important? What will we talk about here, and what do we conclude? What will the remaining sections say?
+\chapterinitial{The Fast Multipole Method} [FMM], originally developed by Greengard and Rokhlin \cite{Greengard1987}, approximates the solution of the so called $N$ body problem, in which one seeks to calculate the pairwise interactions between $N$ objects. This problem arises in numerous contexts in physics and engineering. Consider the calculation of electrostatic potential, $\phi(x_j)$, for a given charged particle at position $x_j$, or `target', due to $N$ particles at positions $x_i$, or `sources', where $i \in [1, ..., N]$, each with a charge $q_i$,
 
-\cite{Ying2004}
+\begin{eqnarray}
+	\phi(x_j) = \sum_{i=1}^{N} K(x_i, x_j) q_i,
+\label{eq:sec:intro:nbody_problem}
+\end{eqnarray}
+
+here $K(\cdot, \cdot)$ is called the Green's function, or kernel function, which for electrostatic problems in three dimensions is,
+
+\begin{eqnarray}
+	K(x, y) = \frac{1}{4\epsilon_0\pi|x-y|},
+\label{eq:sec:intro:laplace_kernel}
+\end{eqnarray}
+
+where $\epsilon_0$ is the permittivity of free space. This kernel function is often referred to as the Laplace kernel.
+
+% The reasoning behind this name is that (\ref{eq:sec:intro:nbody_problem}) with the Laplace kernel represents the discretized integral form of the Laplace equation,
+
+% \begin{eqnarray}
+% 	-\Delta \phi = \frac{q}{\epsilon_0},
+% \end{eqnarray}
+
+% which is itself derived from Gauss' law of electrostatics,
+
+% \begin{eqnarray}
+% 	-\nabla \cdot E = \frac{q}{\epsilon_0},
+% \end{eqnarray}
+
+% where the electric field $E$ is represented in terms of a scalar potential $E=\nabla \phi$.
+
+Attempting to evaluate the sum in (\ref{eq:sec:intro:nbody_problem}) naively for $N$ target particles at positions $x_j$ where $j \in [1,...,N]$ due to $N$ sources, results in algorithm of $\mathcal{O}(N^2)$ runtime complexity, however the FMM is able to approximate (\ref{eq:sec:intro:nbody_problem}) in just $\mathcal{O}(N)$ runtime complexity, with proscribed error bounds.
+The key idea behind the FMM is to encode the far field due to a cluster of particles with a representative analytic multipole expansion, which can be truncated to tune for desired accuracy. This truncation effectively allows for the user to approximate the sum in (\ref{eq:sec:intro:nbody_problem}) with fewer calculations. However, the coefficients of a given multipole expansion are kernel-dependent in the sense that they will depend on the form of (\ref{eq:sec:intro:laplace_kernel}). Originally introduced by Ying et. al \cite{Ying2004}, the kernel-independent fast multipole method [KIFMM] represents the multipole expansions due to a cluster of charges as set of equivalent densities supported on a surface enclosing the cluster, with the fields generated by the charges matched with the equivalent field via a least-squares fitting in the far field. This approach has the useful property of relying only on evaluations of the kernels, rather than analytic series expansions. This means that is can be programmed in a kernel-agnostic way and applied to a variety of problems. As originally developed in \cite{Ying2004}, the KIFMM generalizes the FMM to non-oscillatory second-order elliptic partial differential equations with constant coefficients, however further work has extended the method to include oscillatory problems \cite{Engquist2007}.
+
+There are numerous open-source FMM solvers currently available. The most widely used are ... . However, few solvers are 
 
 \section{THE KERNEL-INDEPENDENT FAST MULTIPOLE METHOD}
 
@@ -93,71 +124,71 @@ Description of main experiments, and how they are conducted. What are the main r
 % \caption{Note that ``Figure'' is spelled out. There is a period after the figure number, followed by one space. It is good practice to briefly explain the significance of the figure in the caption. (Used, with permission, from [4].)}
 % \end{figure*}
 
-\begin{table}
-\caption{Units for magnetic properties.}
-\label{table}
-\small
-\begin{tabular*}{17.5pc}{@{}|p{29pt}|p{63pt}<{\raggedright}|p{80pt}<{\raggedright}|@{}}
-\hline
-Symbol&
-Quantity&
-Conversion from Gaussian and  CGS EMU to SI$^{\mathrm{a}}$ \\
-\hline
-$\Phi $&
-Magnetic flux&
-1 Mx $\to  10^{-8}$ Wb $= 10^{-8}$ V $\cdot$ s \\
-$B$&
-Magnetic flux density,   magnetic induction&
-1 G $\to  10^{-4}$ T $= 10^{-4}$ Wb/m$^{2}$ \\
-$H$&
-Magnetic field strength&
-1 Oe $\to  10^{-3}/(4\pi )$ A/m \\
-$m$&
-Magnetic moment&
-1 erg/G $=$ 1 emu   $\to 10^{-3}$ A $\cdot$ m$^{2} = 10^{-3}$ J/T \\
-$M$&
-Magnetization&
-1 erg/(G $\cdot$ cm$^{3}) =$ 1 emu/cm$^{3}$   $\to 10^{-3}$ A/m \\
-4$\pi M$&
-Magnetization&
-1 G $\to  10^{-3}/(4\pi )$ A/m \\
-$\sigma $&
-Specific magnetization&
-1 erg/(G $\cdot$ g) $=$ 1 emu/g $\to $ 1 A $\cdot$ m$^{2}$/kg \\
-$j$&
-Magnetic dipole   moment&
-1 erg/G $=$ 1 emu   $\to 4\pi \times  10^{-10}$ Wb $\cdot$ m \\
-$J$&
-Magnetic polarization&
-1 erg/(G $\cdot$ cm$^{3}) =$ 1 emu/cm$^{3}$  $\to 4\pi \times  10^{-4}$ T \\
-$\chi , \kappa $&
-Susceptibility&
-1 $\to  4\pi $ \\
-$\chi_{\rho }$&
-Mass susceptibility&
-1 cm$^{3}$/g $\to  4\pi \times  10^{-3}$ m$^{3}$/kg \\
-$\mu $&
-Permeability&
-1 $\to  4\pi \times  10^{-7}$ H/m   $= 4\pi \times  10^{-7}$ Wb/(A $\cdot$ m) \\
-$\mu_{r}$&
-Relative permeability&
-$\mu \to \mu_{r}$ \\
-$w, W$&
-Energy density&
-1 erg/cm$^{3} \to  10^{-1}$ J/m$^{3}$ \\
-$N, D$&
-Demagnetizing factor&
-1 $\to  1/(4\pi )$ \\
-\hline
-\multicolumn{3}{@{}p{17.5pc}@{}}{Vertical lines are optional in tables. Statements that serve as captions for
-the entire table do not need footnote letters. }\\
-\multicolumn{3}{@{}p{17.5pc}@{}}{$^{\mathrm{a}}$Gaussian units are the same as cg emu for magnetostatics; Mx
-$=$ maxwell, G $=$ gauss, Oe $=$ oersted; Wb $=$ weber, V $=$ volt, s $=$
-second, T $=$ tesla, m $=$ meter, A $=$ ampere, J $=$ joule, kg $=$
-kilogram, H $=$ henry.}
-\end{tabular*}
-\label{tab1}
-\end{table}
+% \begin{table}
+% \caption{Units for magnetic properties.}
+% \label{table}
+% \small
+% \begin{tabular*}{17.5pc}{@{}|p{29pt}|p{63pt}<{\raggedright}|p{80pt}<{\raggedright}|@{}}
+% \hline
+% Symbol&
+% Quantity&
+% Conversion from Gaussian and  CGS EMU to SI$^{\mathrm{a}}$ \\
+% \hline
+% $\Phi $&
+% Magnetic flux&
+% 1 Mx $\to  10^{-8}$ Wb $= 10^{-8}$ V $\cdot$ s \\
+% $B$&
+% Magnetic flux density,   magnetic induction&
+% 1 G $\to  10^{-4}$ T $= 10^{-4}$ Wb/m$^{2}$ \\
+% $H$&
+% Magnetic field strength&
+% 1 Oe $\to  10^{-3}/(4\pi )$ A/m \\
+% $m$&
+% Magnetic moment&
+% 1 erg/G $=$ 1 emu   $\to 10^{-3}$ A $\cdot$ m$^{2} = 10^{-3}$ J/T \\
+% $M$&
+% Magnetization&
+% 1 erg/(G $\cdot$ cm$^{3}) =$ 1 emu/cm$^{3}$   $\to 10^{-3}$ A/m \\
+% 4$\pi M$&
+% Magnetization&
+% 1 G $\to  10^{-3}/(4\pi )$ A/m \\
+% $\sigma $&
+% Specific magnetization&
+% 1 erg/(G $\cdot$ g) $=$ 1 emu/g $\to $ 1 A $\cdot$ m$^{2}$/kg \\
+% $j$&
+% Magnetic dipole   moment&
+% 1 erg/G $=$ 1 emu   $\to 4\pi \times  10^{-10}$ Wb $\cdot$ m \\
+% $J$&
+% Magnetic polarization&
+% 1 erg/(G $\cdot$ cm$^{3}) =$ 1 emu/cm$^{3}$  $\to 4\pi \times  10^{-4}$ T \\
+% $\chi , \kappa $&
+% Susceptibility&
+% 1 $\to  4\pi $ \\
+% $\chi_{\rho }$&
+% Mass susceptibility&
+% 1 cm$^{3}$/g $\to  4\pi \times  10^{-3}$ m$^{3}$/kg \\
+% $\mu $&
+% Permeability&
+% 1 $\to  4\pi \times  10^{-7}$ H/m   $= 4\pi \times  10^{-7}$ Wb/(A $\cdot$ m) \\
+% $\mu_{r}$&
+% Relative permeability&
+% $\mu \to \mu_{r}$ \\
+% $w, W$&
+% Energy density&
+% 1 erg/cm$^{3} \to  10^{-1}$ J/m$^{3}$ \\
+% $N, D$&
+% Demagnetizing factor&
+% 1 $\to  1/(4\pi )$ \\
+% \hline
+% \multicolumn{3}{@{}p{17.5pc}@{}}{Vertical lines are optional in tables. Statements that serve as captions for
+% the entire table do not need footnote letters. }\\
+% \multicolumn{3}{@{}p{17.5pc}@{}}{$^{\mathrm{a}}$Gaussian units are the same as cg emu for magnetostatics; Mx
+% $=$ maxwell, G $=$ gauss, Oe $=$ oersted; Wb $=$ weber, V $=$ volt, s $=$
+% second, T $=$ tesla, m $=$ meter, A $=$ ampere, J $=$ joule, kg $=$
+% kilogram, H $=$ henry.}
+% \end{tabular*}
+% \label{tab1}
+% \end{table}
 
 
 \section{CONCLUSION}
