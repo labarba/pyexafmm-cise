@@ -67,7 +67,7 @@ Transfer vectors, hashing, HDF5, loading into memory.
 
 \subsection{Compressing the M2L step with a randomised SVD}
 
-Introduce. Numerical bounds on error out of scope, but show how experiments demonstrate that the FMM error dominates the SVD error.
+Introduce \cite{Ying2004}. Numerical bounds on error out of scope, but show how experiments demonstrate that the FMM error dominates the SVD error.
 
 \subsection{Software Architecture}
 
@@ -78,14 +78,20 @@ The key is separating routines to be accelerated, and organising data ready to r
 Description of main experiments, and how they are conducted. What are the main results? Are they expected from theory? What conclusions can be drawn about developing HPC codes entirely in Python, is it worth it?
 
 \begin{figure}
-\centerline{\includegraphics[width=18.5pc]{figures/fig1.png}}
-\caption{Note that ``Figure'' is spelled out. There is a period after the figure number, followed by one space. It is good practice to briefly explain the significance of the figure in the caption. (Used, with permission, from [4].)}
+\centerline{\includegraphics[width=18.5pc]{figures/compression_runtime.pdf}}
+\caption{Compression Rank and runtime}
 \end{figure}
 
-\begin{figure*}
-\centerline{\includegraphics[width=26pc]{figures/fig1.png}}
-\caption{Note that ``Figure'' is spelled out. There is a period after the figure number, followed by one space. It is good practice to briefly explain the significance of the figure in the caption. (Used, with permission, from [4].)}
-\end{figure*}
+\begin{figure}
+\centerline{\includegraphics[width=18.5pc]{figures/compression_accuracy.pdf}}
+\caption{Compression Rank and accuracy}
+\end{figure}
+
+% Larger figure
+% \begin{figure*}
+% \centerline{\includegraphics[width=26pc]{figures/fig1.png}}
+% \caption{Note that ``Figure'' is spelled out. There is a period after the figure number, followed by one space. It is good practice to briefly explain the significance of the figure in the caption. (Used, with permission, from [4].)}
+% \end{figure*}
 
 \begin{table}
 \caption{Units for magnetic properties.}
