@@ -295,3 +295,6 @@ TSWLatexianTemp*
 # Data files excluded
 *.hdf5
 *.dat
+
+# VSCode
+.vscode/
