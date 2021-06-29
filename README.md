@@ -26,14 +26,20 @@ References:
 
 
 ## 2 KIFMM Algorithm
-- Basic concept behind KIFMM (relevant operations, and algorithm structure)
+
+- Basic concept behind KIFMM (relevant operations, and FMM algorithm structure)
+- What kind of problems KIFMM can be applied to.
 - Octrees, and adaptive octree explanation as a part of this.
 - Concept of balancing, and how it effects the computation of interaction lists.
+- The main bottlenecks in programming efficient KIFMMs
 
 Figures:
 1. Illustrate operators, and least-squares problem for M2M/L2L/M2L/P2M
 2. Illustrate operators wrt to an octree (or quadtree) if it's easier to draw, similar to GPU gems book
-3. Illustration of interaction lists, similar to lashuk paper
+3. Illustration of interaction list cases (u, x, v, w)
+
+References:
+1. Ying paper
 
 ## 3. Techniques for Achieving Performance
 
@@ -54,6 +60,10 @@ Figures:
 1. Illustration of Morton encoding (?)
 2. Benchmark table for runtime, memory usage, against tree construction in exafmm-t for different geometries (sphere, random) for different discretisation
 
+References:
+1. Tu/Ghattas paper for Morton encoding reference
+2. Links to AdaptOctree software
+
 ### 3.3 Precomputing Operators
 
 - Optimisations required for practical implementations, requirement to cache and store operators, quickly lookup (precomputed) operators, avoid redundant calculation
@@ -62,7 +72,7 @@ Figures:
 
 References:
 1. Darve paper which introduces transfer vectors
-2. HDF5 reference, same as used in masters
+2. HDF5 software reference
 
 ### 3.4 Compressing M2L
 
@@ -70,8 +80,8 @@ References:
 - Show how error is dominated by FMM error through experiment.
 
 Figures:
-1. rSVD illustration, similar to R paper as it's very clear
-2. Convergence as a function of K
+1. Convergence as a function of K
+2. Runtime as a function of K
 
 References:
 1. Original Halko reference
@@ -80,15 +90,14 @@ References:
 
 - Overview of the separation of algorithm from compute backend. Code example of the API.
 - I envision this section to focus on a discussion about the way in which compute kernels are written for optimum performance with Numba. I.e. they have minimal lookups, and are largely just matvecs.
+- The choice available in Numba, and how to choose the best choice, case-study of writing the laplace green func/green func gradient well.
 
 ## 4. Performance Comparison with State of the Art
-### 4.1 FMM Problem
+
 - Accuracy, speed, and memory footprint as a function of experimental size. For different geometries. (sphere, random)
 
 Figures:
 - Critical graph of convergence of multipole and local expansions for different geometries, as a function of discretisation (compression's contribution to error should already have been demonstrated).
-
-### 3.2 BEM Problem (?)
 
 ## 5 Conclusion
 - Shows that we can code non-trivial algorithms fairly effectively in Python, but come with their own difficulties - programming to an invisible framework - and learning curve.
