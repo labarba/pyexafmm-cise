@@ -110,3 +110,53 @@ year = {2007}
   pages={3145},
   year={2021}
 }
+
+@article{Fong2009,
+abstract = {A new O (N) fast multipole formulation is proposed for non-oscillatory kernels. This algorithm is applicable to kernels K (x, y) which are only known numerically, that is their numerical value can be obtained for any (x, y). This is quite different from many fast multipole methods which depend on analytical expansions of the far-field behavior of K, for | x - y | large. Other "black-box" or "kernel-independent" fast multipole methods have been devised. Our approach has the advantage of requiring a small pre-computation time even for very large systems, and uses the minimal number of coefficients to represent the far-field, for a given L2 tolerance error in the approximation. This technique can be very useful for problems where the kernel is known analytically but is quite complicated, or for kernels which are defined purely numerically. {\textcopyright} 2009 Elsevier Inc. All rights reserved.},
+author = {Fong, William and Darve, Eric},
+doi = {10.1016/j.jcp.2009.08.031},
+file = {:home/sri/.local/share/data/Mendeley Ltd./Mendeley Desktop/Downloaded/Fong, Darve - 2009 - The black-box fast multipole method.pdf:pdf},
+issn = {10902716},
+journal = {Journal of Computational Physics},
+keywords = {Chebyshev polynomials,Fast multipole method,Interpolation,Singular value decomposition},
+month = {dec},
+number = {23},
+pages = {8712--8725},
+publisher = {Academic Press Inc.},
+title = {{The black-box fast multipole method}},
+volume = {228},
+year = {2009}
+}
+
+@article{Martinsson2007,
+abstract = {A version of the fast multipole method (FMM) is described for charge distributions on the line. Previously published schemes of this type relied either on analytical representations of the potentials to be evaluated (multipoles, Legendre expansions, Taylor series, etc.) or on tailored representations that were constructed numerically (using, e.g., the singular value decomposition (SVD), artificial charges, etc.). The algorithm of this paper belongs to the second category, utilizing the matrix compression scheme described in [H. Cheng, Z. Gimbutas, P. G. Martinsson, and V. Rokhlin, SIAM J. Sci. Comput. 26 (2005), pp. 1389-1404]. The resulting scheme exhibits substantial improvements in the CPU time requirements. Furthermore, the scheme is applicable to a wide variety of potentials; in this respect, it is similar to the SVD-based FMMs. The performance of the method is illustrated with several numerical examples. {\textcopyright} 2007 Society for Industrial and Applied Mathematics.},
+author = {Martinsson, P G and Rokhlin, V},
+doi = {10.1137/060662253},
+file = {:home/sri/Documents/Mendeley/An_Accelerated_Kernel-Independ.pdf:pdf},
+issn = {10648275},
+journal = {SIAM Journal on Scientific Computing},
+keywords = {Fast multipole method,Fast summation,Matrix interpolation,Skeletonization},
+mendeley-groups = {Doctorate},
+number = {3},
+pages = {1160--1178},
+title = {{An accelerated kernel-independent fast multipole method in one dimension}},
+url = {http://www.siam.org/journals/sisc/29-3/66225.html},
+volume = {29},
+year = {2007}
+}
+
+@article{Gimbutas2003,
+abstract = {We present a modification of the fast multipole method (FMM) in two dimensions. While previous implementations of the FMM have been designed for harmonic kernels, our algorithm works for a large class of kernels that satisfy fairly general conditions, amounting to the kernel being sufficiently smooth away from the diagonal. Our algorithm approximates appropriately chosen parts of the kernel with "tensor products" of Legendre expansions and uses the singular value decomposition (SVD) to compress the resulting representations. The obtained singular function expansions replace the Taylor and Laurent expansions used in the original FMM. The algorithm requires O(N) operations and is stable and robust. The performance of the algorithm is illustrated with numerical examples.},
+author = {Gimbutas, Zyndrunas and Rokhlin, Vladimir},
+doi = {10.1137/S1064827500381148},
+file = {:home/sri/Documents/Mendeley/A_Generalized_Fast_Multipole_M.pdf:pdf},
+isbn = {1064827500},
+issn = {10648275},
+journal = {SIAM Journal on Scientific Computing},
+keywords = {Arbitrary kernels,Fast multipole method,Potential theory},
+number = {3},
+pages = {796--817},
+title = {{A generalized fast multipole method for nonoscillatory kernels}},
+volume = {24},
+year = {2003}
+}
