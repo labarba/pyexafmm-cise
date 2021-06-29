@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.5.4)  29 JUN 2021 14:40
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.5.4)  29 JUN 2021 16:04
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -378,36 +378,13 @@ Overfull \vbox (7.9474pt too high) has occurred while \output is active []
 Overfull \vbox (6.27187pt too high) has occurred while \output is active []
 
  [2]
-<figures/compression_runtime.pdf, id=107, 251.4996pt x 155.38051pt>
-File: figures/compression_runtime.pdf Graphic file (type pdf)
-<use figures/compression_runtime.pdf>
-Package pdftex.def Info: figures/compression_runtime.pdf  used on input line 108.
-(pdftex.def)             Requested size: 222.0pt x 137.16202pt.
-<figures/compression_accuracy.pdf, id=108, 251.4996pt x 155.38051pt>
-File: figures/compression_accuracy.pdf Graphic file (type pdf)
-<use figures/compression_accuracy.pdf>
-Package pdftex.def Info: figures/compression_accuracy.pdf  used on input line 113.
-(pdftex.def)             Requested size: 222.0pt x 137.16202pt.
-<figures/interaction_lists.pdf, id=109, 260.17198pt x 260.17198pt>
-File: figures/interaction_lists.pdf Graphic file (type pdf)
-<use figures/interaction_lists.pdf>
-Package pdftex.def Info: figures/interaction_lists.pdf  used on input line 118.
-(pdftex.def)             Requested size: 222.0pt x 222.01265pt.
-<figures/exafmm_multipole_convergence.pdf, id=110, 312.2064pt x 192.9609pt>
-File: figures/exafmm_multipole_convergence.pdf Graphic file (type pdf)
-<use figures/exafmm_multipole_convergence.pdf>
-Package pdftex.def Info: figures/exafmm_multipole_convergence.pdf  used on input line 124.
-(pdftex.def)             Requested size: 312.0pt x 192.84264pt.
-<figures/pyexafmm_multipole_convergence.pdf, id=111, 312.2064pt x 192.9609pt>
-File: figures/pyexafmm_multipole_convergence.pdf Graphic file (type pdf)
-<use figures/pyexafmm_multipole_convergence.pdf>
-Package pdftex.def Info: figures/pyexafmm_multipole_convergence.pdf  used on input line 128.
-(pdftex.def)             Requested size: 312.0pt x 192.84264pt.
-<figures/potential_convergence.pdf, id=112, 312.2064pt x 192.9609pt>
-File: figures/potential_convergence.pdf Graphic file (type pdf)
-<use figures/potential_convergence.pdf>
-Package pdftex.def Info: figures/potential_convergence.pdf  used on input line 133.
-(pdftex.def)             Requested size: 312.0pt x 192.84264pt.
+Underfull \hbox (badness 5490) in paragraph at lines 71--73
+[]\OT1/ptm/m/n/10.53937 At present, nu-mer-ous high-quality open
+ []
+
+
+Underfull \vbox (badness 1275) has occurred while \output is active []
+
 
 Overfull \vbox (6.27187pt too high) has occurred while \output is active []
 
@@ -416,13 +393,38 @@ Overfull \hbox (18.0pt too wide) has occurred while \output is active
 | [] 
  []
 
-[3 </home/sri/Documents/Papers/pyexafmm-cise/article/figures/compression_runtime.pdf> </home/sri/Documents/Papers/pyexafmm-cise/article/figures/compression_accuracy.pdf
+[3]
+<figures/compression_runtime.pdf, id=114, 251.4996pt x 155.38051pt>
+File: figures/compression_runtime.pdf Graphic file (type pdf)
+<use figures/compression_runtime.pdf>
+Package pdftex.def Info: figures/compression_runtime.pdf  used on input line 108.
+(pdftex.def)             Requested size: 222.0pt x 137.16202pt.
+<figures/compression_accuracy.pdf, id=115, 251.4996pt x 155.38051pt>
+File: figures/compression_accuracy.pdf Graphic file (type pdf)
+<use figures/compression_accuracy.pdf>
+Package pdftex.def Info: figures/compression_accuracy.pdf  used on input line 113.
+(pdftex.def)             Requested size: 222.0pt x 137.16202pt.
+<figures/interaction_lists.pdf, id=116, 260.17198pt x 260.17198pt>
+File: figures/interaction_lists.pdf Graphic file (type pdf)
+<use figures/interaction_lists.pdf>
+Package pdftex.def Info: figures/interaction_lists.pdf  used on input line 118.
+(pdftex.def)             Requested size: 222.0pt x 222.01265pt.
+<figures/exafmm_multipole_convergence.pdf, id=117, 312.2064pt x 192.9609pt>
+File: figures/exafmm_multipole_convergence.pdf Graphic file (type pdf)
+<use figures/exafmm_multipole_convergence.pdf>
+Package pdftex.def Info: figures/exafmm_multipole_convergence.pdf  used on input line 124.
+(pdftex.def)             Requested size: 312.0pt x 192.84264pt.
+<figures/pyexafmm_multipole_convergence.pdf, id=118, 312.2064pt x 192.9609pt>
+File: figures/pyexafmm_multipole_convergence.pdf Graphic file (type pdf)
+<use figures/pyexafmm_multipole_convergence.pdf>
+Package pdftex.def Info: figures/pyexafmm_multipole_convergence.pdf  used on input line 128.
+(pdftex.def)             Requested size: 312.0pt x 192.84264pt.
+<figures/potential_convergence.pdf, id=119, 312.2064pt x 192.9609pt>
+File: figures/potential_convergence.pdf Graphic file (type pdf)
+<use figures/potential_convergence.pdf>
+Package pdftex.def Info: figures/potential_convergence.pdf  used on input line 133.
+(pdftex.def)             Requested size: 312.0pt x 192.84264pt.
 
-pdfTeX warning: pdflatex (file /home/sri/Documents/Papers/pyexafmm-cise/article/figures/compression_accuracy.pdf): PDF inclusion: multiple pdfs with page group included in a single page
-> </home/sri/Documents/Papers/pyexafmm-cise/article/figures/interaction_lists.pdf
-
-pdfTeX warning: pdflatex (file /home/sri/Documents/Papers/pyexafmm-cise/article/figures/interaction_lists.pdf): PDF inclusion: multiple pdfs with page group included in a single page
->]
 Underfull \hbox (badness 2443) in paragraph at lines 211--212
 []\OT1/ptm/m/n/10.53937 SK is sup-ported by EP-SRC Stu-dentship
  []
@@ -431,17 +433,20 @@ Underfull \hbox (badness 2443) in paragraph at lines 211--212
 LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <8> not available
 (Font)              Font shape `OT1/phv/m/sl' tried instead on input line 5.
 )
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 228.
+
 Overfull \vbox (7.9474pt too high) has occurred while \output is active []
 
 
 Overfull \vbox (6.27187pt too high) has occurred while \output is active []
 
- [4 </home/sri/Documents/Papers/pyexafmm-cise/article/figures/exafmm_multipole_convergence.pdf> </home/sri/Documents/Papers/pyexafmm-cise/article/figures/pyexafmm_multipole_convergence.pdf
+ [4 </home/sri/Documents/Papers/pyexafmm-cise/article/figures/compression_runtime.pdf> </home/sri/Documents/Papers/pyexafmm-cise/article/figures/compression_accuracy.pdf
 
-pdfTeX warning: pdflatex (file /home/sri/Documents/Papers/pyexafmm-cise/article/figures/pyexafmm_multipole_convergence.pdf): PDF inclusion: multiple pdfs with page group included in a single page
+pdfTeX warning: pdflatex (file /home/sri/Documents/Papers/pyexafmm-cise/article/figures/compression_accuracy.pdf): PDF inclusion: multiple pdfs with page group included in a single page
+> </home/sri/Documents/Papers/pyexafmm-cise/article/figures/interaction_lists.pdf
+
+pdfTeX warning: pdflatex (file /home/sri/Documents/Papers/pyexafmm-cise/article/figures/interaction_lists.pdf): PDF inclusion: multiple pdfs with page group included in a single page
 >]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 228.
-
 Overfull \vbox (5.97588pt too high) has occurred while \output is active []
 
 
@@ -449,9 +454,16 @@ Overfull \hbox (18.0pt too wide) has occurred while \output is active
 | [] 
  []
 
-[5
+[5 </home/sri/Documents/Papers/pyexafmm-cise/article/figures/exafmm_multipole_convergence.pdf> </home/sri/Documents/Papers/pyexafmm-cise/article/figures/pyexafmm_multipole_convergence.pdf
 
- </home/sri/Documents/Papers/pyexafmm-cise/article/figures/potential_convergence.pdf>]
+pdfTeX warning: pdflatex (file /home/sri/Documents/Papers/pyexafmm-cise/article/figures/pyexafmm_multipole_convergence.pdf): PDF inclusion: multiple pdfs with page group included in a single page
+>]
+Overfull \vbox (7.9474pt too high) has occurred while \output is active []
+
+
+Overfull \vbox (6.27187pt too high) has occurred while \output is active []
+
+ [6 </home/sri/Documents/Papers/pyexafmm-cise/article/figures/potential_convergence.pdf>]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 228.
  (/home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 228.
@@ -461,20 +473,20 @@ Package rerunfilecheck Info: File `pyexafmm.out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 228.
  ) 
 Here is how much of TeX's memory you used:
- 6481 strings out of 481239
- 103099 string characters out of 5920378
- 363916 words of memory out of 5000000
+ 6483 strings out of 481239
+ 103112 string characters out of 5920378
+ 364916 words of memory out of 5000000
  21586 multiletter control sequences out of 15000+600000
- 588237 words of font info for 110 fonts, out of 8000000 for 9000
+ 589373 words of font info for 111 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 38i,11n,29p,1179b,400s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,11n,29p,2184b,321s stack positions out of 5000i,500n,10000p,200000b,80000s
 pdfTeX warning (dest): name{section*.11} has been referenced but does not exist, replaced by a fixed one
 
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvbo8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on /home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.pdf (5 pages, 399946 bytes).
+Output written on /home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.pdf (6 pages, 402380 bytes).
 PDF statistics:
- 281 PDF objects out of 1000 (max. 8388607)
- 230 compressed objects within 3 object streams
- 34 named destinations out of 1000 (max. 500000)
+ 288 PDF objects out of 1000 (max. 8388607)
+ 236 compressed objects within 3 object streams
+ 35 named destinations out of 1000 (max. 500000)
  159 words of extra memory for PDF output out of 10000 (max. 10000000)
 
