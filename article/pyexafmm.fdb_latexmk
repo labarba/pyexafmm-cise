@@ -1,15 +1,15 @@
 # Fdb version 3
-["bibtex pyexafmm"] 1624957790 "pyexafmm.aux" "pyexafmm.bbl" "pyexafmm" 1624957840
+["bibtex pyexafmm"] 1624973549 "pyexafmm.aux" "pyexafmm.bbl" "pyexafmm" 1624974051
   "/usr/share/texlive/texmf-dist/bibtex/bst/base/ieeetr.bst" 1292289607 18361 1a00e58565e7f19bf2b3e1bfb82254ae ""
-  "pyexafmm.aux" 1624957839 3702 8cfb08377c84da55fa73dff367a05c19 "pdflatex"
+  "pyexafmm.aux" 1624974051 3742 15b16523beec82adcdfac81f093b47b2 "pdflatex"
   "pyexafmm.bib" 1624868365 10876 65baff7f7bde589955bf72f41e5a1e8f ""
   (generated)
-  "pyexafmm.bbl"
   "pyexafmm.blg"
-["pdflatex"] 1624957839 "/home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.tex" "/home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.pdf" "pyexafmm" 1624957840
+  "pyexafmm.bbl"
+["pdflatex"] 1624974050 "/home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.tex" "/home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.pdf" "pyexafmm" 1624974051
   "/etc/texmf/web2c/texmf.cnf" 1620113249 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.aux" 1624957839 3702 8cfb08377c84da55fa73dff367a05c19 ""
-  "/home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.tex" 1624957839 11935 9fa45d4e35fdcd47b1980c91132a980c ""
+  "/home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.aux" 1624974051 3742 15b16523beec82adcdfac81f093b47b2 ""
+  "/home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.tex" 1624974050 13008 20d4516793f16e34bed3e30ba007bb59 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/helvetic/phvb7t.tfm" 1136768653 2240 eb56c13537f4d8a0bd3fafc25572b1bd ""
@@ -114,15 +114,15 @@
   "figures/interaction_lists.pdf" 1624868365 1344 5ccc3148bf6f057ca47d2ad8841d1134 ""
   "figures/potential_convergence.pdf" 1624954902 161958 17749a9fb578c277dfaf5229e7444a67 ""
   "figures/pyexafmm_multipole_convergence.pdf" 1624954705 164057 d1165268f78869f8ec2e0eb22ca0d712 ""
-  "pyexafmm.aux" 1624957839 3702 8cfb08377c84da55fa73dff367a05c19 "pdflatex"
-  "pyexafmm.bbl" 1624957790 884 9ad63ed7c4d5e70d3c87271f6d31f4be "bibtex pyexafmm"
-  "pyexafmm.out" 1624957839 1054 72b8bccc9c99a1abecd0de600edc7a4e "pdflatex"
-  "pyexafmm.tex" 1624957839 11935 9fa45d4e35fdcd47b1980c91132a980c ""
+  "pyexafmm.aux" 1624974051 3742 15b16523beec82adcdfac81f093b47b2 "pdflatex"
+  "pyexafmm.bbl" 1624973549 884 09576d3f90352982afd0c89281364894 "bibtex pyexafmm"
+  "pyexafmm.out" 1624974051 1054 72b8bccc9c99a1abecd0de600edc7a4e "pdflatex"
+  "pyexafmm.tex" 1624974050 13008 20d4516793f16e34bed3e30ba007bb59 ""
   "upmath.sty" 1624868365 5601 0c0145178f8621c759713dc3e50b9f9b ""
   (generated)
-  "pyexafmm.out"
-  "pyexafmm.pdf"
   "pyexafmm.log"
   "/home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.log"
-  "/home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.pdf"
+  "pyexafmm.out"
   "pyexafmm.aux"
+  "pyexafmm.pdf"
+  "/home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.pdf"
