@@ -160,3 +160,70 @@ title = {{A generalized fast multipole method for nonoscillatory kernels}},
 volume = {24},
 year = {2003}
 }
+
+@article{Bramas2020,
+abstract = {TBFMM, for task-based FMM, is a high-performance package that implements the parallel fast multipole method (FMM) in modern C++17. It implements parallel strategies for multicore architectures, i.e. to run on a single computing node. TBFMM was designed to be easily cus-tomized thanks to C++ templates and fine control of the C++ classes' inter-dependencies. Users can implement new FMM kernels, new types of interacting elements or even new par-allelization strategies. As such, it can be used as a simulation toolbox for scientists in physics or applied mathematics. It enables users to perform simulations while delegating the data structure, the algorithm and the parallelization to the library. Besides, TBFMM can also provide an interesting use case for the HPC research community regarding parallelization, optimization and scheduling of applications handling irregular data structures.},
+author = {Bramas, Berenger},
+doi = {10.21105/joss.02444},
+file = {:home/sri/.local/share/data/Mendeley Ltd./Mendeley Desktop/Downloaded/Bramas - Unknown - TBFMM A C generic and parallel fast multipole method library(3).pdf:pdf},
+issn = {2475-9066},
+journal = {Journal of Open Source Software},
+mendeley-groups = {Doctorate},
+number = {56},
+pages = {2444},
+title = {{TBFMM: A C++ generic and parallel fast multipole method library}},
+url = {https://doi.org/10.21105/joss.02444},
+volume = {5},
+year = {2020}
+}
+
+@article{Agullo2014,
+abstract = {Fast multipole methods (FMM) are a fundamental operation for the simulation of many physical problems. The high-performance design of such methods usually requires to carefully tune the algorithm for both the targeted physics and the hardware. In this paper, we propose a new approach that achieves high performance across architectures. Our method consists of expressing the FMM algorithm as a task flow and employing a state-of-the-art runtime system, StarPU, to process the tasks on the different computing units. We carefully design the task flow, the mathematical operators, their implementations, and scheduling schemes. Potentials and forces on 200 million particles are computed in 42.3 seconds on a homogeneous 160-core SGI Altix UV 100 and good scalability is shown. {\textcopyright} 2014 Society for Industrial and Applied Mathematics.},
+author = {Agullo, Emmanuel and Bramas, B{\'{e}}renger and Coulaud, Olivier and Darve, Eric and Messner, Matthias and Takahashi, Toru},
+doi = {10.1137/130915662},
+file = {:home/sri/.local/share/data/Mendeley Ltd./Mendeley Desktop/Downloaded/Agullo et al. - Unknown - TASK-BASED FMM FOR MULTICORE ARCHITECTURES.pdf:pdf},
+issn = {10957200},
+journal = {SIAM Journal on Scientific Computing},
+keywords = {Fast multipole methods,Multicore architectures,Pipeline,Runtime system,Shared memory paradigm},
+mendeley-groups = {Doctorate},
+number = {1},
+pages = {66--93},
+title = {{Task-based FMM for multicore architectures}},
+url = {http://www.siam.org/journals/sisc/36-1/91566.html},
+volume = {36},
+year = {2014}
+}
+
+@article{Agullo2016,
+abstract = {High performance fast multipole method is crucial for the numerical simulation of many physical problems. In a previous study, we have shown that task-based fast multipole method provides the flexibility required to process a wide spectrum of particle distributions efficiently on multicore architectures. In this paper, we now show how such an approach can be extended to fully exploit heterogeneous platforms. For that, we design highly tuned graphics processing unit (GPU) versions of the two dominant operators P2P and M2L) as well as a scheduling strategy that dynamically decides which proportion of subsequent tasks is processed on regular CPU cores and on GPU accelerators. We assess our method with the StarPU runtime system for executing the resulting task flow on an Intel X5650 Nehalem multicore processor possibly enhanced with one, two, or three Nvidia Fermi M2070 or M2090 GPUS (Santa Clara, CA, USA). A detailed experimental study on two 30 million particle distributions (a cube and an ellipsoid) shows that the resulting software consistently achieves high performance across architectures.},
+author = {Agullo, Emmanuel and Bramas, Berenger and Coulaud, Olivier and Darve, Eric and Messner, Matthias and Takahashi, Toru},
+doi = {10.1002/cpe.3723},
+file = {:home/sri/Documents/Mendeley/cpe.3723.pdf:pdf},
+issn = {15320634},
+journal = {Concurrency Computation},
+keywords = {fast multipole methods,graphics processing unit,heterogeneous architectures,pipeline,runtime system,scheduling},
+mendeley-groups = {Doctorate},
+month = {jun},
+number = {9},
+pages = {2608--2629},
+publisher = {John Wiley and Sons Ltd},
+title = {{Task-based FMM for heterogeneous architectures}},
+volume = {28},
+year = {2016}
+}
+
+@software{Gimbutas2010,
+  author = {{Gimbutas, Z and Greengard, Leslie}},
+  title = {FMMLIB3D},
+  url = {https://github.com/zgimbutas/fmmlib3d},
+  version = {1.2.3},
+  date = {2021-03-18},
+}
+
+@software{Yokota2017,
+  author = {{Yokota, Rio and Barba, Lorena A.}},
+  title = {FMMLIB3D},
+  url = {https://github.com/exafmm/exafmm},
+  version = {9a8aac},
+  date = {2017-03-03},
+}

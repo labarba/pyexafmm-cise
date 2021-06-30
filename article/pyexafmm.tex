@@ -37,7 +37,7 @@
 \markboth{Department Head}{Paper title}
 
 \begin{abstract}
-PyExaFMM is a Python based kernel-independent particle fast multipole method [FMM] implementation, built on the success of the ExaFMM project, to answer the question of whether we could develop a highly-performant scientific code without resorting to a lower level language. The FMM is a good case study for understanding the maturity of Python for developing high-performance software, due its reliance on a complex heirarchical octree data structure. In this article we explore the software engineering and mathematical techniques used to extract performance for PyExaFMM, and we report that we are able to achieve runtimes within $\mathcal{O}(10)$ of the state of the art C++ implementation, with comparable accuracy for three dimensional electrostatic problems.
+PyExaFMM is a Python based kernel-independent particle fast multipole method implementation, built on the success of the ExaFMM project, to answer the question of whether we could develop a highly-performant scientific code without resorting to a lower level language. The FMM is a good case study for understanding the maturity of Python for developing high-performance software, due its reliance on a complex heirarchical octree data structure. In this article we explore the software engineering and mathematical techniques used to extract performance for PyExaFMM, and we report that we are able to achieve runtimes within $\mathcal{O}(10)$ of the state of the art C++ implementation, with comparable accuracy for three dimensional electrostatic problems.
 
 \end{abstract}
 
@@ -59,20 +59,24 @@ here $K(\cdot, \cdot)$ is called the Green's function, or kernel function, which
 
 where $\epsilon_0$ is the permittivity of free space. This kernel function is often referred to as the Laplace kernel.
 
+[ Find more scientific examples where the algorithm is useful for better context ]
+
 Attempting to evaluate the sum in (\ref{eq:sec:intro:nbody_problem}) directly for $N$ target particles at positions $x_j$ where $j \in [1,...,N]$ due to $N$ sources, results in algorithm of $\mathcal{O}(N^2)$ runtime complexity, however the FMM is able to approximate (\ref{eq:sec:intro:nbody_problem}) with just $\mathcal{O}(N)$ runtime complexity, with proscribed error bounds.
 
-The key idea behind the FMM is to encode the potential in the far field due to a cluster of particles with a representative analytic \textit{multipole expansio}n centered on the cluster, which can be truncated to tune for desired accuracy. This truncation allows one to approximate the sum in (\ref{eq:sec:intro:nbody_problem}) with fewer calculations. In regions centered far away from the cluster, their potentials can be encoded in a \textit{local expansion}. Translations between multipole and local expansions can be done analytically, and are critical in the development of the $\mathcal{O}(N)$ algorithm. In the FMM, the problem domain is described by a box enclosing all targets and sources, which is hierarchically partitioned into a structure known as a quadtree in two dimensions, and an octree in three dimensions. The partioning is defined by a parameter for the maximum number of particles contained in each leaf node. The FMM then consists of two traversals through this tree. Initially during the \textit{upward pass}, multipole expansions for for particles contained in boxes at the leaf level of the tree are formed. In order to obtain the multipole expansion the previous level of discretization, the multipole expansions of a given box's children at the leaf level have their expansion centre translated to the centre of the parent box, and the coefficients are summed. This is repeated level by level, till one is left with the multipole expansions of all boxes in the tree. Secondly, during the \textit{downward pass}, the multipole expansions of non-adjacent boxes of a given box are defined as being in it far-field. In order to evaluate their contribution towards the potential for particles within a given box, one translates their multipole expansion to a local expansion centered at the given box. The local expansion is then transferred to the children of the given box by shifting the expansion centre. Proceeding level by level, one is left with the local expansions for each leaf box. Crucially the size of the far field not already encapsulated in the local expansion shrinks as we descend down the octree. This is because the far field of a box's parent level is already captured in the child's local expansion. These local expansions compress all of the contribution from the far field towards the potential for targets within a given leaf. Their near fields are evaluated directly using (\ref{eq:sec:intro:nbody_problem}). The complexity of this near field evaluation is bounded by the parameter dictating the maximum number of particles per leaf. The $\mathcal{O}(N)$ complexity can be roughly seen to be the result of the ability to exactly translate between the multipole and local expansions for all boxes deemed to be in the far field, as well as the recursive procedure of the FMM. As a result of this, each box must only consider it's interaction with a bounded constant number of other boxes. As there are $\mathcal{O}(N)$ boxes in a given octree, the entire algorithm can be seen to be bounded by a runtime complexity of $\mathcal{O}(N)$.
+The key idea behind the FMM is to encode the potential in the far field due to a cluster of particles with a representative analytic \textit{multipole expansion} centered on the cluster, which can be truncated to tune for desired accuracy. This truncation allows one to approximate the sum in (\ref{eq:sec:intro:nbody_problem}) with fewer calculations. In regions centered far away from the cluster, their potentials can be encoded in a \textit{local expansion}. Translations between multipole and local expansions can be done analytically, and are critical in the development of the $\mathcal{O}(N)$ algorithm. In the FMM, the problem domain is described by a box enclosing all targets and sources, which is hierarchically partitioned into a structure known as a quadtree in two dimensions, and an octree in three dimensions. The partioning is done recursively, such that at the first level of refinement the box is partitioned into four equal sized parts in two dimensions (or eight in three dimensions), which are each subsequently refined in a similar fashion. The level of refinement is defined by a parameter dictating the maximum allowable number of particles contained within a box. The boxes remaining after this refinement process has completed are known as leaves. One can choose to refine \textit{adaptively}, such that the leaves may be of different sizes, reflective of the underlying particle distribution, or \textit{non-adaptively}, such that the leaves are all of a uniform size.
 
-The coefficients of a given multipole expansion are kernel-dependent in the sense that they will depend on the form of (\ref{eq:sec:intro:laplace_kernel}), software implementations have to be rewritten for each specific physical model. Fast multipole methods for general kernels \cite{Gimbutas2003} have been developed, however there are fewer implementations that rely only on numerical kernel evaluations, rather than analytic series expansions, examples include \cite{Fong2009} and \cite{Ying2004}. The latter approaches are often referred to as kernel-independent fast multipole methods [KIFMM]. PyExaFMM utilizes the approach first presented by Ying et. al \cite{Ying2004}. This KIFMM represents the multipole expansions due to a cluster of charges as set of equivalent densities supported on a surface enclosing the cluster, with the fields generated by the charges matched with the equivalent field via a least-squares fitting in the far field. As originally developed in \cite{Ying2004}, this method generalizes the FMM to non-oscillatory second-order elliptic partial differential equations with constant coefficients, for example the Laplace or Stokes equations. Further work has extended the method to include oscillatory problems \cite{Engquist2007}.
+The FMM then consists of two traversals through this tree, where boxes are considered level by level. Initially during the \textit{upward pass}, multipole expansions for for particles contained in boxes at the highest level of refinement, or leaf level, of the tree are formed. In order to obtain the multipole expansion at their parent level, the multipole expansions of a given box's children at the leaf level have their expansion centre translated to the centre of their shared parent box, and the coefficients are summed. This is repeated bottom-up, level by level, until one is left with the multipole expansions of all boxes in the tree. Secondly, during the \textit{downward pass}, the multipole expansions of non-adjacent boxes of a given box are defined as being in it far-field. In order to evaluate their contribution towards the potential for particles within a given box, one translates their multipole expansion to a local expansion centered at the given box. The local expansion is then transferred to the children of the given box by shifting the expansion centre. Proceeding top-down, considering boxes level by level, one is left with the local expansions for each leaf box. Crucially the size of the far field not already encapsulated in the local expansion shrinks as we descend down the octree. This is because the far field of a box's parent level is already captured in the child's local expansion. These local expansions compress all of the contribution from the far field towards the potential for targets within a given leaf. Their near fields are evaluated directly using (\ref{eq:sec:intro:nbody_problem}). The complexity of this near field evaluation is bounded by the parameter dictating the maximum number of particles per leaf. The $\mathcal{O}(N)$ complexity can be roughly seen to be the result of the ability to exactly translate between the multipole and local expansions for all boxes deemed to be in the far field, as well as the recursive procedure of the FMM. As a result of this, each box must only consider it's interaction with a bounded constant number of other boxes. As there are $\mathcal{O}(N)$ boxes in a given octree, the entire algorithm can be seen to be bounded by a runtime complexity of $\mathcal{O}(N)$.
 
-At present, numerous high-quality open source implementations exist to solve the analytic FMM for various kernels [CITATION], as well as the KIFMM \cite{Wang2021} [SCALFMM].
-The desire for another FMM implementation lies in the disconnect between the computational skills of many users of FMM solvers, such as natural scientists and engineers, and the complex softwares developed by software specialists in compiled languages such as Fortran or C++. Despite often offering Python interfaces, it is still not feasible for many domain specialists to contribute to the software development of these existing libraries without a significant investment in acquiring new skills.
+The coefficients of a given multipole expansion are kernel-dependent in the sense that they will depend on the form of (\ref{eq:sec:intro:laplace_kernel}), software implementations have to be rewritten for each specific physical model. Fast multipole methods for general kernels \cite{Gimbutas2003} have been developed, however there are fewer methods that rely only on numerical kernel evaluations, rather than analytic series expansions, examples include \cite{Fong2009, Ying2004,Martinsson2007}. The latter approaches are often referred to as kernel-independent fast multipole methods [KIFMM]. PyExaFMM utilizes the approach first presented by Ying et. al \cite{Ying2004}. This KIFMM represents the multipole expansions due to a cluster of charges as set of equivalent densities supported on a surface enclosing the cluster, with the fields generated by the charges matched with the equivalent field via a least-squares fitting in the far field. As originally developed in \cite{Ying2004}, this method generalizes the FMM to non-oscillatory second-order elliptic partial differential equations with constant coefficients, for example the Laplace or Stokes equations. Further work has extended the method to include oscillatory problems \cite{Engquist2007}. Fong et. al \cite{Fong2009} alternatively use a Chebyshev based interpolation scheme to approximate the action of the kernel function in the far-field.
 
-Python has emerged as a de-facto standard for the majority of computational scientists for both data analysis, and application development [CITATION], and in recent years high-performance libraries that aid in bypassing the limitations of the Python interpreter have emerged to make it a serious contender for use in developing software for high-performance computing [HPC]. The final vision being the ability to rapidly prototype an algorithm in Python, drop in high-performance libraries, and build a HPC application without necessarily being a software expert. PyExaFMM therefore represents a compromise between usability and performance, with the audience of the software in mind. Many HPC libraries in Python optimize operations on linear data structures, such as arrays. However, the FMM relies on a hierarchical tree, as such it represents a non-trivial algorithm to optimize with currently available tools. In developing PyExaFMM we aimed to demonstrate the possibility of building a HPC application purely in Python, while achieve comparable performance with state of the art compiled language implementations.
+At present, numerous high-quality open source implementations exist to solve FMM problems, both using analytic expansions for various kernels \cite{Gimbutas2010}, \cite{Yokota2017}, as well as using the KIFMM of Fong et. al \cite{Bramas2020}, \cite{Agullo2014}, \cite{Agullo2016}, and Ying et. al \cite{Wang2021}, \cite{Lashuk2012}. Many of these implementations are able to scale on supercomputing clusters, and solve problems involving millions of degrees of freedom. Others are designed to be run on a single workstation \cite{Agullo2014, Bramas2020, Wang2021}. However, the desire for another FMM implementation lies in the disconnect between the computational skills of many users of FMM solvers, such as natural scientists and engineers, and the complex softwares developed by software specialists. These softwares are often developed in compiled languages, such as Fortran and C++, often making use of numerous non-standard libraries and features. Therefore it is not feasible for many domain specialists to contribute to, or extend, many of these existing libraries without a significant investment in acquiring new computational skills. On the contrary, Python has emerged as a de-facto standard for computational scientists across disciplines. In recent years high-performance libraries that aid in bypassing the limitations of the Python interpreter have emerged to make it a serious contender for use in developing software for high-performance computing [HPC]. The most interesting example is Numba, a `just in time' compiler for Python. (Some exposition on Numba here, and what it allows us to do HERE) \cite{Lam2015}.
+
+Therefore, the question naturally arises of whether it is feasible to develop a HPC library entirely within Python. An FMM implementation is an excellent case study to understand the maturity of Python for HPC development. As Numba is built to optimize operations on arrays, it represents a challenge to develop efficient representations and operations for the tree on which the algorithm is based. In developing PyExaFMM we aimed to demonstrate the possibility of building an HPC application purely in Python, while achieving comparable performance with state of the art compiled language implementations. This would represent a compromise between usability, and performance, allowing domain specialists to easily contribute to and extend an efficient HPC library.
 
 In this article we begin by providing an overview of the mathematical formulation behind the KIFMM in \cite{Ying2004}, before introducing Numba and discussing how it is used by PyExaFMM to accelerate computations, as well as program efficient data structures. We continue by discussing the mathematical and software based optimizations used by PyExaFMM for performance, and provide an overview of the software design used in order to implement optimizations effectively. We conclude with a discussion comparing the performance, in terms of accuracy, runtimes, and memory footprint, with the comparable state-of-the-art C++ implementation from the ExaFMM project, ExaFMM-T \cite{Wang2021}.
 
 \section{THE KERNEL-INDEPENDENT FAST MULTIPOLE METHOD}
+In this article we begin by providing an overview of the mathematical formulation behind the KIFMM in \cite{Ying2004}, before introducing Numba and discussing how it is used by PyExaFMM to accelerate computations, as well as program efficient data structures. We continue by discussing the mathematical and software based optimizations used by PyExaFMM for performance, and provide an overview of the software design used in order to implement optimizations effectively. We conclude with a discussion comparing the performance, in terms of accuracy, runtimes, and memory footprint, with the comparable state-of-the-art C++ implementation from the ExaFMM project, ExaFMM-T \cite{Wang2021}.
 
 
 \subsection{Algorithm}
@@ -101,35 +105,35 @@ The key is separating routines to be accelerated, and organising data ready to r
 
 Description of main experiments, and how they are conducted. What are the main results? Are they expected from theory? What conclusions can be drawn about developing HPC codes entirely in Python, is it worth it?
 
-\begin{figure}
-\centerline{\includegraphics[width=18.5pc]{figures/compression_runtime.pdf}}
-\caption{Compression Rank and runtime}
-\end{figure}
+% \begin{figure}
+% \centerline{\includegraphics[width=18.5pc]{figures/compression_runtime.pdf}}
+% \caption{Compression Rank and runtime}
+% \end{figure}
 
-\begin{figure}
-\centerline{\includegraphics[width=18.5pc]{figures/compression_accuracy.pdf}}
-\caption{Compression Rank and accuracy}
-\end{figure}
+% \begin{figure}
+% \centerline{\includegraphics[width=18.5pc]{figures/compression_accuracy.pdf}}
+% \caption{Compression Rank and accuracy}
+% \end{figure}
 
-\begin{figure}
-	\centerline{\includegraphics[width=18.5pc]{figures/interaction_lists.pdf}}
-	\caption{Compression Rank and accuracy}
-\end{figure}
+% \begin{figure}
+% 	\centerline{\includegraphics[width=18.5pc]{figures/interaction_lists.pdf}}
+% 	\caption{Compression Rank and accuracy}
+% \end{figure}
 
-% Larger figure
-\begin{figure*}
-\centerline{\includegraphics[width=26pc]{figures/exafmm_multipole_convergence.pdf}}
-\caption{ExaFMM Multipole Expansion Convergence}
-\end{figure*}
-\begin{figure*}
-\centerline{\includegraphics[width=26pc]{figures/pyexafmm_multipole_convergence.pdf}}
-\caption{PyExaFMM Multipole Expansion Convergence}
-\end{figure*}
+% % Larger figure
+% \begin{figure*}
+% \centerline{\includegraphics[width=26pc]{figures/exafmm_multipole_convergence.pdf}}
+% \caption{ExaFMM Multipole Expansion Convergence}
+% \end{figure*}
+% \begin{figure*}
+% \centerline{\includegraphics[width=26pc]{figures/pyexafmm_multipole_convergence.pdf}}
+% \caption{PyExaFMM Multipole Expansion Convergence}
+% \end{figure*}
 
-\begin{figure*}
-\centerline{\includegraphics[width=26pc]{figures/potential_convergence.pdf}}
-\caption{Potential Convergence Comparison}
-\end{figure*}
+% \begin{figure*}
+% \centerline{\includegraphics[width=26pc]{figures/potential_convergence.pdf}}
+% \caption{Potential Convergence Comparison}
+% \end{figure*}
 
 
 % \begin{table}
