@@ -20,7 +20,7 @@
 \sptitle{Department: Head}
 \editor{Editor: Name, xxxx@email}
 
-\title{PyExaFMM: Designing a highly-performant particle fast multipole solver in Python with Numba}
+\title{PyExaFMM: Designing a high-performance particle fast multipole solver in Python with Numba}
 
 \author{\ S. Kailasa}
 \affil{\ Department of Mathematics, University College London}
@@ -89,13 +89,19 @@ Numba has been extended with optimized versions of many common array operations,
 
 Therefore, the question arises of whether it is feasible to develop a complex HPC application entirely within Python. The vision being that a domain specialist may be able to iterate from a prototype, to a high-performance application, using a language they are comfortable with. Python has the additional benefit of simple cross platform build tools, such as Conda, making it easy for developers to code once and deploy everywhere. An FMM implementation is an excellent case study to understand the maturity of Python for HPC development. As Numba is built to optimize operations on arrays, it represents a challenge to develop efficient representations and operations for the tree on which the algorithm is based. PyExaFMM was developed to answer the above question. It is currently a single node implementation designed for three-dimensional problems, implementing parallel strategies on multicore architectures, similar to \cite{Bramas2020, Wang2021}.
 
-In developing PyExaFMM we demonstrate the feasibility of building a high-performance implementation of a non-trivial algorithm solely in Python. We achieve runtime performance within an order of magnitude of a comparable state of the art compiled language implementation. As with all Python applications, performance is degraded by portions of code that are unavoidably interpreted. However, this represents a compromise between usability and performance. Where by usability, we mean the easy by which non-software specialists can understand, alter, or extend the codebase to their needs. Using lines-of-code [LOC] as a rough metric of usability, PyExaFMM consists of approximately 3,300 LOC, compared with approximately 20,000 LOC and 50,000 LOC for the comparable C++ implementations, ExaFMM-T \cite{Wang2021} and TBFMM \cite{Bramas2020} respectively.
+In developing PyExaFMM we demonstrate the feasibility of building a high-performance implementation of a non-trivial algorithm solely in Python. We achieve runtime performance within an order of magnitude of a comparable state of the art compiled language implementation. As with all Python applications, performance is degraded by portions of code that are unavoidably interpreted. However, this represents a compromise between usability and performance. Where by usability, we mean the ease by which non-software specialists can understand, alter, or extend the codebase to their needs. Using lines-of-code [LOC] as a rough metric of usability, PyExaFMM consists of approximately 3,300 LOC, compared with approximately 20,000 LOC and 50,000 LOC for the comparable C++ implementations, ExaFMM-T \cite{Wang2021} and TBFMM \cite{Bramas2020} respectively.
 
 In this article we begin by providing an overview of the mathematical formulation behind the KIFMM in \cite{Ying2004}, before introducing Numba and discussing how it is used by PyExaFMM to accelerate computations, as well as program efficient data structures. We continue by discussing the mathematical and software based optimizations used by PyExaFMM for performance. Specifically how we efficiently pre-compute, cache, and apply FMM operations, and we provide an overview of the software design used in order to implement Numba optimizations effectively. We conclude with a discussion comparing the performance, in terms of accuracy, runtimes, and memory footprint, with the comparable state-of-the-art C++ implementation from the ExaFMM project, ExaFMM-T \cite{Wang2021}.
 
 \section{THE KERNEL-INDEPENDENT FAST MULTIPOLE METHOD}
 
-In this article we begin by providing an overview of the mathematical formulation behind the KIFMM in \cite{Ying2004}, before introducing Numba and discussing how it is used by PyExaFMM to accelerate computations, as well as program efficient data structures. We continue by discussing the mathematical and software based optimizations used by PyExaFMM for performance, and provide an overview of the software design used in order to implement optimizations effectively. We conclude with a discussion comparing the performance, in terms of accuracy, runtimes, and memory footprint, with the comparable state-of-the-art C++ implementation from the ExaFMM project, ExaFMM-T \cite{Wang2021}.
+- Basic concept of matching potentials in the Far field
+- Diagrams of operators.
+- Interaction lists, and how these result from adaptivity.
+- Concept of balanced octrees, and why they help with computing interaction lists
+- Detail the complete algorithm
+- List the difficulties in developing good KIFMMs (Ill Conditioning of c2e matrix, sparsification of the M2L operation)
+- The most intensive computations are P2M and M2L, explain why.
 
 
 \subsection{Algorithm}
