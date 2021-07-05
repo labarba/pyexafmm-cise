@@ -1,16 +1,19 @@
-\BOOKMARK [1][-]{section*.1}{THE KERNEL-INDEPENDENT FAST MULTIPOLE METHOD}{}% 1
-\BOOKMARK [2][-]{section*.2}{Algorithm}{section*.1}% 2
-\BOOKMARK [1][-]{section*.3}{TECHNIQUES FOR ACHIEVING PERFORMANCE}{}% 3
-\BOOKMARK [2][-]{section*.4}{What is Numba?}{section*.3}% 4
-\BOOKMARK [2][-]{section*.5}{Precomputing Operators}{section*.3}% 5
-\BOOKMARK [2][-]{section*.6}{Compressing the M2L step with a randomised SVD}{section*.3}% 6
-\BOOKMARK [2][-]{section*.7}{Software Architecture}{section*.3}% 7
-\BOOKMARK [1][-]{section*.8}{PERFORMANCE COMPARISON WITH STATE OF THE ART}{}% 8
-\BOOKMARK [1][-]{section*.9}{CONCLUSION}{}% 9
-\BOOKMARK [1][-]{section*.10}{ACKNOWLEDGMENT}{}% 10
-\BOOKMARK [1][-]{section*.11}{REFERENCES}{}% 11
-\BOOKMARK [1][-]{IEEEbiography.0}{Biographies}{}% 12
-\BOOKMARK [2][-]{IEEEbiography.1}{Srinath Kailasa}{IEEEbiography.0}% 13
-\BOOKMARK [2][-]{IEEEbiography.2}{Timo Betcke}{IEEEbiography.0}% 14
-\BOOKMARK [2][-]{IEEEbiography.3}{Tingyu Wang}{IEEEbiography.0}% 15
-\BOOKMARK [2][-]{IEEEbiography.4}{Lorena. A. Barba}{IEEEbiography.0}% 16
+\BOOKMARK [2][-]{section*.1}{Algorithm}{}% 1
+\BOOKMARK [2][-]{section*.2}{Kernel Independent FMM}{}% 2
+\BOOKMARK [2][-]{section*.3}{The Motivation for Building PyExaFMM}{}% 3
+\BOOKMARK [1][-]{section*.4}{THE KERNEL-INDEPENDENT FAST MULTIPOLE METHOD}{}% 4
+\BOOKMARK [2][-]{section*.5}{Algorithm}{section*.4}% 5
+\BOOKMARK [1][-]{section*.6}{TECHNIQUES FOR ACHIEVING PERFORMANCE}{}% 6
+\BOOKMARK [2][-]{section*.7}{What is Numba?}{section*.6}% 7
+\BOOKMARK [2][-]{section*.8}{Precomputing Operators}{section*.6}% 8
+\BOOKMARK [2][-]{section*.9}{Compressing the M2L step with a randomised SVD}{section*.6}% 9
+\BOOKMARK [2][-]{section*.10}{Software Architecture}{section*.6}% 10
+\BOOKMARK [1][-]{section*.11}{PERFORMANCE COMPARISON WITH STATE OF THE ART}{}% 11
+\BOOKMARK [1][-]{section*.12}{CONCLUSION}{}% 12
+\BOOKMARK [1][-]{section*.13}{ACKNOWLEDGMENT}{}% 13
+\BOOKMARK [1][-]{section*.14}{REFERENCES}{}% 14
+\BOOKMARK [1][-]{IEEEbiography.0}{Biographies}{}% 15
+\BOOKMARK [2][-]{IEEEbiography.1}{Srinath Kailasa}{IEEEbiography.0}% 16
+\BOOKMARK [2][-]{IEEEbiography.2}{Timo Betcke}{IEEEbiography.0}% 17
+\BOOKMARK [2][-]{IEEEbiography.3}{Tingyu Wang}{IEEEbiography.0}% 18
+\BOOKMARK [2][-]{IEEEbiography.4}{Lorena. A. Barba}{IEEEbiography.0}% 19
