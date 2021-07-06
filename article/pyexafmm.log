@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.5.4)  5 JUL 2021 15:56
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.5.4)  6 JUL 2021 18:01
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -374,22 +374,22 @@ File: l3backend-pdfmode.def 2020-02-03 L3 backend support: PDF mode
 (./pyexafmm.aux)
 \openout1 = `pyexafmm.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -422,7 +422,7 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 \AtBeginShipoutBox=\box58
-Package hyperref Info: Link coloring ON on input line 19.
+Package hyperref Info: Link coloring ON on input line 21.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
@@ -435,18 +435,18 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count283
 )
-LaTeX Info: Redefining \ref on input line 19.
-LaTeX Info: Redefining \pageref on input line 19.
-LaTeX Info: Redefining \nameref on input line 19.
+LaTeX Info: Redefining \ref on input line 21.
+LaTeX Info: Redefining \pageref on input line 21.
+LaTeX Info: Redefining \nameref on input line 21.
 
 (./pyexafmm.out) (./pyexafmm.out)
 \@outlinefile=\write3
 \openout3 = `pyexafmm.out'.
 
 LaTeX Font Info:    Font shape `OT1/phv/b/it' in size <9.5> not available
-(Font)              Font shape `OT1/phv/b/sl' tried instead on input line 40.
-LaTeX Font Info:    Calculating math sizes for size <9.5> on input line 41.
-LaTeX Font Info:    Calculating math sizes for size <10.53937> on input line 47
+(Font)              Font shape `OT1/phv/b/sl' tried instead on input line 42.
+LaTeX Font Info:    Calculating math sizes for size <9.5> on input line 43.
+LaTeX Font Info:    Calculating math sizes for size <10.53937> on input line 49
 .
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -454,8 +454,8 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-LaTeX Font Info:    Trying to load font information for TS1+phv on input line 4
-8.
+LaTeX Font Info:    Trying to load font information for TS1+phv on input line 5
+0.
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1phv.fd
 File: ts1phv.fd 2001/06/04 scalable font definitions for TS1/phv.
@@ -481,10 +481,10 @@ Overfull \vbox (6.27187pt too high) has occurred while \output is active []
 <figures/algorithm.pdf, id=117, 459.12717pt x 108.42778pt>
 File: figures/algorithm.pdf Graphic file (type pdf)
 <use figures/algorithm.pdf>
-Package pdftex.def Info: figures/algorithm.pdf  used on input line 78.
+Package pdftex.def Info: figures/algorithm.pdf  used on input line 86.
 (pdftex.def)             Requested size: 459.12604pt x 108.4275pt.
 
-Underfull \hbox (badness 5490) in paragraph at lines 93--94
+Underfull \hbox (badness 5490) in paragraph at lines 101--102
 []\OT1/ptm/m/n/10.53937 At present, nu-mer-ous high-quality open
  []
 
@@ -497,6 +497,19 @@ Overfull \hbox (18.0pt too wide) has occurred while \output is active
  []
 
 [3]
+Underfull \hbox (badness 2293) in paragraph at lines 107--108
+\OT1/ptm/m/n/10.53937 `prange' state-ment that al-lows you to loop
+ []
+
+
+Underfull \hbox (badness 1590) in paragraph at lines 107--108
+\OT1/ptm/m/n/10.53937 instruction-multiple-data [SIMD] vec-tor-iza-tion.
+ []
+
+
+Underfull \vbox (badness 2435) has occurred while \output is active []
+
+
 Overfull \vbox (7.9474pt too high) has occurred while \output is active []
 
 
@@ -504,6 +517,13 @@ Overfull \vbox (6.27187pt too high) has occurred while \output is active []
 
 
 [4 <./figures/algorithm.pdf>]
+LaTeX Font Info:    Calculating math sizes for size <8.5> on input line 114.
+
+Overfull \hbox (2.19998pt too wide) in paragraph at lines 116--125
+[][] 
+ []
+
+
 Overfull \vbox (5.97588pt too high) has occurred while \output is active []
 
 
@@ -512,15 +532,15 @@ Overfull \hbox (18.0pt too wide) has occurred while \output is active
  []
 
 [5]
-<figures/operators.pdf, id=3840, 431.86136pt x 241.44012pt>
+<figures/operators.pdf, id=3847, 431.86136pt x 241.44012pt>
 File: figures/operators.pdf Graphic file (type pdf)
 <use figures/operators.pdf>
-Package pdftex.def Info: figures/operators.pdf  used on input line 164.
+Package pdftex.def Info: figures/operators.pdf  used on input line 186.
 (pdftex.def)             Requested size: 431.86029pt x 241.43953pt.
-<figures/interaction_lists.pdf, id=3842, 142.83282pt x 142.83282pt>
+<figures/interaction_lists.pdf, id=3849, 142.83282pt x 142.83282pt>
 File: figures/interaction_lists.pdf Graphic file (type pdf)
 <use figures/interaction_lists.pdf>
-Package pdftex.def Info: figures/interaction_lists.pdf  used on input line 174.
+Package pdftex.def Info: figures/interaction_lists.pdf  used on input line 196.
 
 (pdftex.def)             Requested size: 222.0pt x 222.00534pt.
 
@@ -543,7 +563,7 @@ Overfull \hbox (18.0pt too wide) has occurred while \output is active
 pdfTeX warning: pdflatex (file ./figures/interaction_lists.pdf): PDF inclusion:
  multiple pdfs with page group included in a single page
 >]
-Underfull \hbox (badness 2443) in paragraph at lines 324--325
+Underfull \hbox (badness 2443) in paragraph at lines 346--347
 []\OT1/ptm/m/n/10.53937 SK is sup-ported by EP-SRC Stu-dentship
  []
 
@@ -556,7 +576,7 @@ Underfull \hbox (badness 1648) in paragraph at lines 30--33
  []
 
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 341.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 363.
 
 Overfull \vbox (7.9474pt too high) has occurred while \output is active []
 
@@ -565,22 +585,22 @@ Overfull \vbox (6.27187pt too high) has occurred while \output is active []
 
 
 [8]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 341.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 363.
  (./pyexafmm.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 341.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 341.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 363.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 363.
 Package rerunfilecheck Info: File `pyexafmm.out' has not changed.
 (rerunfilecheck)             Checksum: F72F02E712539A0765EBA1F80931BC39;1239.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 341.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 363.
  ) 
 Here is how much of TeX's memory you used:
- 7106 strings out of 481239
- 108862 string characters out of 5920378
- 378495 words of memory out of 5000000
- 22174 multiletter control sequences out of 15000+600000
- 593230 words of font info for 126 fonts, out of 8000000 for 9000
+ 7130 strings out of 481239
+ 109189 string characters out of 5920378
+ 378728 words of memory out of 5000000
+ 22192 multiletter control sequences out of 15000+600000
+ 599039 words of font info for 134 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 38i,11n,29p,1893b,315s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,11n,29p,1682b,315s stack positions out of 5000i,500n,10000p,200000b,80000s
 pdfTeX warning (dest): name{section*.15} has been referenced but does not exi
 st, replaced by a fixed one
 
@@ -589,22 +609,25 @@ texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-
 dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/f
 onts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/ty
 pe1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
-lic/amsfonts/cm/cmmi9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.p
-fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></u
-sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dis
-t/fonts/type1/urw/helvetic/uhvbo8a.pfb></usr/share/texlive/texmf-dist/fonts/typ
-e1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helve
-tic/uhvro8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb
-></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/te
-xlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on pyexafmm.pdf (8 pages, 741050 bytes).
+lic/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmmi9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.
+pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/
+texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texliv
+e/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texlive/texmf-dist/fonts/ty
+pe1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helv
+etic/uhvbo8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a
+.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb></usr/
+share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/t
+exmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts
+/type1/urw/times/utmri8a.pfb>
+Output written on pyexafmm.pdf (8 pages, 767986 bytes).
 PDF statistics:
- 4073 PDF objects out of 4296 (max. 8388607)
- 2758 compressed objects within 28 object streams
- 52 named destinations out of 1000 (max. 500000)
+ 4090 PDF objects out of 4296 (max. 8388607)
+ 2772 compressed objects within 28 object streams
+ 54 named destinations out of 1000 (max. 500000)
  176 words of extra memory for PDF output out of 10000 (max. 10000000)
 
