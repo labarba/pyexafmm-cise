@@ -118,7 +118,6 @@ Numba has been extended with optimized versions of many common array operations,
 		\multicolumn{2}{|c|}{Runtime (s)} \\
 		\hline
 		Numba (PyExaFMM) & $4.71 \pm 0.29$ s \\
-		\hline
 		C++ (ExaFMM-T)   & $1.99 s \pm 0.01$ s \\
 		\hline
 	   \end{tabular}
@@ -192,7 +191,7 @@ We choose the upward equivalent surface to correspond to the downward check surf
 
 As PyExaFMM uses adaptive octrees, there are further permutations in the composition of the near and far field we must describe. Consider a target box $T$, all source boxes $S$ directly neighboring $T$ (sharing an edge, face, or corner) are in $T$'s \textit{U list}. Denoting a neighbor of a box at the same level as its \textit{colleague}. The children of $T$'s colleagues which are not adjacent to $T$ are in its \textit{W list}, and the children of the colleagues of $T$'s parent which are not adjacent to $T$ are in its \textit{V list}. Finally, the \textit{X list} of T consists of boxes for which $T$ is in their W list. The X and W list are only calculated for leaf boxes. Collectively these lists are known as the \textit{interaction lists} of $T$, and are illustrated for a two dimensional problem in figure (\ref{fig:interaction_lists}).
 
-Greater specification of the interaction lists allows for a more efficient algorithm implementation. Considering a source box in $T$'s W list, the multipole expansion of the source box is valid despite note being in $T$'s far field, therefore reducing the cost of calculating the near field contribution. For source boxes in $T$'s X list, the multipole expansion is not valid, as $T$ is not in the far-field of the source box. However, the source charges can be evaluated directly at the quadrature points on $T$'s downward equivalent surface.
+Greater specification of the interaction lists allows for a more efficient algorithm implementation. Considering a source box in $T$'s W list, the multipole expansion of the source box is valid despite note being in $T$'s far field, therefore reducing the cost of calculating the near field contribution. For source boxes in $T$'s X list, the multipole expansion is not valid, as $T$ is not in the far-field of the source box. However, the source charges can be evaluated directly at the quadrature points on $T$'s downward equivalent surface. PyExaFMM also enforces a \textit{2:1 balance constraint} on the leaves, such that neighboring leaves may at most differ by one level. This constraint ensures small interaction lists, in the case of particle distributions with rapidly varying densities.
 
 \begin{figure}
 \centerline{\includegraphics[width=18.5pc]{figures/interaction_lists.pdf}}
@@ -206,27 +205,59 @@ Implementing efficient KIFMMs relies on efficiently caching and loading the matr
 
 \subsection{Tree Construction}
 
-- Morton encoding
+Box positions in the tree are represented with a single 64-bit Morton encoded key \cite{Sundar2007}. A box at a given level, $l$, is said to have a displacement along a given axis in the range $[0, 2^l)$. In three dimensions, the index bits are interleaved as,
 
-- Linear octree representation
+\begin{equation}
+	\label{eq:morton_encoding}
+	x_1y_1z_1...x_ny_nz_n | l,
+\end{equation}
 
-- Numba for morton operations
+where $x_i$ is the $i^{th}$ bit in an index along the $x$ axis, and the level is appended to the tail. We observe that we can find the parent of a given key by removing its last three bits. Noticing the displacement of bits is consistent in (\ref{eq:morton_encoding}), we optimize Morton encoding by storing the correct displacement bits of each index, up to values of 256, in a lookup table. We then consider 8 bits at at time of each index of a given anchor, using only bitwise operations to construct the encoding. Numba is then used to optimize a loop through a two dimensional array containing a set of anchors.
 
-- Numba for parallel tree construction
+This strategy, of representing Morton operations in terms of lookups or bitwise operations and optimizing their application via Numba on a loop of values, is repeated for all common operations. This is because Numba is most efficiently able to translate basic instructions, with as little use of the Python object model as possible, as well as operations over Numpy arrays. Table (\ref{tab:morton_encoding}) demonstrates the impact of Numba on selected operations in terms of runtime.
 
-- Numba barriers: less pythonic, cant really rely on dicts, sets, other higher level python operations. Difficulty with python's object model, specifically with throwing functions around like objects. End up writing C like code.
+\begin{table}
+	\caption{Common Morton operations}
+	\label{tab:morton_encoding}
+	\begin{tabular}{ |P{65pt}|P{53pt}|P{53pt}|}
+		\hline
+		Method & Numba+Numpy & Numpy\\
+		\hline
+		Neighbor Finding & $4.71 \pm 0.29$ s & foo\\
+		Parent Finding & foo & foo \\
+		Point to Index& $4.71 \pm 0.29$ s & foo\\
+		Morton Encoding   & $1.99 s \pm 0.01$ s & foo\\
+		Morton Decoding   & $1.99 s \pm 0.01$ s & foo\\
+		\hline
+	   \end{tabular}
+\end{table}
 
-- Construction time benchmark table vs exafmm.
+To find a linear representation of the tree, we assign Morton keys to each point, which is then stored as a vector. This is done with a top-down approach, considering batches of points sharing the same key, and refining to ensure that the maximum-particle-per-leaf constraint is met. We use Numba to implement multithreading over each batch. To `complete' the tree from a linear representation of its leaves, we simply find its ancestors by repeatedly applying the parent finding function to a key. Balancing is then achieved by considering all keys level by level, bottom-up. If a given key's parent, and it's parent's neighbors are not in the tree, we add them. We then remove overlaps from this final collection, favoring the finest box that covers a given area. This enforces a 2:1 balance. Numba allows for a typed-versions of Python datatypes, as well as for user created type-aliases. Therefore, we are able to represent this algorithm naturally using operations on sets. As these types are built on top of ndarrays we are able to easily convert to a linear array representation of the balanced, and complete tree.
 
-\subsection{Precomputing Operators}
+Storing the tree in this way allows us to traverse it via index lookups, for example to find the parent or neighbors of a given key. These indices are precomputed and stored in a typed Numba dictionary. The coefficients of the multipole and local expansions, as well as the target potentials, for all boxes are each stored in a single vector, which are aligned using the index lookup tables. This scheme is designed for maximum cache-reuse. Table (\ref{tab:tree_benchmarks}) illustrates benchmarks for tree construction, and balancing, in comparison to ExaFMM-T.
 
-- HDF5, loading into memory at run time.
+\begin{table}
+	\caption{Building and balancing trees with $N$ points.}
+	\label{tab:tree_benchmarks}
+	\begin{tabular}{ |P{65pt}|P{53pt}|P{53pt}|}
+		\hline
+		N & PyExaFMM & ExaFMM-T\\
+		\hline
+		10,000 & $4.71 \pm 0.29$ s & foo\\
+		100,000 & $1.99 s \pm 0.01$ s & foo\\
+		1,000,000& $1.99 s \pm 0.01$ s & foo\\
+		\hline
+	   \end{tabular}
+\end{table}
+\subsection{Efficient Operators}
+
+Matrices for the unique M2M and L2L operators, as well that used in the P2M operation, are precomputed and cached in HDF5 database, and are loaded into memory at runtime.
+
+The M2L operator is handled differently.
 
 - Transfer vectors for M2L
 
 - hashing, and why Numba is sometimes hard to use.
-
-\subsection{Compressing the M2L operator}
 
 - Introduce RSVD algorithm \cite{Halko2011}.
 
@@ -234,6 +265,7 @@ Implementing efficient KIFMMs relies on efficiently caching and loading the matr
 
 - Demonstrate impact on runtime and storage.
 
+- How to organise multithreaded computations in Numba
 
 \subsection{Software Design}
 

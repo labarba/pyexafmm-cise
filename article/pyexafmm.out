@@ -6,15 +6,14 @@
 \BOOKMARK [1][-]{section*.6}{Formulating the Kernel Independent FMM}{}% 6
 \BOOKMARK [1][-]{section*.7}{TECHNIQUES FOR ACHIEVING PERFORMANCE}{}% 7
 \BOOKMARK [2][-]{section*.8}{Tree Construction}{section*.7}% 8
-\BOOKMARK [2][-]{section*.9}{Precomputing Operators}{section*.7}% 9
-\BOOKMARK [2][-]{section*.10}{Compressing the M2L operator}{section*.7}% 10
-\BOOKMARK [2][-]{section*.11}{Software Design}{section*.7}% 11
-\BOOKMARK [1][-]{section*.12}{PERFORMANCE}{}% 12
-\BOOKMARK [1][-]{section*.13}{CONCLUSION}{}% 13
-\BOOKMARK [1][-]{section*.14}{ACKNOWLEDGMENT}{}% 14
-\BOOKMARK [1][-]{section*.15}{REFERENCES}{}% 15
-\BOOKMARK [1][-]{IEEEbiography.0}{Biographies}{}% 16
-\BOOKMARK [2][-]{IEEEbiography.1}{Srinath Kailasa}{IEEEbiography.0}% 17
-\BOOKMARK [2][-]{IEEEbiography.2}{Timo Betcke}{IEEEbiography.0}% 18
-\BOOKMARK [2][-]{IEEEbiography.3}{Tingyu Wang}{IEEEbiography.0}% 19
-\BOOKMARK [2][-]{IEEEbiography.4}{Lorena. A. Barba}{IEEEbiography.0}% 20
+\BOOKMARK [2][-]{section*.9}{Efficient Operators}{section*.7}% 9
+\BOOKMARK [2][-]{section*.10}{Software Design}{section*.7}% 10
+\BOOKMARK [1][-]{section*.11}{PERFORMANCE}{}% 11
+\BOOKMARK [1][-]{section*.12}{CONCLUSION}{}% 12
+\BOOKMARK [1][-]{section*.13}{ACKNOWLEDGMENT}{}% 13
+\BOOKMARK [1][-]{section*.14}{REFERENCES}{}% 14
+\BOOKMARK [1][-]{IEEEbiography.0}{Biographies}{}% 15
+\BOOKMARK [2][-]{IEEEbiography.1}{Srinath Kailasa}{IEEEbiography.0}% 16
+\BOOKMARK [2][-]{IEEEbiography.2}{Timo Betcke}{IEEEbiography.0}% 17
+\BOOKMARK [2][-]{IEEEbiography.3}{Tingyu Wang}{IEEEbiography.0}% 18
+\BOOKMARK [2][-]{IEEEbiography.4}{Lorena. A. Barba}{IEEEbiography.0}% 19
