@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.5.4)  8 JUL 2021 12:45
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.5.4)  8 JUL 2021 14:31
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -408,14 +408,12 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 44.
  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Calculating math sizes for size <10.53937> on input line 50.
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-LaTeX Font Info:    Trying to load font information for TS1+phv on input line 51.
+LaTeX Font Info:    Trying to load font information for TS1+phv on input line 50.
  (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1phv.fd
 File: ts1phv.fd 2001/06/04 scalable font definitions for TS1/phv.
 )
@@ -430,21 +428,21 @@ Overfull \hbox (18.0pt too wide) has occurred while \output is active
 
 
 ]
+LaTeX Font Info:    Calculating math sizes for size <10.53937> on input line 60.
+
 Overfull \vbox (7.9474pt too high) has occurred while \output is active []
 
 
 Overfull \vbox (6.27187pt too high) has occurred while \output is active []
 
  [2]
-<figures/algorithm.pdf, id=113, 459.12717pt x 108.42778pt>
+<figures/algorithm.pdf, id=118, 459.12717pt x 108.42778pt>
 File: figures/algorithm.pdf Graphic file (type pdf)
 <use figures/algorithm.pdf>
-Package pdftex.def Info: figures/algorithm.pdf  used on input line 87.
+Package pdftex.def Info: figures/algorithm.pdf  used on input line 97.
 (pdftex.def)             Requested size: 459.12604pt x 108.4275pt.
 
-Underfull \hbox (badness 5490) in paragraph at lines 102--103
-[]\OT1/ptm/m/n/10.53937 At present, nu-mer-ous high-quality open
- []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 Overfull \vbox (6.27187pt too high) has occurred while \output is active []
@@ -455,17 +453,7 @@ Overfull \hbox (18.0pt too wide) has occurred while \output is active
  []
 
 [3]
-Underfull \hbox (badness 2293) in paragraph at lines 108--109
-\OT1/ptm/m/n/10.53937 `prange' state-ment that al-lows you to loop
- []
-
-
-Underfull \hbox (badness 1590) in paragraph at lines 108--109
-\OT1/ptm/m/n/10.53937 instruction-multiple-data [SIMD] vec-tor-iza-tion.
- []
-
-
-Underfull \vbox (badness 2435) has occurred while \output is active []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 Overfull \vbox (7.9474pt too high) has occurred while \output is active []
@@ -474,12 +462,16 @@ Overfull \vbox (7.9474pt too high) has occurred while \output is active []
 Overfull \vbox (6.27187pt too high) has occurred while \output is active []
 
  [4 </home/sri/Documents/Papers/pyexafmm-cise/article/figures/algorithm.pdf>]
-LaTeX Font Info:    Calculating math sizes for size <8.5> on input line 115.
-
-Overfull \hbox (2.19998pt too wide) in paragraph at lines 117--125
-[][] 
- []
-
+<figures/operators.pdf, id=3809, 431.86136pt x 241.44012pt>
+File: figures/operators.pdf Graphic file (type pdf)
+<use figures/operators.pdf>
+Package pdftex.def Info: figures/operators.pdf  used on input line 159.
+(pdftex.def)             Requested size: 431.86029pt x 241.43953pt.
+<figures/interaction_lists.pdf, id=3811, 142.83282pt x 142.83282pt>
+File: figures/interaction_lists.pdf Graphic file (type pdf)
+<use figures/interaction_lists.pdf>
+Package pdftex.def Info: figures/interaction_lists.pdf  used on input line 169.
+(pdftex.def)             Requested size: 222.0pt x 222.00534pt.
 
 Overfull \vbox (5.97588pt too high) has occurred while \output is active []
 
@@ -489,23 +481,35 @@ Overfull \hbox (18.0pt too wide) has occurred while \output is active
  []
 
 [5]
-<figures/operators.pdf, id=3841, 431.86136pt x 241.44012pt>
-File: figures/operators.pdf Graphic file (type pdf)
-<use figures/operators.pdf>
-Package pdftex.def Info: figures/operators.pdf  used on input line 188.
-(pdftex.def)             Requested size: 431.86029pt x 241.43953pt.
-<figures/interaction_lists.pdf, id=3843, 142.83282pt x 142.83282pt>
-File: figures/interaction_lists.pdf Graphic file (type pdf)
-<use figures/interaction_lists.pdf>
-Package pdftex.def Info: figures/interaction_lists.pdf  used on input line 198.
-(pdftex.def)             Requested size: 222.0pt x 222.00534pt.
+Underfull \hbox (badness 2293) in paragraph at lines 180--181
+\OT1/ptm/m/n/10.53937 `prange' state-ment that al-lows you to loop
+ []
+
+
+Underfull \hbox (badness 1590) in paragraph at lines 180--181
+\OT1/ptm/m/n/10.53937 instruction-multiple-data [SIMD] vec-tor-iza-tion.
+ []
+
+
+Underfull \vbox (badness 2197) has occurred while \output is active []
+
 
 Overfull \vbox (7.9474pt too high) has occurred while \output is active []
 
 
 Overfull \vbox (6.27187pt too high) has occurred while \output is active []
 
- [6]
+ [6 </home/sri/Documents/Papers/pyexafmm-cise/article/figures/operators.pdf> </home/sri/Documents/Papers/pyexafmm-cise/article/figures/interaction_lists.pdf
+
+pdfTeX warning: pdflatex (file /home/sri/Documents/Papers/pyexafmm-cise/article/figures/interaction_lists.pdf): PDF inclusion: multiple pdfs with page group included in a single page
+>]
+LaTeX Font Info:    Calculating math sizes for size <8.5> on input line 187.
+
+Overfull \hbox (2.19998pt too wide) in paragraph at lines 189--197
+[][] 
+ []
+
+
 Overfull \vbox (5.97588pt too high) has occurred while \output is active []
 
 
@@ -513,12 +517,14 @@ Overfull \hbox (18.0pt too wide) has occurred while \output is active
 | [] 
  []
 
-[7 </home/sri/Documents/Papers/pyexafmm-cise/article/figures/operators.pdf> </home/sri/Documents/Papers/pyexafmm-cise/article/figures/interaction_lists.pdf
-
-pdfTeX warning: pdflatex (file /home/sri/Documents/Papers/pyexafmm-cise/article/figures/interaction_lists.pdf): PDF inclusion: multiple pdfs with page group included in a single page
->]
-Overfull \hbox (14.99997pt too wide) in paragraph at lines 242--253
+[7]
+Overfull \hbox (14.99997pt too wide) in paragraph at lines 237--248
 [][] 
+ []
+
+
+Overfull \hbox (13.56468pt too wide) detected at line 301
+\OML/cmm/m/it/10.95 K[] \OMS/cmsy/m/n/10.95 ^^Y \OML/cmm/m/it/10.95 QQ[]K[] \OT1/cmr/m/n/10.95 = \OML/cmm/m/it/10.95 QC \OT1/cmr/m/n/10.95 = \OML/cmm/m/it/10.95 Q[]\OT1/cmr/m/n/10.95 ^^F\OML/cmm/m/it/10.95 V[] \OT1/cmr/m/n/10.95 := \OML/cmm/m/it/10.95 U\OT1/cmr/m/n/10.95 ^^F\OML/cmm/m/it/10.95 V[]
  []
 
 
@@ -528,10 +534,13 @@ Overfull \vbox (7.9474pt too high) has occurred while \output is active []
 Overfull \vbox (6.27187pt too high) has occurred while \output is active []
 
  [8]
-Overfull \hbox (13.56468pt too wide) detected at line 306
-\OML/cmm/m/it/10.95 K[] \OMS/cmsy/m/n/10.95 ^^Y \OML/cmm/m/it/10.95 QQ[]K[] \OT1/cmr/m/n/10.95 = \OML/cmm/m/it/10.95 QC \OT1/cmr/m/n/10.95 = \OML/cmm/m/it/10.95 Q[]\OT1/cmr/m/n/10.95 ^^F\OML/cmm/m/it/10.95 V[] \OT1/cmr/m/n/10.95 := \OML/cmm/m/it/10.95 U\OT1/cmr/m/n/10.95 ^^F\OML/cmm/m/it/10.95 V[]
+Underfull \hbox (badness 2443) in paragraph at lines 330--331
+[]\OT1/ptm/m/n/10.53937 SK is sup-ported by EP-SRC Stu-dentship
  []
 
+(/home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.bbl
+LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <8> not available
+(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 5.
 
 Overfull \vbox (6.27187pt too high) has occurred while \output is active []
 
@@ -540,46 +549,40 @@ Overfull \hbox (18.0pt too wide) has occurred while \output is active
 | [] 
  []
 
-[9]
-Underfull \hbox (badness 2443) in paragraph at lines 335--336
-[]\OT1/ptm/m/n/10.53937 SK is sup-ported by EP-SRC Stu-dentship
- []
-
-(/home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.bbl
-LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <8> not available
-(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 5.
-)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 352.
+[9])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 347.
 
 Overfull \vbox (7.9474pt too high) has occurred while \output is active []
 
 
 Overfull \vbox (6.27187pt too high) has occurred while \output is active []
 
- [10]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 352.
+ [10
+
+]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 347.
  (/home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 352.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 352.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 347.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 347.
 Package rerunfilecheck Info: File `pyexafmm.out' has not changed.
-(rerunfilecheck)             Checksum: CABB9A7F329F3311207CAE49A6186456;1160.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 352.
+(rerunfilecheck)             Checksum: 588DCC5BCE4C75FBF310BF5CD6B31BCE;1119.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 347.
  ) 
 Here is how much of TeX's memory you used:
- 7670 strings out of 481239
- 115946 string characters out of 5920378
- 380786 words of memory out of 5000000
- 22700 multiletter control sequences out of 15000+600000
+ 7663 strings out of 481239
+ 115838 string characters out of 5920378
+ 380671 words of memory out of 5000000
+ 22696 multiletter control sequences out of 15000+600000
  604875 words of font info for 162 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 38i,11n,31p,1341b,330s stack positions out of 5000i,500n,10000p,200000b,80000s
-pdfTeX warning (dest): name{section*.14} has been referenced but does not exist, replaced by a fixed one
+ 38i,11n,31p,1185b,446s stack positions out of 5000i,500n,10000p,200000b,80000s
+pdfTeX warning (dest): name{section*.13} has been referenced but does not exist, replaced by a fixed one
 
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvbo8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on /home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.pdf (10 pages, 793593 bytes).
+Output written on /home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.pdf (10 pages, 791592 bytes).
 PDF statistics:
- 4121 PDF objects out of 4296 (max. 8388607)
- 2800 compressed objects within 28 object streams
- 66 named destinations out of 1000 (max. 500000)
- 168 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 4104 PDF objects out of 4296 (max. 8388607)
+ 2783 compressed objects within 28 object streams
+ 63 named destinations out of 1000 (max. 500000)
+ 160 words of extra memory for PDF output out of 10000 (max. 10000000)
 
