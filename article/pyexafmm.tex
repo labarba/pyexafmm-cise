@@ -307,7 +307,7 @@ The implementation of the M2L operator relies on efficient calculation of the tr
 
 We resolve this in PyExaFMM by extracting the bits corresponding to the $x$, $y$ and $z$ index coordinates for the source and target boxes, using bitwise operations. We find the difference between the components, and compute a checksum for the transfer vector by uniquely re-mapping the differences between components to the positive integers and summing them. This workaround is optimized by Numba, as it's written in terms of basic bitwise operations, additions and subtractions.
 
-Data allocation, and organization, return as an issue in developing multithreaded methods. Consider the P2P step to compute near-fields. To maximize cache-reuse we first allocate an array, aligning all target points, with all of their corresponding source points in their near fields. We can then parallelize over batches of targets by leaf. However this allocation must take place within Python, and represents an optimization bottleneck. Table [TABLE REFERENCE] demonstrates the impact of data organization on computing each FMM operation in PyExaFMM.
+Data allocation, and organization, return as an issue in developing multithreaded methods. Consider the P2P step to compute near-fields. To maximize cache-reuse we first allocate an array, aligning all target points, with all of their corresponding source points in their near fields. We can then parallelize over batches of targets by leaf. However this allocation must take place within Python, and represents an optimization bottleneck. Table (\ref{tab:data_organization}) demonstrates the impact of data organization on computing each FMM operation in PyExaFMM.
 
 Therefore one must be careful to work within a subset of Python in order to maximize performance obtained with Numba. In practice, developing high-performance Numba applications requires code to be written towards a framework, grating against the notion of Numba as a `drop-in' library with minimal required configuration for performance.
 
@@ -319,10 +319,6 @@ Figure (\ref{fig:design}) shows how PyExaFMM is designed to separate computation
 	\caption{Simplified UML model of all PyExaFMM components. Trees and operators are precomputed and stored in the HDF5 database. Except for the `Fmm' object which acts as the user interface, all other components are simple modules consisting of functions.}
 	\label{fig:design}
 \end{figure*}
-
-- Compression parameter vs accuracy and vs time table
-
-- data organization as a proportion of total computation time.
 
 \begin{table}
 	\centering
@@ -337,6 +333,23 @@ Figure (\ref{fig:design}) shows how PyExaFMM is designed to separate computation
 		\hline
 	\end{tabular}
 	\label{tab:compression}
+ \end{table}
+
+ \begin{table}
+	\centering
+	\caption{Cost of Data Organization}
+	\begin{tabular}{|*{4}{c|}}
+		\hline
+		 & \multicolumn{3}{c|}{Runtime} \\
+		\hline
+		Operator &  Organization & Calculation & Total\\
+		\hline
+		P2M &  1 & 1 & 1\\
+		M2L &  1 & 1 & 1\\
+		P2P &  1 & 1 & 1\\
+		\hline
+	\end{tabular}
+	\label{tab:data_organization}
  \end{table}
 
 \section{PERFORMANCE}
