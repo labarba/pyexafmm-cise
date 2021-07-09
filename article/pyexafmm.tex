@@ -179,9 +179,9 @@ In recent years, HPC libraries that aid in bypassing the limitations of the Pyth
 
 Numba extends Numpy by removing inefficient layers of indirection for indexing into Numpy arrays, and instead translating array index operations into direct load and store operations from pointers \cite{Lam2015}. Furthermore, it offers simple multithreading support through a `prange' statement that allows you to loop over processes, mirroring OpenMP's parallel for loops. Numba even supports automatic single-instruction-multiple-data [SIMD] vectorization. Adapting to the instruction set architecture of your CPU, whether it supports Advanced Vector Extensions [AVX], AVX-512, or  Streaming SIMD Extensions [SSE]. Therefore with Numba it's easy to heavily optimize methods that loop over arrays. Finally, Numba allows one to decorate functions to be run on GPUs, allowing the development of heterogenous applications with a single Python source.
 
-Importantly, Numba is a `drop-in' library. It's simply installed via package manager, and objects are marked to be optimized by a single decorator. If Numba is unable to perform an optimization, it fails silently, deferring to the ordinary Python runtime. Therefore users are able to seamlessly incorporate Numba into new or existing projects. Previously, achieving similar behavior in Python would have required the usage of a hybrid language such as Cython, or by writing custom C extensions on top of CPython.
+Importantly, Numba is designed as a `drop-in' library. It's simply installed via package manager, and objects are marked to be optimized by a single decorator. If Numba is unable to perform an optimization, it fails silently, deferring to the ordinary Python runtime. Therefore users are able to seamlessly incorporate Numba into new or existing projects. Previously, achieving similar behavior in Python would have required the usage of a hybrid language such as Cython, or by writing custom C extensions on top of CPython.
 
-Numba has been extended with optimized versions of many common array operations, as well as common linear algebra routines available through the Numpy library. These are called automatically when used in a marked object. For common array operations, Numba is able to achieve comparable performance with compiled languages. See table (\ref{tab:kernel_evals}), for a comparison of direct Laplace kernel evaluations, using (\ref{eq:sec:intro:nbody_problem}), for 100,000 points between a Numba modified PyExaFMM, and ExaFMM-t, both of which are multi-threaded and SIMD vectorized, or \cite{Lam2015} for further examples. \footnote[1]{Note that all benchmarks are reported on a six core Intel i7-9750H CPU}
+Numba has been extended with optimized versions of many common array operations, as well as common linear algebra routines available through the Numpy library, such as matrix multiplication. These are called automatically when used in a marked object. For common array operations, Numba is able to achieve comparable performance with compiled languages. See table (\ref{tab:kernel_evals}), for a comparison of direct Laplace kernel evaluations, using (\ref{eq:sec:intro:nbody_problem}), for 100,000 points between a Numba modified PyExaFMM, and ExaFMM-t, both of which are multi-threaded and SIMD vectorized, or \cite{Lam2015} for further examples. \footnote[1]{Note that all benchmarks are reported on a six core Intel i7-9750H CPU}
 
 \begin{table}
 	\caption{Laplace kernel evaluations over 100,000 randomly distributed particles. Coordinate components, and source charge densities chosen in interval $[0, 1)$. Repeated seven times for statistics.}
@@ -306,14 +306,28 @@ As the randomized SVD can be decomposed into a series of matrix-vector products,
 
 Compression allows for faster application of M2L matrices as well as lower storage requirements, the error introduced by compression can be tuned by adjusting $k$. However, it is in practice dominated by the FMM's error, see table [TABLE REFERENCE FOR COMPRESSION ERROR].
 
-The implementation of the M2L operator relies on efficient calculation of the transfer vector, as well as a fast and stable method for computing its hash, which provide a practical example of the potential pitfalls of Numba. As transfer vectors must be computed for all given source and target pairs, for all V lists, they must be fast.
+The implementation of the M2L operator relies on efficient calculation of the transfer vector, as well as a fast and stable method for computing its hash, which provide a practical example of the potential pitfalls of Numba. The transfer vector is naturally found by decoding the Morton keys of the source and target boxes, and finding the difference of their components. However, this relies on the allocation of an array in which to keep the result, and a separate method to compute a hash of this array. The expense of array allocation is non-trivial in the context of the M2L operator, as it's applied over each member of the V list for all non-leaf nodes in the tree. Furthermore, ndarrays are not hashable Python objects. Finally, though Numba supports computing a Python hash, among other common Python operations, it's expensive even in a decorated function. Hashing is not optimized to be translated into fast machine code as it lies outside the remit of the library.
 
-Another example is when attempting to extract performance from a multi-threaded function... P2M and M2L explained in detail ...
-- How to organize multithreaded computations in Numba
+We resolve this in PyExaFMM by extracting the bits corresponding to the $x$, $y$ and $z$ index coordinates for the source and target boxes, using bitwise operations. We find the difference between the components, and compute a checksum for the transfer vector by uniquely re-mapping the differences between components to the positive integers and summing them up. This workaround is optimized by Numba, as it's written in terms of basic bitwise operations, additions and subtractions.
 
-\subsection{Software Design}
+Data allocation, and organization, returns as an issue in developing multithreaded methods. Consider the P2P step to compute near-fields. To maximize cache-reuse we first allocate an array, aligning all target points, with all of their corresponding source points in their near fields. We can then parallelize over batches of targets by leaf. However this allocation must take place within Python, and represents an optimization bottleneck. Table [TABLE REFERENCE] demonstrates the impact of data organization on computing each FMM operation in PyExaFMM.
 
-The key is separating routines to be accelerated, and organising data ready to run. The data organisation part (and it's slowness) should be demonstrated as a bottleneck using experiment.
+Therefore one must be careful to work within a subset of Python in order to maximize performance obtained with Numba. Therefore, in practice, developing high-performance Numba applications requires code to be written towards a framework, grating against the notion of Numba as a `drop-in' library with minimal configuration for performance.
+
+Figure (\ref{fig:design}) shows how PyExaFMM is designed to separate computational routines for applying operators, from the algorithmic logic of the FMM, via a configurable `backend'. The backend contains code implementing and optimizing the FMM operators. At present we only support a Numba backend, however alternatives based on OpenMP or MPI may be developed. PyExaFMM is designed around data manipulation, making minimal use of the Python object model, instead representing composition and inheritance-style relationships via interfaces at a module level, which contain simple functions. This minimizes overhead, however the library is written in un-Pythonic style, in the sense that we use a restricted subset of Python, as well as very few object-oriented features.
+
+% Larger figure
+\begin{figure*}
+	\centerline{\includegraphics {figures/software.pdf}}
+	\caption{Simplified UML model of all PyExaFMM components. Trees and operators are precomputed and stored in the HDF5 database. Except for the `Fmm' object which acts as the user interface, all other components are simple modules consisting of functions.}
+	\label{fig:design}
+\end{figure*}
+
+- Compression parameter vs accuracy and vs time table
+
+- data organization as a proportion of total computation time.
+
+
 
 \section{PERFORMANCE}
 
