@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.5.4)  13 JUL 2021 14:47
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.5.4)  13 JUL 2021 17:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -553,7 +553,7 @@ Overfull \hbox (18.0pt too wide) has occurred while \output is active
  []
 
 [7]
-<figures/software.pdf, id=321, 410.81348pt x 183.60562pt>
+<figures/software.pdf, id=324, 410.81348pt x 183.60562pt>
 File: figures/software.pdf Graphic file (type pdf)
 <use figures/software.pdf>
 Package pdftex.def Info: figures/software.pdf  used on input line 269.
@@ -634,10 +634,10 @@ lvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvro
 8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/sh
 are/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/tex
 mf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on pyexafmm.pdf (10 pages, 295150 bytes).
+Output written on pyexafmm.pdf (10 pages, 295517 bytes).
 PDF statistics:
- 436 PDF objects out of 1000 (max. 8388607)
- 352 compressed objects within 4 object streams
+ 439 PDF objects out of 1000 (max. 8388607)
+ 354 compressed objects within 4 object streams
  63 named destinations out of 1000 (max. 500000)
  147 words of extra memory for PDF output out of 10000 (max. 10000000)
 
