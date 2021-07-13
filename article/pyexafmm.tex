@@ -41,70 +41,61 @@
 \markboth{Department Head}{Paper title}
 
 \begin{abstract}
-PyExaFMM was developed on the success of the ExaFMM project, to investigate the possibility of developing high-performance scientific software without using a low level language. High-level languages are appealing, reducing the barrier to entry for potential contributors, as well as making deployment to new architectures or platforms easier. The FMM is a good case study for understanding the maturity of Python for developing high-performance software, due its reliance on a complex hierarchical tree data structure. In this article we explore the software engineering and mathematical techniques used to extract performance for PyExaFMM, and we report that we achieve runtimes within $\mathcal{O}(10)$ of the state of the art C++ implementation, with comparable accuracy, for three dimensional electrostatic problems in single precision.
+The Fast Multipole Method is a good case study for understanding the maturity of Python for developing high-performance software, due its reliance on a complex hierarchical tree data structure. In this article we explore the software engineering and mathematical techniques used to extract performance for PyExaFMM, a Python based solver accelerated with Numba. We achieve runtimes within $\mathcal{O}(10)$ of the state of the art C++ implementation, with comparable accuracy, for three dimensional electrostatic problems in single precision.
 
 \end{abstract}
 
 \maketitle
-\chapterinitial{We introduce PyExaFMM}\footnote{Available at https://www.github.com/exafmm/pyexafmm} a Python-based solver for the point Fast Multipole Method [FMM], designed for high-performance computing [HPC]. The vision behind building a HPC library in Python is one where a domain specialist may be able to rapidly iterate to a high-performance application from a prototype, without necessarily having expertise in software development. Python has the additional benefit of simple cross platform build tools, such as Conda, making it easy for developers to code once and deploy everywhere. An FMM implementation is an excellent case study to understand the maturity of Python for HPC development. We use Numba for acceleration, just-in-time [JIT] compiler is built to bypass the Python interpreter when operating on numerical arrays. Therefore, it represents a challenge to develop efficient representations and operations for the hierarchical tree on which the algorithm is based.
+\chapterinitial{We introduce PyExaFMM}\footnote{Available at https://www.github.com/exafmm/pyexafmm} a Python-based solver for the point Fast Multipole Method [FMM], designed for high-performance computing [HPC]. Python is ubiquitous in computational science. Allowing for rapid prototyping with simple cross platform build tools such as Conda. PyExaFMM uses Numba for acceleration, a just-in-time [JIT] compiler for operating on numerical arrays. Numba bypasses the Python interpreter by translating array operations into efficient architecture dependent machine code. Furthermore Numba provides a simple API for developing multithreaded and GPU accelerated applications from a single Python source.
 
-PyExaFMM is a single node implementation designed for three-dimensional problems. We implement parallel strategies for multicore architectures, similar to \cite{Bramas2020, Wang2021}. As with all Python applications, performance is degraded by portions of code that are unavoidably interpreted. However, this represents a compromise between usability and performance.Using lines-of-code [LOC] as a rough metric of usability, PyExaFMM consists of approximately 5,800 LOC, compared with approximately 20,000 LOC and 50,000 LOC for the comparable C++ implementations, TBFMM and ExaFMM-T, respectively \cite{Bramas2020, Wang2021}.
+PyExaFMM is a single node implementation designed for three-dimensional problems. We implement parallel strategies for multicore architectures, similar to \cite{Bramas2020, Wang2021}. As with all Python applications, performance is degraded by portions of code that are unavoidably interpreted. However, this represents a compromise between usability and performance. Using lines-of-code [LOC] as a rough metric of usability, PyExaFMM consists of approximately 5,800 LOC, compared with approximately 20,000 LOC and 50,000 LOC for the comparable C++ implementations, TBFMM and ExaFMM-T, respectively \cite{Bramas2020, Wang2021}.
 
 In this article we begin by providing an overview of the FMM algorithm, as well as the Kernel-Independent [KIFMM] variant
-\cite{Ying2004} used by PyExaFMM. We proceed to introduce Numba, and discuss how it's used to accelerate computations. We continue by examining other mathematical and software based optimizations used to extract performance. Specifically, the efficient pre-computation, and application of various FMM operations, and an overview of the software's design. We conclude with a comparison of performance, in terms of accuracy, runtimes, and memory footprint, with the comparable state-of-the-art C++ implementation from the ExaFMM project, ExaFMM-T \cite{Wang2021}.
+\cite{Ying2004} used by PyExaFMM. We proceed to introduce Numba, and discuss how it's used to accelerate computations. We continue by examining other mathematical and software based optimizations used to extract performance. Specifically, the efficient pre-computation, and application of FMM operations, and an overview of the software's design. We conclude with a comparison of performance, in terms of accuracy, runtimes, and memory footprint, with the comparable state-of-the-art [SOTA] C++ implementation from the ExaFMM project, ExaFMM-T \cite{Wang2021}.
 
 \section{FAST MULTIPOLE METHODS}
 
 \subsection{The N-Body Problem}
 
-The FMM \cite{Greengard1987}, approximates the solution of the so called $N$ body problem, in which one seeks to calculate pairwise interactions between $N$ objects. This problem arises in numerous contexts in science and engineering, for example in the calculation of electrostatic or gravitational potentials due to a set of charged or massive source objects. This is important, as with an estimate of potential one is able to describe the corresponding field, and hence the forces exerted by these objects. We use the electrostatic potential generated by point charges in three dimensions as our model to explore the FMM. The potential, $\phi(x_j)$, for a given point at position $x_j$, or `target', due to $N$ points at positions $x_i$, or `sources', where $i \in [1, ..., N]$, each with a charge $q_i$, can be written as,
+The FMM \cite{Greengard1987}, approximates the solution of the `$N$ body problem', in which one seeks to calculate pairwise interactions between $N$ objects. This arises in numerous contexts in science and engineering, for example in the calculation of electrostatic potential due to a set of charged source particles. We use this problem in three dimensions as our model to explore the FMM. The potential, $\phi(x_j)$, for a given point at position $x_j$, or `target', due to $N$ points at positions $x_i$, or `sources', where $i \in [1, ..., N]$, each with a charge $q_i$, can be written as,
 
 \begin{eqnarray}
 	\phi(x_j) = \sum_{i=1}^{N} K(x_i, x_j) q_i,
 \label{eq:sec:intro:nbody_problem}
 \end{eqnarray}
 
-here $K(\cdot, \cdot)$ is called the Green's function, or kernel function. For electrostatic problems in three dimensions it is,
+here $K(\cdot, \cdot)$ is called the Green's function, or kernel function. For our model problem it is,
 
 \begin{eqnarray}
 	K(x, y) = \frac{1}{4\epsilon_0\pi|x-y|},
 \label{eq:sec:intro:laplace_kernel}
 \end{eqnarray}
 
-where $\epsilon_0$ is the permittivity of free space, and is referred to as the Laplace kernel. Without loss of generality, we consider the set of sources and set of targets to correspond to the same set of points.
-
-Attempting to evaluate the sum in (\ref{eq:sec:intro:nbody_problem}) directly for $N$ points, results in algorithm of $\mathcal{O}(N^2)$ runtime complexity, as the sum will have to be repeated $N$ times. However the FMM is able to approximate (\ref{eq:sec:intro:nbody_problem}) with just $\mathcal{O}(N)$ runtime complexity, with proscribed error bounds. This makes the simulation of physically realistic systems tractable.
+where $\epsilon_0$ is the permittivity of free space, and is referred to as the Laplace kernel. Without loss of generality, we consider the set of sources and set of targets to correspond to the same set of points. Attempting to evaluate the sum in (\ref{eq:sec:intro:nbody_problem}) directly for $N$ points, results in algorithm of $\mathcal{O}(N^2)$ runtime complexity. However, the FMM is able to approximate (\ref{eq:sec:intro:nbody_problem}) in just $\mathcal{O}(N)$, with proscribed error bounds, making the simulation of physically realistic systems tractable.
 
 \subsection{The FMM Algorithm}\label{sec:intro:algorithm}
 
-The key idea behind the FMM is to encode the potential in the far field due to a cluster of points with a representative analytic series expansion centered on the cluster, referred to as a \textit{multipole expansion}. This expansion can be truncated to tune for a desired accuracy, allowing one to approximate the sum in (\ref{eq:sec:intro:nbody_problem}) with fewer calculations. Alternatively, we can center the expansion far away from the cluster. The is referred to as a \textit{local expansion}. We can translate analytically between multipole and local expansions, this is critical in the development of the $\mathcal{O}(N)$ algorithm. Note, this approximation is only valid where the kernel function of a problem exhibits appropriate `decay' characteristics, allowing us to assume that potential due to clusters of points far away from a region of interest can be well approximated with a truncated representative expansion.
+The key idea behind the FMM is to encode the potential in the far field due to a cluster of points with a representative analytic series expansion centered on the cluster, known as a \textit{multipole expansion}. This expansion can be truncated to tune for a desired accuracy, allowing one to approximate the sum in (\ref{eq:sec:intro:nbody_problem}). Alternatively, the expansion can be centered away from the cluster, known as a \textit{local expansion}. We can translate analytically between multipole and local expansions, this is critical in the development of the $\mathcal{O}(N)$ algorithm. Note, this approximation is only valid where the kernel function of a problem exhibits appropriate `decay' characteristics, allowing us to assume that potential due to clusters of points far away from a region of interest can be well approximated with a truncated representative expansion.
 
 In the FMM, the problem domain is described by a cubic box enclosing all targets and sources, which is hierarchically partitioned into a \textit{quadtree} in two dimensions, or an \textit{octree} in three dimensions. Partitioning is recursive, initially the domain is partitioned into four equal parts in two dimensions (eight in three dimensions), known as its children. Note, the unrefined box is referred to as their parent. The children are each subsequently refined in a similar fashion. The final tree consisting of a series of hierarchically nested boxes.
 
 The size of the box is described by its `level', with level zero denoting the unrefined box, level one denoting its children, and so on. One can define the maximum level of refinement through a parameter dictating the maximum number of points within the finest box covering a subset of the domain. These finest boxes that remain after refinement are known as leaves. Note that the set of all leaves cover the entire domain, without overlap. One can choose to refine \textit{adaptively}, such that the leaves may be of different sizes, reflective of the underlying point distribution, or \textit{non-adaptively}, such that the leaves are all of a uniform size.
 
-The FMM then consists of two sequential traversals of this tree, where boxes are considered level by level. Initially, during the \textit{upward pass}, multipole expansions for points contained in boxes at the leaf level are formed. This is referred to as the \textit{point-to-multipole} [P2M] operation. In order to obtain the multipole expansions for their parents, the expansion centers of a given box's children are shifted to the center of their shared parent box, and their coefficients are summed. This is referred to as the \textit{multipole-to-multipole} [M2M] operation. This is repeated bottom-up, level by level, until one is left with the multipole expansions of all boxes in the tree.
+The FMM then consists of two sequential traversals of this tree, where boxes are considered level by level. Initially, during the \textit{upward pass}, multipole expansions for points contained in the leaves are formed. This is referred to as the \textit{point-to-multipole} [P2M] step. In order to obtain the multipole expansions for their parents, the expansion centers of a given box's children are shifted to the center of their shared parent box, and their coefficients are summed. This is referred to as the \textit{multipole-to-multipole} [M2M] step. This is repeated bottom-up, level by level, until one is left with the multipole expansions of all boxes in the tree.
 
-Subsequently, during the \textit{downward pass}, the multipole expansions of non-adjacent boxes of a given box are defined as being in its far field. In order to evaluate their contribution towards the potential for points within a given box, one translates their multipole expansion to a local expansion centered at the given box. This is referred to as the \textit{multipole-to-local} [M2L] operation. The local expansion is then transferred to the children of the given box by shifting the expansion center to the center of the child boxes, and updating the coefficients of the child boxes' local expansions. These are referred to as \textit{local-to-local} [L2L] operations. Proceeding top-down, considering boxes level by level, one is left with the local expansions for each leaf box.
+Subsequently, during the \textit{downward pass}, the multipole expansions of non-adjacent boxes of a given box are defined as being in its far field. In order to evaluate their contribution towards the potential for points within a given box, one translates their multipole expansion to a local expansion centered at the given box. This is referred to as the \textit{multipole-to-local} [M2L] step. The local expansion is then transferred to the children of the given box by shifting the expansion center to the center of the child boxes, and updating the coefficients of the child boxes' local expansions. These are referred to as \textit{local-to-local} [L2L] step. Proceeding top-down, considering boxes level by level, one is left with the local expansions for each leaf box.
 
-Crucially the extent of the far field not already encapsulated in the local expansion shrinks as we descend down the levels of the tree. This is because the far field of a box's parent is already captured in the child's local expansion. These local expansions compress all of the contribution from the far field towards the potential for targets within a given leaf. Therefore the far field's effect on the potential of targets within a leaf box is entirely described by the local expansion.
+The extent of the far field not already encapsulated in the local expansion shrinks as we descend down the levels of the tree, as the far field of a box's parent is already captured in the child's local expansion. These local expansions compress all of the contribution from the far field towards the potential for targets within a given leaf.
 
-The evaluation of the local expansion at the target points in a given leaf box is known as the \textit{local-to-point} [L2P] operation. Finally, the near fields of a given leaf box are evaluated directly using (\ref{eq:sec:intro:nbody_problem}), this is referred to as the \textit{point-to-point} [P2P] operation. As there are a fixed number of points per leaf node, the complexity of this direct evaluation is bounded. The operations in this scheme are illustrated for a two dimensional problem, with a uniform quadtree, in figure (\ref{fig:tree_traversal}).
+The evaluation of the local expansion at the target points in a given leaf box is known as the \textit{local-to-point} [L2P] step. Finally, the near fields of a given leaf box are evaluated directly using (\ref{eq:sec:intro:nbody_problem}), this is referred to as the \textit{point-to-point} [P2P] step. As there are a fixed number of points per leaf node, the complexity of this direct evaluation is bounded.
 
-% Larger figure
-\begin{figure*}
-\centerline{\includegraphics {figures/algorithm.pdf}}
-\caption{The FMM illustrated for a two dimensional problem with a uniform quadtree. The left column illustrates the first two steps of the upward pass, beginning with the P2M operation to find the multipole expansions at the leaf level, followed by an M2M operation. The central and right columns illustrate the downward pass. In the central column, the far-field of a given box is highlighted, we observe that at level three the far field highlighted in red is already encapsulated in the local expansion of the given box due to the L2L translation from its parent. In the right column we see how the algorithm concludes with a given box evaluating its near field of adjacent boxes, directly via the P2P operation.}
-\label{fig:tree_traversal}
-\end{figure*}
-
-The $\mathcal{O}(N)$ algorithmic runtime complexity can be seen to be the result of the ability to translate between the multipole and local expansion representations for boxes deemed to be in the far field of a given box, as well as the recursive procedure of the FMM. Due to this, each box must only consider its interaction with a constant number of other boxes. As there are $\mathcal{O}(N)$ boxes in a given tree, the entire algorithm can be seen to be bounded by a runtime complexity of $\mathcal{O}(N)$.
+The $\mathcal{O}(N)$ algorithmic runtime complexity is the result of the analytic translations between the multipole and local expansion for boxes deemed to be in the far field of a given box, as well as the recursive procedure of the FMM. Due to this, each box only considers interactions with a constant number of other boxes. As there are $\mathcal{O}(N)$ boxes in a given tree, the entire algorithm can be seen to be bounded by a runtime complexity of $\mathcal{O}(N)$.
 
 \subsection{The KIFMM Algorithm}
 
-PyExaFMM utilizes the KIFMM \cite{Ying2004}. This algorithm represents the multipole expansions due to a cluster of charges as set of equivalent charge densities supported on a surface enclosing the cluster. The fields generated by the charges are matched with an equivalent field generated by these equivalent densities by matching the potential they generate at another surface in the far field. This method generalizes the FMM to non-oscillatory second-order elliptic partial differential equations with constant coefficients, for example the Laplace or Stokes equations. This includes many common problems, such as our model electrostatic problem.
+PyExaFMM utilizes the KIFMM \cite{Ying2004}. This algorithm represents the multipole expansions due to a cluster of charges as set of equivalent charge densities supported on a surface enclosing the cluster. The fields generated by the charges are matched with an equivalent field generated by these equivalent densities by matching the potential they generate at another surface in the far field. This method generalizes the FMM to non-oscillatory problems, described by second-order elliptic partial differential equations with constant coefficients, for example the Laplace or Stokes equations. This includes many common problems, such as our model electrostatic problem.
 
-Consider the P2M operation illustrated in figure (\ref{fig:operators}a). A cubic \textit{equivalent} surface, sharing the same center, $S_e$ is used to enclose a leaf, and its set of points. It is discretized with evenly spaced quadrature points on its faces, each of which supports an equivalent charge density. In order to find the equivalent densities, we match the potential generated by the points directly, $\phi_c$, calculated using (\ref{eq:sec:intro:nbody_problem}) with that generated by the equivalent densities at the \textit{check} surface, $S_c$, in the far field, also centered on the box, which encloses both the box and the corresponding equivalent surface. Using (\ref{eq:sec:intro:nbody_problem}) we find,
+Consider the P2M step illustrated in figure (\ref{fig:operators}a). A cubic \textit{equivalent surface}, sharing the same center, $S_e$ is used to enclose a leaf, and its set of points. It is discretized with evenly spaced quadrature points on its faces, each of which supports an equivalent charge density. To find the equivalent densities, we match the potential generated by the points directly, $\phi_c$, calculated using (\ref{eq:sec:intro:nbody_problem}) with that generated by the equivalent densities at the \textit{check surface}, $S_c$, in the far field, also centered on the box, which encloses both the box and the corresponding equivalent surface. Using (\ref{eq:sec:intro:nbody_problem}) we find,
 
 \begin{equation}
 	\sum_{x_i \in S_e, x_j \in S_c} K(x_i, x_j)q_i = \phi_c
@@ -133,11 +124,11 @@ We identify these equivalent densities as a multipole expansion. The order of th
 	\label{eq:sec:intro:kifmm:nquads}
 \end{equation}
 
-Equation (\ref{eq:sec:intro:p2m2}) is in general ill-conditioned, therefore we use a truncated singular value decomposition [SVD] of $K$, to calculate a pseudo-inverse. We cut off components corresponding to singular values smaller than machine epsilon in single precision.
+Equation (\ref{eq:sec:intro:p2m2}) is in general ill-conditioned, therefore we use a truncated singular value decomposition [SVD] of $K$, to calculate a pseudo-inverse. Cutting off components corresponding to singular values smaller than machine epsilon in single precision.
 
-As shown in figure (\ref{fig:operators}a), the equivalent surface is enclosed by the check surface for the P2M operation. When this is the case we refer to the surfaces as the \textit{upward} equivalent and check surface respectively. We find that the ratio of the side-length of the upward equivalent and check surfaces with respect to the tree node as 1.05 and 1.90 work well in practice.
+As shown in figure (\ref{fig:operators}a), the equivalent surface is enclosed by the check surface for the P2M step. When this is the case we refer to the surfaces as the \textit{upward} equivalent and check surface respectively. We find that the ratio of the side-length of the upward equivalent and check surfaces with respect to the tree node as 1.05 and 1.90 work well in practice.
 
-We perform a similar calculation for the M2M operation, illustrated in figure (\ref{fig:operators}b). Here the upward equivalent density of a child box, is matched to that of its parent,
+We perform a similar calculation for the M2M step, illustrated in figure (\ref{fig:operators}b). Here the upward equivalent density of a child box, is matched to that of its parent,
 
 \begin{equation}
 	K_c q_e^{child} = K_p q_e ^{parent}
@@ -149,7 +140,7 @@ where $K_c$ and $K_p$ are matrices with elements as defined by (\ref{eq:sec:intr
 	q_e^{parent} = K_p^{-1}K_c q_e^{child}
 \end{equation}
 
-we refer to $K_p^{-1}K_c$ as the \textit{M2M operator}, with four unique operators in two dimensions (eight in three dimensions) corresponding to all the children of a given box. To find the corresponding \textit{L2L operators} and \textit{M2L operators}, we simply repeat the procedure with the appropriate check and equivalent surfaces. For the L2L operation, the check surface is placed inside the equivalent surface. This reflects the region in which we expect the local expansion to valid. Here the surfaces are referred to as the \textit{downward} check and equivalent surfaces respectively. For the M2L operation (fig. \ref{fig:operators}d) the upward equivalent surface of the source box, is matched to the potential generated by the downward equivalent surface at the target box.
+we refer to $K_p^{-1}K_c$ as the \textit{M2M operator}, with four unique operators in two dimensions (eight in three dimensions) corresponding to all the children of a given box. To find the corresponding \textit{L2L operators} and \textit{M2L operators}, we simply repeat the procedure with the appropriate check and equivalent surfaces. For the L2L step, the check surface is placed inside the equivalent surface. This reflects the region in which we expect the local expansion to valid. Here the surfaces are referred to as the \textit{downward} check and equivalent surfaces respectively. For the M2L step (fig. \ref{fig:operators}d) the upward equivalent surface of the source box, is matched to the potential generated by the downward equivalent surface at the target box.
 
 We choose the upward equivalent surface to correspond to the downward check surface, and the downward equivalent surface to correspond to the upward check surface, for a given level. We then notice that the quantity $K^{-1}$ in (\ref{eq:sec:intro:p2m2}) can be re-used in the calculation of the M2M operator, as well as the M2L operator. Additionally, the M2M and L2L operators remain constant for all levels in the tree.
 
@@ -160,94 +151,48 @@ We choose the upward equivalent surface to correspond to the downward check surf
 	\label{fig:operators}
 \end{figure*}
 
-PyExaFMM uses adaptive octrees, for which there are further permutations in the composition of the near and far field. Consider a target box $T$, all source boxes $S$ directly neighboring $T$ (sharing an edge, face, or corner) are in $T$'s \textit{U list}. Denoting a neighbor of a box at the same level as its \textit{colleague}. The children of $T$'s colleagues which are not adjacent to $T$ are in its \textit{W list}, and the children of the colleagues of $T$'s parent which are not adjacent to $T$ are in its \textit{V list}. Finally, the \textit{X list} consists of boxes for which $T$ is in their W list. The X and W list are only calculated for leaf boxes. Collectively these lists are known as the \textit{interaction lists} of $T$, and are illustrated for a two dimensional problem in figure (\ref{fig:interaction_lists}).
+PyExaFMM uses adaptive octrees, for which there are further permutations in the composition of the near and far field. Consider a target box $T$, all source boxes $S$ adjacent to $T$ (sharing an edge, face, or corner) are in $T$'s \textit{U list}. Denoting a neighbor of a box at the same level as its \textit{colleague}. The children of $T$'s colleagues which are not adjacent to $T$ are in its \textit{W list}, and the children of the colleagues of $T$'s parent which are not adjacent to $T$ are in its \textit{V list}. Finally, the \textit{X list} consists of boxes for which $T$ is in their W list. The X and W list are only calculated for leaf boxes. Collectively these lists are known as the \textit{interaction lists} of $T$.
 
-Greater specification of the interaction lists allows for a more efficient algorithm implementation. Considering a source box in $T$'s W list, the multipole expansion of the source box is valid despite note being in $T$'s far field, therefore reducing the cost of calculating the near field contribution. For source boxes in $T$'s X list, the multipole expansion is not valid, as $T$ is not in the far-field of the source box. However, the source charges can be evaluated directly at the quadrature points on $T$'s downward equivalent surface. PyExaFMM also enforces a \textit{2:1 balance constraint} on the leaves, such that neighboring leaves may at most differ by one level. This constraint ensures small interaction lists, in the case of highly non-uniform point distributions.
+Greater specification of the interaction lists allows for a more efficient algorithm implementation. Considering a source box in $T$'s W list, the multipole expansion of the source box is valid despite note being in $T$'s far field, therefore reducing the cost of calculating the near field contribution. This is known as the \textit{multipole-to-point} [M2P] step. For source boxes in $T$'s X list, the multipole expansion is not valid, as $T$ is not in the far-field of the source box. However, the source charges can be evaluated directly at the quadrature points on $T$'s downward equivalent surface. This is known as the \textit{source-to-local} [S2L] step.
+PyExaFMM also enforces a \textit{2:1 balance constraint} on the leaves, such that neighboring leaves may at most differ by one level. This constraint ensures small interaction lists, in the case of highly non-uniform point distributions.
 
-\begin{figure}
-\centerline{\includegraphics[width=18.5pc]{figures/interaction_lists.pdf}}
-\caption{Interaction Lists for a target leaf box, $T$. Unmarked nodes are not considered to interact with $T$.}
-\label{fig:interaction_lists}
-\end{figure}
-
-Implementing efficient KIFMMs relies on efficiently caching and loading the matrices that represent the P2M, M2M, L2L and M2L operators. As the algorithm consists of a series of matrix-vector products, one has to find a way to represent the coefficients of the multipole and local expansions, as well as tree nodes, to take advantage of the cache-locality and vectorization offered by modern CPUs, or GPUs. The P2M and M2L steps are the largest bottlenecks in implementing fast KIFMMs \cite{Lashuk2012}. The M2L operator has to be applied for each box in a given target's V list, and in three dimensions the maximum possible occupancy of a box's V list is 189. The P2M operator involves calculating the potential due to all particles in all leaves, at their check surfaces. However, the P2M operator is embarrassingly parallel over leaves, as is the M2L operator over a given V list.
+Implementing performant KIFMMs relies on efficiently caching and loading the matrices that represent the P2M, M2M, L2L and M2L operators. As the algorithm consists of a series of matrix-vector products, one has to find a way to represent the coefficients of the multipole and local expansions, as well as tree nodes, to take advantage of the cache-locality and vectorization offered by modern processors. The P2P, P2M and M2L steps are the largest bottlenecks in implementing fast KIFMMs \cite{Lashuk2012}. The M2L operator has to be applied to each box in a given target box's V list, which is up to 189 times in three dimensions. The P2M operator involves calculating the potential due to all particles in all leaves, at their check surfaces, and the P2P step involves calculating near field interactions directly for all leaves. However, the P2M and P2P steps are embarrassingly parallel over leaves, as is the M2L step over a given V list.
 
 \section{HIGH PERFORMANCE PYTHON WITH NUMBA}
 
-In recent years, HPC libraries that aid in bypassing the limitations of the Python interpreter have emerged. The most pertinent example is Numba, a JIT compiler for CPython. JIT refers to the fact that the compiler waits until a Numba enhanced object, either a function or a class, is instantiated at runtime, before running optimizations to convert the Python source code into efficient machine code. Numba achieves performance by focussing solely on optimizing operations on ndarrays, the multi-dimensional array objects provided by Numpy . These objects have become the basis for numerical libraries written in Python as Numpy binds to widely used HPC libraries for numerical computing written in C or Fortran, such as LAPACK and BLAS.
+Numba is a JIT compiler for CPython. It's simply installed via package manager, and objects are marked to be optimized by a decorator. As it's a JIT compiler, it waits until a decorated object is used at runtime, before running optimizations to convert the Python source code into efficient machine code. This translation is cached for future use. Numba's remit is limited to optimizing operations on ndarrays, the multi-dimensional array objects provided by Numpy. These objects have become the basis for numerical libraries written in Python as Numpy binds to widely used HPC libraries written in C or Fortran, such as LAPACK and BLAS.
 
 Numba extends Numpy by removing inefficient layers of indirection for indexing into Numpy arrays, instead translating array index operations into direct load and store operations from pointers \cite{Lam2015}. It offers simple multithreading support through a `prange' statement that allows you to loop over processes, mirroring OpenMP's parallel for loops. Numba even supports automatic single-instruction-multiple-data [SIMD] vectorization. Adapting to the instruction set architecture of your CPU, whether it supports Advanced Vector Extensions [AVX], AVX-512, or  Streaming SIMD Extensions [SSE]. Therefore with Numba it's easy to optimize methods that loop over arrays. Furthermore, Numba allows one to decorate functions to be run on GPUs, allowing the development of heterogenous applications with a single Python source.
 
-Importantly, Numba is designed as a `drop-in' library. It's simply installed via package manager, and objects are marked to be optimized by a decorator. If Numba is unable to perform an optimization, it fails silently, deferring to the ordinary Python runtime. Therefore users are able to seamlessly incorporate Numba into new or existing projects. Previously, achieving similar behavior in Python would have required the usage of a hybrid language such as Cython, or by writing custom C extensions on top of CPython.
+If Numba is unable to perform an optimization, it fails silently, deferring to the ordinary Python runtime. Therefore users are able to seamlessly incorporate Numba into new or existing projects. Previously, achieving similar behavior in Python would have required the usage of a hybrid language such as Cython, or by writing custom C extensions on top of CPython.
 
-Numba has been extended with optimized versions of many common array operations, as well as common linear algebra routines available through the Numpy library, such as matrix multiplication. These are called automatically when used in a marked object. For array operations, Numba is able to achieve comparable performance with compiled languages. See table (\ref{tab:kernel_evals}) for a comparison of Laplace kernel evaluations over arrays of three-dimensional points, between a Numba modified PyExaFMM and ExaFMM-t's C++ implementation \footnote[1]{Note that all benchmarks are reported on a six core Intel i7-9750H CPU}.
-
-\begin{table}
-	\caption{Single threaded, SIMD vectorized, Laplace kernel evaluations over $N$ randomly distributed points in single-precision. Coordinate components, and source charge densities chosen in interval $[0, 1)$. Repeated seven times for statistics.}
-	\label{tab:kernel_evals}
-	\begin{tabular}{ |P{45pt}|P{63pt}|P{63pt}|}
-		\hline
-		$N$ & PyExaFMM & ExaFMM-T\\
-		\hline
-		1000 & $440 \pm 10$ $\mu$s & $188 \pm 1$ $\mu$s \\
-		10,000 & $43 \pm 1$ s & $23 \pm 1$ s \\
-		100,000 & $4.71 \pm 0.29$ s & $1.99 \pm 0.01$ s \\
-		\hline
-	\end{tabular}
-\end{table}
+Numba has been extended with optimized versions of many common array operations, as well as common linear algebra routines available through the Numpy library, such as matrix multiplication. These are called automatically when used in a marked object. For array operations, Numba is able to achieve comparable performance with compiled languages. Consider the evaluation of (\ref{eq:sec:intro:laplace_kernel}) over 100,000 randomly distributed source and target points, where coordinate values, and source charge densities are chosen in interval $[0, 1)$. A Numba modified PyExaFMM takes $4.71 \pm 0.29$ s compared to $1.99 \pm 0.01$ s ExaFMM-T's C++ implementation, where measurements are repeated seven times for statistics \footnote[2]{Note that all benchmarks are reported on a six core Intel i7-9750H CPU}. Where both implementations are SIMD vectorized.
 
 \section{TECHNIQUES FOR ACHIEVING PERFORMANCE}
 
 \subsection{Tree Construction}
 
-Box positions in the tree are represented with a single 64-bit Morton encoded \textit{key} \cite{Sundar2007}. A box at a given level, $l$, is said to have an integer displacement along a given axis in the range $[0, 2^l)$, we call an index. In three dimensions, the bits of these indices are interleaved as,
+Box positions in the tree are encoded in a 64-bit \textit{Morton key} \cite{Sundar2007}. A box at a given level, $l$, has an integer displacement along a given axis in the range $[0, 2^l)$, which we call an index. In three dimensions, the bits of these indices are interleaved as,
 
 \begin{equation}
 	\label{eq:morton_encoding}
 	x_1y_1z_1...x_ny_nz_n | l,
 \end{equation}
 
-where $x_i$ is the $i^{th}$ $x$ index bit, and the level is appended to the tail. We observe that we can find the parent of a given key by removing its trailing three index bits. Noticing the displacement of indices for a given axis is consistent in (\ref{eq:morton_encoding}), we optimize Morton encoding by storing the correctly displaced indices for each axis, up to values of 256, in a lookup table. We then consider 8 bits at at time of each index of a given anchor, using only simple bitwise instructions to construct the encoding. Numba is then used to optimize a loop through a two dimensional array containing a set of indices along each axis for all boxes being encoded.
+where $x_i$ is the $i^{th}$ bit of the $x$ index, and the level is appended to the tail. We can find the parent of a given key by removing the trailing three index bits. Noticing that the displacement of indices for a given axis is consistent in (\ref{eq:morton_encoding}), we optimize Morton encoding by storing the correctly displaced indices for each axis, up to values of 256, in a lookup table. We then consider 8 bits at at time of each index of a given anchor, using only simple bitwise instructions to construct the encoding. Numba is then used to optimize a loop through a two dimensional array containing a set of indices along each axis for all boxes being encoded.
 
-The strategy of representing operations in terms of simple instructions and optimizing their application via Numba over a loop of an array, is repeated throughout PyExaFMM. This is because Numba is most efficiently able to translate basic instructions, with as little use of the Python object model as possible, as well as operations over Numpy arrays. Table (\ref{tab:morton_encoding}) demonstrates the impact of Numba on Morton encoding selected operations in terms of runtime.
+The strategy of representing operations in terms of simple instructions and optimizing their application via Numba over a loop of an array, is repeated throughout PyExaFMM. As Numba is most efficiently able to translate basic instructions, with as little use of the Python object model as possible, as well as operations over Numpy arrays. Numba has a marked impact on the performance of common operations used in Morton encoding. For example, finding the neighbors of a given Morton key, $1.041 \pm 0.003$ $\mu$s vs  $63 \pm 1$ $\mu$s, finding its parent $171 \pm 1$ ns vs $573 \pm 3$ ns, encoding a point's coordinates $685 \pm 19$ ns vs $6.170 \pm 0.001$ and decoding a key into its indices $381 \pm 7$ ns vs $16.500 \pm 0.002$ $\mu$s. \footnote[3]{Measurements are repeated seven times for statistics.}
 
-\begin{table}
-	\caption{Common Morton operations}
-	\label{tab:morton_encoding}
-	\begin{tabular}{ |P{45pt}|P{63pt}|P{63pt}|}
-		\hline
-		Method & Numba+Numpy & Numpy\\
-		\hline
-		Neighbor Finding & $1.041 \pm 0.003$ $\mu$s & $63 \pm 1$ $\mu$s\\
-		Parent Finding & $171 \pm 1$ ns & $573 \pm 3$ ns \\
-		Encoding a Point   & $685 \pm 19$ ns & $6.170 \pm 0.001$ $\mu$s\\
-		Decoding a Key   & $381 \pm 7$ ns & $16.500 \pm 0.002$ $\mu$s\\
-		\hline
-	   \end{tabular}
-\end{table}
+To find a linear representation of the tree, we calculate Morton keys for each point at level 1, which are then stored as a vector. This is repeated top-down, level by level, considering batches of points sharing the same key, refining boxes until the maximum-point-per-leaf constraint is met. We implement multithreading over each batch. To `complete' the tree from a linear representation of its leaves, we find their ancestors by repeatedly applying the parent finding function to a leaf. Balancing is then achieved by considering all keys level by level, bottom-up. A given key's parent, and its parent's neighbors are added to the tree if not already present. Overlaps are removed from this final collection, favoring the finest box that covers a given area. This enforces a 2:1 balance. Numba offers optimized implementations of many Python datatypes. Therefore, we are able to represent this algorithm naturally using operations on sets. These implementations are built on top of ndarrays, so we are able to easily convert to a linear array representation of the balanced, and complete tree.
 
-To find a linear representation of the tree, we assign Morton keys to each point, which is then stored as a vector. This is done top-down, considering batches of points sharing the same key, and refining to ensure that the maximum-particle-per-leaf constraint is met. We use Numba to implement multithreading over each batch. To `complete' the tree from a linear representation of its leaves, we find their ancestors by repeatedly applying the parent finding function to a leaf. Balancing is then achieved by considering all keys level by level, bottom-up. If a given key's parent, and it's parent's neighbors are not in the tree, we add them. We then remove overlaps from this final collection, favoring the finest box that covers a given area. This enforces a 2:1 balance. Numba allows for typed-versions of many Python datatypes, as well as for user defined type-aliases. Therefore, we are able to represent this algorithm naturally using operations on sets. As these types are built on top of ndarrays we are able to easily convert to a linear array representation of the balanced, and complete tree.
+We can traverse the tree via index lookups, for example to find the parent or neighbors of a given key. These indices are precomputed and stored in a typed Numba dictionary. The coefficients of the multipole and local expansions, as well as the target potentials, for all boxes are each stored in a single vector, which are aligned using the index lookup dictionaries. This scheme is designed for maximum cache-reuse.
+Building and balancing a tree with 100,000 randomly distributed points takes $213 \pm 6$ ms in PyExaFMM, in comparison to $64 \pm 2$ ms with ExaFMM-T \footnote[4]{Measurements are repeated seven times for statistics.}
 
-Storing the tree in this way allows us to traverse it via index lookups, for example to find the parent or neighbors of a given key. These indices are precomputed and stored in a typed Numba dictionary. The coefficients of the multipole and local expansions, as well as the target potentials, for all boxes are each stored in a single vector, which are aligned using the index lookup tables. This scheme is designed for maximum cache-reuse. Table (\ref{tab:tree_benchmarks}) illustrates benchmarks for tree construction, and balancing compared to ExaFMM-T.
-
-\begin{table}
-	\caption{Building and balancing trees with $N$ randomly distributed points, maximum depth of $d$, leading to $M$ leaves.}
-	\label{tab:tree_benchmarks}
-	\begin{tabular}{|P{35pt}|P{15pt}|P{53pt}|P{53pt}|}
-		\hline
-		$N$ & $M$ & PyExaFMM & ExaFMM-T\\
-		\hline
-		10,000 & 512 & $19 \pm 2$ ms & $8.1 \pm 0.1$ ms\\
-		100,000 & 4096 & $213 \pm 6$ ms & $64 \pm 2$ ms \\\
-		1,000,000 & 32768 & $2.76 \pm 0.04$ s & $0.64 \pm 0.01$ s\\
-		\hline
-	   \end{tabular}
-\end{table}
 \subsection{Efficient Operators}
 
 Matrices for the unique M2M and L2L operators, as well that used in the P2M operation, are precomputed and cached in a HDF5 database, and are loaded into memory at runtime.
 
-The M2L operator is handled differently. We notice that there are at most $7^3-3^3=316$ unique M2L matrices for a given level in three dimensions corresponding to source and target box pairs, these are described uniquely with a \textit{transfer vector} between a source and target \cite{Fong2009}. We can concatenate them in a single matrix representing the M2L matrices for a given level,
+The M2L operator is handled differently. We notice that there are at most $7^3-3^3=316$ unique M2L operators for a given level in three dimensions corresponding to source and target box pairs, these are described uniquely with a \textit{transfer vector} between a source and target \cite{Fong2009}. We can concatenate them in a single matrix representing the M2L matrices for a given level,
 
 \begin{equation}
     K_{M2L}^{l} = \left [ K^l_1 | K^l_2 | ... | K^l_{316} \right],
@@ -256,7 +201,7 @@ The M2L operator is handled differently. We notice that there are at most $7^3-3
 
 where $K_{M2L}^l \in \mathbb{R}^{m \times 316n}$ is the concatenated M2L matrix, and $K_i^l \in \mathbb{R}^{m \times n}$ is the $i^{th}$ M2L matrix, at level $l$, where there the check and equivalent surfaces are discretized with $m$ and $n$ quadrature points respectively.
 
-We find a compressed \textit{low rank} representation using the randomized SVD of Halko et. al \cite{Halko2011}. We introduce this algorithm following the discussion in \cite{Erichson}. First we construct a low-dimensional subspace that approximates the column space of $K_{M2L}^l$, i.e. we
+We find a compressed representation using the randomized SVD of Halko et. al \cite{Halko2011}. We introduce this algorithm following the discussion in \cite{Erichson}. First we construct a low-dimensional subspace that approximates the column space of $K_{M2L}^l$, i.e. we
 find an orthonormal matrix $Q \in \mathbb{R}^{m, k}$ such that,
 
 \begin{equation}
@@ -264,7 +209,7 @@ find an orthonormal matrix $Q \in \mathbb{R}^{m, k}$ such that,
     \label{eq:2_4_step_1_randomised}
 \end{equation}
 
-where $k$ is the \textit{target rank} of the compressed matrix, chosen to be less than the full rank, $m$. We then form a smaller matrix defined $C := Q^*K_{M2L}^l \> \in \mathbb{R}^{k, 316n}$, by which $K_{M2L}^l$ is restricted to a lower dimensional space spanned by the basis $Q$. The first step is `randomized' by drawing $k$ random vectors $\{ \omega_i | \omega_i \in \mathbb{R}^m \}_{i=1}^k$, from a distribution, for example the standard normal distribution, and finding the resulting projections due to $K_{M2L}^l$, $y_i = K_{M2L}^l \omega_i$. In matrix form we can write,
+where $k$ is the \textit{target rank} of the compressed matrix, chosen to be less than the full rank, $m$. We then form a smaller matrix defined $C := Q^TK_{M2L}^l \> \in \mathbb{R}^{k, 316n}$, by which $K_{M2L}^l$ is restricted to a lower dimensional space spanned by the basis $Q$. The first step is `randomized' by drawing $k$ random vectors $\{ \omega_i | \omega_i \in \mathbb{R}^m \}_{i=1}^k$, from a distribution, for example the standard normal distribution, and finding the resulting projections due to $K_{M2L}^l$, $y_i = K_{M2L}^l \omega_i$. In matrix form we can write,
 
 \begin{equation}
     Y := K_{M2L}^l \Omega
@@ -299,19 +244,23 @@ thus we obtain the first $k$ right singular vectors of $K_{M2L}^l$, from $V \in 
 
 where we combine (\ref{eq:2_4_step_1_randomised}), (\ref{eq:2_4_step_2_randomised}) and (\ref{eq:2_4_svd_of_c}), defining the left singular vectors as $U = Q \tilde{U}$.
 
-As the randomized SVD can be decomposed into a series of matrix-vector products, M2L precomputations can be optimized by PyExaFMM using Numba. We precompute M2L matrices for each level, and cache them in a HDF5 database. Indexing them by level as well as a hash of the transfer vector. When we encounter a specific M2L interaction, we compute the transfer vector and its associated hash. We load the left singular vectors and singular values from cache, as well as the corresponding components of the right singular vectors for the compressed M2L matrix at this level corresponding to the hash.
+As the randomized SVD can be decomposed into a series of matrix-vector products, M2L precomputations can be optimized by Numba. We precompute M2L matrices for each level, and cache them in a HDF5 database. Indexing them by level as well as a hash of the transfer vector. When we encounter a specific M2L interaction, we compute the transfer vector and its associated hash. We load the left singular vectors and singular values from cache, as well as the corresponding components of the right singular vectors for the compressed M2L matrix at this level corresponding to the hash.
 
 Compression allows for faster application of M2L matrices as well as lower storage requirements, the error introduced by compression can be tuned by adjusting $k$. However, it is in practice dominated by the FMM's error, see table (\ref{tab:compression}).
 
-The implementation of the M2L operator relies on efficient calculation of the transfer vector, as well as a fast and stable method for computing its hash, which provide a practical example of the potential pitfalls of Numba. The transfer vector is naturally found by decoding the Morton keys of the source and target boxes, and finding the difference of their components. However, this relies on the allocation of an array in which to keep the result, and a separate method to compute a hash of this array. The expense of array allocation is non-trivial in the context of the M2L operator, as it's applied over each member of the V list for all non-leaf nodes in the tree. Furthermore, ndarrays are not hashable Python objects. Finally, though Numba supports computing a Python hash, among other common Python operations, it's expensive even in a decorated function. Hashing is not optimized to be translated into fast machine code as it lies outside the remit of the library.
+The implementation of the M2L operator relies on efficient calculation of the transfer vector, as well as a fast and stable method for computing its hash, which provide a practical example of the potential pitfalls of Numba.
 
-We resolve this in PyExaFMM by extracting the bits corresponding to the $x$, $y$ and $z$ index coordinates for the source and target boxes, using bitwise operations. We find the difference between the components, and compute a checksum for the transfer vector by uniquely re-mapping the differences between components to the positive integers and summing them. This workaround is optimized by Numba, as it's written in terms of basic bitwise operations, additions and subtractions.
+The transfer vector is naturally found by decoding the Morton keys of the source and target boxes, and finding the difference of their components. However, this relies on the allocation of an array in which to keep the result, and a separate method to compute a hash of this array. The expense of array allocation is non-trivial in the context of the M2L operator, as it's applied over the V list for all non-leaf nodes in the tree. Furthermore, ndarrays are not hashable Python objects. Finally, though Numba supports computing a Python hash, among other common Python operations, it's expensive even in a decorated function. Hashing is not optimized to be translated into fast machine code as it lies outside the remit of the library.
 
-Data allocation, and organization, return as an issue in developing multithreaded methods. Consider the P2P step to compute near-fields. To maximize cache-reuse we first allocate an array, aligning all target points, with all of their corresponding source points in their near fields. We can then parallelize over batches of targets by leaf. However this allocation must take place within Python, and represents an optimization bottleneck. Table (\ref{tab:data_organization}) demonstrates the impact of data organization on computing each FMM operation in PyExaFMM.
+We resolve this in PyExaFMM by extracting the bits corresponding to the $x$, $y$ and $z$ indices for the source and target boxes, using bitwise operations. We find the difference between the components, and compute a checksum for the transfer vector by uniquely re-mapping the differences to the positive integers, and summing them. This workaround is optimized by Numba, as it's written in terms of basic bitwise operations, additions and subtractions.
+
+Data allocation and organization return as an issue in developing multithreaded methods with Numba. Consider the P2P step to compute near-fields. To maximize cache-reuse we first allocate an array, aligning all target points, with all of their corresponding source points in their near fields. We can then parallelize over batches of targets by leaf. However this allocation must take place within Python, and represents an optimization bottleneck.
+
+DATA ORGANIZATION FIGURES for M2L P2M P2P STEPS.
 
 Therefore one must be careful to work within a subset of Python in order to maximize performance obtained with Numba. In practice, developing high-performance Numba applications requires code to be written towards a framework, grating against the notion of Numba as a `drop-in' library with minimal required configuration for performance.
 
-Figure (\ref{fig:design}) shows how PyExaFMM is designed to separate computational routines for applying operators, from the algorithmic logic of the FMM, via a configurable `backend'. The backend contains code implementing and optimizing the FMM operators. At present we only support a Numba backend, however alternatives based on OpenMP or MPI may be developed. PyExaFMM is designed around data manipulation, making minimal use of the Python object model, instead representing composition and inheritance-style relationships via interfaces at a module level, which contain simple functions. This minimizes overhead, however the library is written in un-Pythonic style, in the sense that we use a restricted subset of Python, as well as very few object-oriented features.
+Figure (\ref{fig:design}) shows how PyExaFMM is designed to separate computational routines, from the algorithmic logic of the FMM, via a configurable `backend'. The backend contains code implementing and optimizing the FMM operators. These are broken down into loops over Morton keys and arrays representing expansion coefficients and calculated potentials. At present we only support a Numba backend, however alternatives based on OpenMP or MPI may be developed. PyExaFMM is designed around data manipulation, making minimal use of the Python object model, instead representing composition and inheritance-style relationships via interfaces at a module level, which contain simple functions. This minimizes overhead, however the library is written in un-Pythonic style, in the sense that we use a restricted subset of Python, as well as very few object-oriented features.
 
 % Larger figure
 \begin{figure*}
@@ -322,7 +271,7 @@ Figure (\ref{fig:design}) shows how PyExaFMM is designed to separate computation
 
 \begin{table}
 	\centering
-	\caption{Effect of Compression}
+	\caption{Effect of Compression with multipole and local expansions of order $p=5$.}
 	\begin{tabular}{ |P{35pt}|P{35pt}|P{35pt}|P{35pt}|}
 		\hline
 		$k$ & Runtime & Memory & Accuracy\\
@@ -333,23 +282,6 @@ Figure (\ref{fig:design}) shows how PyExaFMM is designed to separate computation
 		\hline
 	\end{tabular}
 	\label{tab:compression}
- \end{table}
-
- \begin{table}
-	\centering
-	\caption{Cost of Data Organization}
-	\begin{tabular}{|*{4}{c|}}
-		\hline
-		 & \multicolumn{3}{c|}{Runtime} \\
-		\hline
-		Operator &  Organization & Calculation & Total\\
-		\hline
-		P2M &  1 & 1 & 1\\
-		M2L &  1 & 1 & 1\\
-		P2P &  1 & 1 & 1\\
-		\hline
-	\end{tabular}
-	\label{tab:data_organization}
  \end{table}
 
 \section{PERFORMANCE}
@@ -391,7 +323,7 @@ Table (\ref{tab:performance}) demonstrates how we achieve similar accuracies in 
  \end{table*}
 \section{CONCLUSION}
 
-We've shown that despite being possible, limitations remain on the efficacy of Python with Numba as a HPC tool. Numba constrains the design of libraries for more complex algorithms, as well as the usage of many Python features. Furthermore, Numba isn't entirely `drop-in', with it's own associated learning curve.
+We've shown that despite being possible, limitations remain on the efficacy of Python with Numba as a HPC tool. Numba constrains the design of libraries for more complex algorithms, as well as the usage of many Python features. Furthermore, Numba isn't entirely amenable to `drop-in' to existing projects, and has it's own associated learning curve.
 
 Despite achieving runtimes within an order of magnitude of the state-of-the-art, data organization and allocation remains a bottleneck for achieving performance. However, PyExaFMM consists of relatively little source code, and is trivial to install and deploy on different platforms. Furthermore, as it's written in an interpreted language its development is accessible to non-software specialists. Therefore it remains useful for applications in which runtime is less important, or for rapidly prototyping algorithmic extensions to the FMM.
 
