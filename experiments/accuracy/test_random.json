@@ -1,9 +1,9 @@
 {
-    "experiment": "C5E5",
+    "experiment": "test_random",
     "npoints": 1000000,
-    "data_type": "sphere",
-    "order_equivalent": 5,
-    "order_check": 5,
+    "data_type": "random",
+    "order_equivalent": 4,
+    "order_check": 4,
     "kernel": "laplace",
     "backend": "numba",
     "alpha_inner": 1.05,
