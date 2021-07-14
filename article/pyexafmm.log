@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.5.4)  13 JUL 2021 17:08
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.5.4)  14 JUL 2021 10:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -469,13 +469,13 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 44.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Calculating math sizes for size <10.53937> on input line 49
+LaTeX Font Info:    Calculating math sizes for size <10.53937> on input line 48
 .
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 LaTeX Font Info:    Trying to load font information for TS1+phv on input line 5
-3.
+2.
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1phv.fd
 File: ts1phv.fd 2001/06/04 scalable font definitions for TS1/phv.
@@ -509,8 +509,11 @@ Overfull \hbox (18.0pt too wide) has occurred while \output is active
 <figures/operators.pdf, id=132, 431.86136pt x 241.44012pt>
 File: figures/operators.pdf Graphic file (type pdf)
 <use figures/operators.pdf>
-Package pdftex.def Info: figures/operators.pdf  used on input line 150.
+Package pdftex.def Info: figures/operators.pdf  used on input line 149.
 (pdftex.def)             Requested size: 431.86029pt x 241.43953pt.
+
+Underfull \vbox (badness 6047) has occurred while \output is active []
+
 
 Overfull \vbox (7.9474pt too high) has occurred while \output is active []
 
@@ -519,9 +522,6 @@ Overfull \vbox (6.27187pt too high) has occurred while \output is active []
 
 
 [4]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
 Overfull \vbox (5.97588pt too high) has occurred while \output is active []
 
 
@@ -537,7 +537,7 @@ Overfull \vbox (6.27187pt too high) has occurred while \output is active []
 
 
 [6]
-Overfull \hbox (13.56468pt too wide) detected at line 245
+Overfull \hbox (13.56468pt too wide) detected at line 244
 \OML/cmm/m/it/10.95 K[] \OMS/cmsy/m/n/10.95 ^^Y \OML/cmm/m/it/10.95 QQ[]K[] \OT
 1/cmr/m/n/10.95 = \OML/cmm/m/it/10.95 QC \OT1/cmr/m/n/10.95 = \OML/cmm/m/it/10.
 95 Q[]\OT1/cmr/m/n/10.95 ^^F\OML/cmm/m/it/10.95 V[] \OT1/cmr/m/n/10.95 := \OML/
@@ -556,9 +556,9 @@ Overfull \hbox (18.0pt too wide) has occurred while \output is active
 <figures/software.pdf, id=324, 410.81348pt x 183.60562pt>
 File: figures/software.pdf Graphic file (type pdf)
 <use figures/software.pdf>
-Package pdftex.def Info: figures/software.pdf  used on input line 269.
+Package pdftex.def Info: figures/software.pdf  used on input line 268.
 (pdftex.def)             Requested size: 410.81247pt x 183.60516pt.
-LaTeX Font Info:    Calculating math sizes for size <8.5> on input line 276.
+LaTeX Font Info:    Calculating math sizes for size <8.5> on input line 275.
 
 Overfull \vbox (7.9474pt too high) has occurred while \output is active []
 
@@ -567,15 +567,19 @@ Overfull \vbox (6.27187pt too high) has occurred while \output is active []
 
 
 [8]
-Underfull \hbox (badness 2443) in paragraph at lines 334--335
+Underfull \vbox (badness 1852) has occurred while \output is active []
+
+
+Underfull \hbox (badness 2443) in paragraph at lines 333--334
 []\OT1/ptm/m/n/10.53937 SK is sup-ported by EP-SRC Stu-dentship
  []
 
 (./pyexafmm.bbl
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
 LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <8> not available
 (Font)              Font shape `OT1/phv/m/sl' tried instead on input line 5.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 
 Overfull \vbox (6.27187pt too high) has occurred while \output is active []
 
@@ -585,7 +589,7 @@ Overfull \hbox (18.0pt too wide) has occurred while \output is active
  []
 
 [9 <./figures/software.pdf>])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 351.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 350.
 
 Overfull \vbox (7.9474pt too high) has occurred while \output is active []
 
@@ -593,25 +597,23 @@ Overfull \vbox (7.9474pt too high) has occurred while \output is active []
 Overfull \vbox (6.27187pt too high) has occurred while \output is active []
 
 
-[10
-
-]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 351.
+[10]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 350.
  (./pyexafmm.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 351.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 351.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 350.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 350.
 Package rerunfilecheck Info: File `pyexafmm.out' has not changed.
 (rerunfilecheck)             Checksum: 3607E2A4AAABB3BC0C51E51EAB322F67;1049.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 351.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 350.
  ) 
 Here is how much of TeX's memory you used:
  7649 strings out of 481239
  114593 string characters out of 5920378
- 390866 words of memory out of 5000000
+ 389866 words of memory out of 5000000
  22684 multiletter control sequences out of 15000+600000
  604242 words of font info for 159 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 38i,11n,31p,1167b,452s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,11n,31p,1214b,454s stack positions out of 5000i,500n,10000p,200000b,80000s
 pdfTeX warning (dest): name{section*.12} has been referenced but does not exi
 st, replaced by a fixed one
 
@@ -634,7 +636,7 @@ lvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvro
 8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/sh
 are/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/tex
 mf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on pyexafmm.pdf (10 pages, 295517 bytes).
+Output written on pyexafmm.pdf (10 pages, 295853 bytes).
 PDF statistics:
  439 PDF objects out of 1000 (max. 8388607)
  354 compressed objects within 4 object streams
