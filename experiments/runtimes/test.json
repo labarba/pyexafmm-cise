@@ -1,6 +1,6 @@
 {
     "experiment": "test",
-    "npoints": 1000000,
+    "npoints": 100000,
     "data_type": "random",
     "order_equivalent": 5,
     "order_check": 5,
@@ -10,5 +10,5 @@
     "alpha_outer": 2.9,
     "max_level": 10,
     "max_points": 150,
-    "target_rank": 500
+    "target_rank": 50
 }
