@@ -1,7 +1,7 @@
 {
     "experiment": "C4E4",
-    "npoints": 100000,
-    "data_type": "sphere",
+    "npoints": 1000000,
+    "data_type": "random",
     "order_equivalent": 4,
     "order_check": 4,
     "kernel": "laplace",
@@ -10,5 +10,5 @@
     "alpha_outer": 2.9,
     "max_level": 10,
     "max_points": 150,
-    "target_rank": 100
+    "target_rank": 50
 }
