@@ -262,7 +262,7 @@ Figure (\ref{fig:design}) shows how PyExaFMM is designed to separate computation
 
 \begin{table*}[t]
 	\centering
-	\caption{Relative error, runtime and peak memory consumption in comparison to the SOTA. Experiments run with $N=1,000,000$ points tested in two geometries: (1) distributed randomly in a cubic unit box, (2) distributed randomly on the surface of a sphere with unit radius, leading to $M$ leaves in their respective geometries, with a maximum of $150$ points per leaf and multipole and local expansions of order $p$, and a compression rank $k=50$ for PyExaFMM. Charge densities are chosen in the interval $[0, 1)$. Runtimes are calculated 7 times for statistics and reported to 1 significant figure with respect to their standard deviation, and exclude tree building time. Error and peak memory consumption are reported to 3 significant figures after one run.}
+	\caption{Relative error, runtime and peak memory consumption in comparison to the SOTA. Experiments run with $N=1,000,000$ points tested in two geometries: (1) distributed randomly in a cubic unit box, (2) distributed randomly on the surface of a sphere with unit radius, leading to $M$ leaves in their respective geometries, with a maximum of $150$ points per leaf, multipole and local expansions of order $p$, and a compression rank $k=50$ for PyExaFMM. Charge densities are chosen in the interval $[0, 1)$. Runtimes are calculated 7 times for statistics and reported to 1 significant figure with respect to their standard deviation, and exclude tree building time. Error and peak memory consumption are reported to 3 significant figures after one run.}
 	\begin{tabular}{|*{10}{c|}}
 		\hline
 		& & &   & \multicolumn{2}{c|}{Runtime} & \multicolumn{2}{c|}{Peak Memory} & \multicolumn{2}{c|}{Relative Error}\\
@@ -308,7 +308,7 @@ Figure (\ref{fig:design}) shows how PyExaFMM is designed to separate computation
 
 \section{PERFORMANCE}
 
-Table (\ref{tab:performance}) demonstrates how we achieve similar accuracies in single precision to ExaFMM-T as a function of expansion order as well as the differences in runtime and memory consumption of the two softwares.
+Table (\ref{tab:performance}) demonstrates how we achieve similar relative errors in single precision to ExaFMM-T as a function of expansion order. Runtimes are between 25 and 60 times slower for PyExaFMM, depending on the problem parameters, with similar memory consumption.
 
 \section{CONCLUSION}
 
@@ -323,7 +323,7 @@ SK is supported by EPSRC Studentship 2417009.
 \bibliography{pyexafmm}
 \bibliographystyle{ieeetr}
 
-\begin{IEEEbiography}{Srinath Kailasa}{\,} is a Graduate Student at University College London, currently pursuing a PhD in Computational Mathematics. He received an MPhys in Physics (2017) and an MSc in Scientific Computing (2020) from the University of Durham, and University College London respectively, interspersed with time as a Software Engineer in industry. His research interests are in high-performance and scientific computing. Contact him at srinath.kailasa.18@ucl.ac.uk.
+\begin{IEEEbiography}{Srinath Kailasa}{\,}is a Graduate Student at University College London, currently pursuing a PhD in Computational Mathematics. He received an MPhys in Physics (2017) and an MSc in Scientific Computing (2020) from the University of Durham, and University College London respectively, interspersed with time as a Software Engineer in industry. His research interests are in high-performance and scientific computing. Contact him at srinath.kailasa.18@ucl.ac.uk.
 \end{IEEEbiography}
 
 \begin{IEEEbiography}{Timo Betcke}{\,}is Professor of Computational Mathematics at University College London. Is the lead investigator of the Bempp project, an open-source boundary element library. He studied Engineering in Germany as Undergraduate and then completed a PhD in Oxford in Numerical Analysis. From 2005 to 2006 he had various research positions until he became a Lecturer at UCL in 2011. Since 2018 he is a full Professor in the Department of Mathematics at UCL. Contact him at t.betcke@ucl.ac.uk.
