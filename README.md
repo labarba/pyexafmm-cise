@@ -2,104 +2,46 @@
 
 # Outline
 
-## 0 Abstract
-- Question: Can we design a HPC code all in Python? Why this is an important question to answer ...
-- Answer: No, because ...
-- Utility of testing hypothesis with FMM algorithm (and what they are useful for - briefly): complex heirarchical datastructure, non-trivial to apply optimisation tools. Lots of data organisation, which is limited by the interpreter.
-- What this paper presents (implementation and design description - how they are influenced by our tools, convergence testing, benchmarking on different problems)
+- I want to introduce Numba as a tool for HPC with Python for algorithms with complex structures.
 
-## 1 Introduction
+I want to explain
 
-- The point of this paper, why are we making another FMM? What is the FMM?
--  Tie together reasoning for using Python to code a non-trivial algorithm. (Ease of deployment, interoperbility with Python universe, low barrier to entry for non-software specialists)
-- Particle FMM, why it's useful, and in which contexts. Relevant references for more in depth discussion in the literature. Probably easiest to just introduce it as a problem in computational electromagnetics.
-- Current advances in written software for it
-- Python, and it's utility.
-- The concept of JIT and Numba, and how they work roughly.
-- Can we code a HPC library using just Python data/numerics stack? If so it would make our lives as Computational Scientists a lot easier/faster! Allowing you to go from prototype to performance without software engineering hassle introduced by C++.
-- Paper organisation in terms of following sections ...
+- Software optimizations I used:
+    - Design, specifically the separation of computational loops into a backend module
+    - caching of repeatedly used data in a HDF5 database, loaded into RAM at runtime
 
-References:
-1. Numba, lam, petriou, sievert
-2. FMM implementations that already exist: https://www.swmath.org/?term=FMM
-3. Original Paper, Greengard + Rokhlin
+- Parallel strategies for Numba performance
+    - I needed good datastructures for cache-coherence
+        - For P2M and Near Field operators
+        - aligned vectors for expansions coefficients as well as target results.
+    - I needed methods that Numba could translate into fast machine code to be run on each thread
+        - I'm talking about the M2L calculation specifically, and the hash calculation method
+        - The tree represented linearly in an array
+            - Tree traversal was then bitwise operations or index lookups
+    - I relied on different strategies when I couldn't apriori allocate enough memory for results
+        - Specifically the W list calculations
+    - The strategies themselves:
+        - Pre-allocating space for rapidly passing kernel over source/target pairs and storing result
+            - I did this for the P2P calulcations and the P2P (u list, and node) as well as L2T
+            - Pre-allocating space requires allocating enough for entire possible interaction list, as can't apriori know how big this will be.
+            - P2M does a version of this, but slightly differently in that pre-allocation doesn't need to alloc to the max size of an interaction list as we know how many sources there are in a given leaf.
+        - Just running prange over leaves/keys (S2L and M2T)
+            - creating surfaces as needed, no cache-optizations
+                - X list too small to be worth it
+                - W list too large to be worth it
+            - M2L a version of this too, but no surface creation
 
+- Maths optimizations
+    - rSVD of M2L, but this is specific to the FMM
+    - matmul is fast in Python. compression allows for faster matmul.
 
-## 2 KIFMM Algorithm
-
-- Basic concept behind KIFMM (relevant operations, and FMM algorithm structure)
-- What kind of problems KIFMM can be applied to.
-- Octrees, and adaptive octree explanation as a part of this.
-- Concept of balancing, and how it effects the computation of interaction lists.
-- The main bottlenecks in programming efficient KIFMMs
-
-Figures:
-1. Illustrate operators, and least-squares problem for M2M/L2L/M2L/P2M
-2. Illustrate operators wrt to an octree (or quadtree) if it's easier to draw, similar to GPU gems book
-3. Illustration of interaction list cases (u, x, v, w)
-
-References:
-1. Ying paper
-
-## 3. Techniques for Achieving Performance
-
-- Rely on effective data representations and data organisation to achieve performance. This is hard to achieve for FMM. Need to store coefficients, and custom operators for basically all nodes in memory.
-Need to represent the nodes in an easily parallelisable way. Need tree operations to be fast (i.e. parent to child, finding siblings etc).
-
-### 3.1 What is Numba?
-
-What is it, how does it work, what is it useful for? Where is numba used in this project (AdaptOctree construction, P2M step)
-
-### 3.2 Data Structures
-
-- Morton representation, (linear) adaptive octree. Provide algorithms used for tree construction, balancing, and morton encoding method. Provide a benchmark of tree construction times for a few shapes, and realistic problem sizes.
-- Explain how Numba is used in AdaptOctree, especially detail the difficulties faced in achieving things like: hashing, set inclusion, mutable return types (tree construction) first-class functions (effective interaction list computatoin). Explain how many Python idioms have to be set aside, and one has to think like a C programmer.
-- Explain what the end result of this data representation is, and indeed has to be, for optimisation. Aligned vectors, linked by indices, that can be optimised by the compiler for fast access as well as SIMD operation. Explain how this organisation is all done as single node python code, offer benchmarks for how significant this can be.
-
-Figures:
-1. Illustration of Morton encoding (?)
-2. Benchmark table for runtime, memory usage, against tree construction in exafmm-t for different geometries (sphere, random) for different discretisation
-
-References:
-1. Tu/Ghattas paper for Morton encoding reference
-2. Links to AdaptOctree software
-
-### 3.3 Precomputing Operators
-
-- Optimisations required for practical implementations, requirement to cache and store operators, quickly lookup (precomputed) operators, avoid redundant calculation
-- Concept of transfer vectors, as well as how we do this in practice. How is this complicated by Numba? How one sometimes feels limited by Numba, into programming with an invisible framework.
-- Using HDF5 effectively as a cache to load required data into memory.
-
-References:
-1. Darve paper which introduces transfer vectors
-2. HDF5 software reference
-
-### 3.4 Compressing M2L
-
-- Overview of rSVD, and how it's used here.
-- Show how error is dominated by FMM error through experiment.
-
-Figures:
-1. Convergence as a function of K
-2. Runtime as a function of K
-
-References:
-1. Original Halko reference
-
-### 3.5 Software Architecture
-
-- Overview of the separation of algorithm from compute backend. Code example of the API.
-- I envision this section to focus on a discussion about the way in which compute kernels are written for optimum performance with Numba. I.e. they have minimal lookups, and are largely just matvecs.
-- The choice available in Numba, and how to choose the best choice, case-study of writing the laplace green func/green func gradient well.
-
-## 4. Performance Comparison with State of the Art
-
-- Accuracy, speed, and memory footprint as a function of experimental size. For different geometries. (sphere, random)
-
-Figures:
-- Critical graph of convergence of multipole and local expansions for different geometries, as a function of discretisation (compression's contribution to error should already have been demonstrated).
-
-## 5 Conclusion
-- Shows that we can code non-trivial algorithms fairly effectively in Python, but come with their own difficulties - programming to an invisible framework - and learning curve.
-- Time wasted on (non-trivial) software issues to cope with/get around Python interpreter, could have been spent on optimising an already performant code.
-- Bottlenecks for data organisation which are done via python where JIT compilation has no effect. Difficult to avoid without degrading software quality - specific examples
+- My points:
+    - Proved by the way I had to design it:
+        - How Numba constrains design to a small subset of Python, has its own learning curve
+        - It's not possible to naively drop in, a lot of careful optimizations are needed to achieve peak performance with Numba. This is unfortunate as compiled languages often give good performance without much tweaking.
+    - Proved by difference in operator application times:
+        - The insurmountable interpretation barrier is expensive when performance really counts
+        - I need to find good theoretical justification for this, and re-inforce with an appropriate experiment.
+    - Proved by LOC
+        - Relative simplicity of PyExaFMM
+            - but you still need to understand Numba in detail to retain efficiency, which is against what we are attempting to show tbh.
