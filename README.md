@@ -111,9 +111,7 @@ Figures:
 - Re-add the loop figure
     - Cut down words introducing FMM
 
-- Compression's impact on accuracy/memory/runtime
-    - Keep this table
-    - Proves that compression is fine, and saves time.
+
 
 # Notes
 

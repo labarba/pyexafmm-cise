@@ -59,51 +59,79 @@ The particle fast multipole method [FMM] is a good case study for understanding 
 
 \section{FAST MULTIPOLE METHODS}
 
-
 % Larger figure
+\begin{figure*}
+	\centerline{\includegraphics {figures/algorithm.pdf}}
+	\caption{algorithm}
+	\label{fig:agorithm}
+\end{figure*}
+
 \begin{figure*}
 	\centerline{\includegraphics {figures/operators.pdf}}
 	\caption{The operators of the KIFMM. Equivalent surfaces are shown in red, check surfaces in blue, and the charged points in black. Surfaces are plotted with 8 quadrature points, one at each vertex.}
 	\label{fig:operators}
 \end{figure*}
+% Smaller figure
+\begin{figure}
+	\centerline{\includegraphics {figures/operator_runtimes.pdf}}
+	\caption{Foo bar}
+	\label{fig:operator_runtimes}
+\end{figure}
 
 
-\section{HIGH PERFORMANCE PYTHON WITH NUMBA}
+% \section{TECHNIQUES FOR ACHIEVING PERFORMANCE}
+
+% foo
 
 
-\section{TECHNIQUES FOR ACHIEVING PERFORMANCE}
+% \subsection{Numba}
 
+% - What it is, where it's useful.
+% 	- Fast machine code for simple functions
+% 	- Simplified multithreading
+% 	- GPU and CPU code from the same source.
 
-\subsection{Efficient Operators}
+% \subsection{Efficient Operators}
 
-% \begin{table*}
-% 	\centering
-% 	\caption{Relative error, runtime and peak memory consumption in comparison to the SOTA. Experiments run with $N=1,000,000$ points tested in two geometries: (1) distributed randomly in a cubic unit box, (2) distributed randomly on the surface of a sphere with unit radius, leading to $M$ leaves in their respective geometries, with a maximum of $150$ points per leaf, multipole and local expansions of order $p$, and a compression rank $k=50$ for PyExaFMM. Charge densities are chosen in the interval $[0, 1)$. Runtimes are calculated 7 times for statistics and reported to 1 significant figure with respect to their standard deviation, and exclude tree building time. Error and peak memory consumption are reported to 3 significant figures after one run.}
-% 	\begin{tabular}{|*{10}{c|}}
-% 		\hline
-% 		& & &   & \multicolumn{2}{c|}{Runtime} & \multicolumn{2}{c|}{Peak Memory} & \multicolumn{2}{c|}{Relative Error}\\
-% 		\hline
-% 		$N$ & $M$ &$p$ &  Geometry   &   PyExaFMM  &  ExaFMM-T &    PyExaFMM  &  ExaFMM-T  &   PyExaFMM  &  ExaFMM-T\\
-% 		\hline
-% 		1,000,000 & 17,017 & 4   &   Sphere  &  $10.6 \pm 0.1$ s & $0.41 \pm 0.04$ s  &  2.96 GB  &   2.34 GB  & 1.00e-4 & 8.75e-5\\
-% 		 & 32,768 &    &   Random  &  $13.2 \pm 0.2$ s &  $0.41 \pm 0.05$ s &  4.93 GB  &   2.98 GB  & 8.75e-5 & 7.66e-5\\
-% 		&  & 5   &   Sphere  &    $33.8 \pm 0.8$ s & $1.28 \pm 0.03$ s &  3.00 GB  &  2.53 GB  & 4.55e-6 & 4.15e-6\\
-% 		 &  &   &   Random  &  $65 \pm 2$ s &    $1.46 \pm 0.04$ s  &  4.93 GB  &   3.32 GB  & 2.81e-6 & 3.91e-6\\
-% 		 &  & 6   &   Sphere  &  $41.0 \pm 0.7$ s &   $1.48 \pm 0.01$ s  &  3.04 GB  &   2.80 GB  & 2.41e-6 & 1.67e-6\\
-% 		 &  &    &   Random  &  $71 \pm 4$ s &   $1.66 \pm 0.04$ s  &  4.93 GB  &   3.55 GB  & 1.59e-6 & 3.41e-6\\
-% 		 &  & 7   &   Sphere  &  $57.0 \pm 0.1$ s &  $1.78 \pm 0.04$ s  &  3.09 GB  &   3.22 GB  & 2.00e-6 & 2.86e-6\\
-% 		 &  &    &   Random  & $131 \pm 2$ s &   $2.11 \pm 0.06$ s  &  4.93 GB  &   3.88 GB  & 1.71e-6 & 3.84e-6\\
-% 		\hline
-% 	\end{tabular}
-% 	\label{tab:performance}
-%  \end{table*}
+% - Parallelization strategies.
 
-% Larger figure
-% \begin{figure*}
-% 	\centerline{\includegraphics {figures/software.pdf}}
-% 	\caption{Simplified UML model of all PyExaFMM components. Trees and operators are precomputed and stored in the HDF5 database. Except for the `Fmm' object which acts as the user interface, all other components are modules consisting of simple functions.}
-% 	\label{fig:design}
-% \end{figure*}
+\begin{table*}
+	\centering
+	\caption{Relative error, runtime and peak memory consumption in comparison to the SOTA. Experiments run with $N=1,000,000$ points tested in two geometries: (1) distributed randomly in a cubic unit box, (2) distributed randomly on the surface of a sphere with unit radius, leading to $M$ leaves in their respective geometries, with a maximum of $150$ points per leaf, multipole and local expansions of order $p$, and a compression rank $k$ for PyExaFMM. Charge densities are chosen in the interval $[0, 1)$. Runtimes exclude tree building time. Reported to 3 significant figures after a single run.}
+	\begin{tabular}{|*{10}{c|}}
+		\hline
+		& & &   & \multicolumn{2}{c|}{Runtime} & \multicolumn{2}{c|}{Peak Memory} & \multicolumn{2}{c|}{Relative Error}\\
+		\hline
+		$k$ & $M$ &$p$ &  Geometry   &   PyExaFMM  &  ExaFMM-T &    PyExaFMM  &  ExaFMM-T  &   PyExaFMM  &  ExaFMM-T\\
+		\hline
+		50 & 17,017 & 4   &   Sphere  &  $10.6 \pm 0.1$ s & $0.41 \pm 0.04$ s  &  2.96 GB  &   2.34 GB  & 1.00e-4 & 8.75e-5\\
+		 & 32,768 &    &   Random  &  $13.2 \pm 0.2$ s &  $0.41 \pm 0.05$ s &  4.93 GB  &   2.98 GB  & 8.75e-5 & 7.66e-5\\
+		 &  & 6   &   Sphere  &  $41.0 \pm 0.7$ s &   $1.48 \pm 0.01$ s  &  3.04 GB  &   2.80 GB  & 2.41e-6 & 1.67e-6\\
+		 &  &    &   Random  &  $71 \pm 4$ s &   $1.66 \pm 0.04$ s  &  4.93 GB  &   3.55 GB  & 1.59e-6 & 3.41e-6\\
+		 &  & 8   &   Sphere  &  $57.0 \pm 0.1$ s &  $1.78 \pm 0.04$ s  &  3.09 GB  &   3.22 GB  & 2.00e-6 & 2.86e-6\\
+		 &  &    &   Random  & $131 \pm 2$ s &   $2.11 \pm 0.06$ s  &  4.93 GB  &   3.88 GB  & 1.71e-6 & 3.84e-6\\
+		 &  & 10   &   Sphere  &  $57.0 \pm 0.1$ s &  $1.78 \pm 0.04$ s  &  3.09 GB  &   3.22 GB  & 2.00e-6 & 2.86e-6\\
+		 &  &    &   Random  & $131 \pm 2$ s &   $2.11 \pm 0.06$ s  &  4.93 GB  &   3.88 GB  & 1.71e-6 & 3.84e-6\\
+%%%%
+		150 & 17,017 & 4   &   Sphere  &  $10.6 \pm 0.1$ s & $0.41 \pm 0.04$ s  &  2.96 GB  &   2.34 GB  & 1.00e-4 & 8.75e-5\\
+		 & 32,768 &    &   Random  &  $13.2 \pm 0.2$ s &  $0.41 \pm 0.05$ s &  4.93 GB  &   2.98 GB  & 8.75e-5 & 7.66e-5\\
+		&  & 6   &   Sphere  &    $33.8 \pm 0.8$ s & $1.28 \pm 0.03$ s &  3.00 GB  &  2.53 GB  & 4.55e-6 & 4.15e-6\\
+		 &  &   &   Random  &  $65 \pm 2$ s &    $1.46 \pm 0.04$ s  &  4.93 GB  &   3.32 GB  & 2.81e-6 & 3.91e-6\\
+		 &  & 8   &   Sphere  &  $41.0 \pm 0.7$ s &   $1.48 \pm 0.01$ s  &  3.04 GB  &   2.80 GB  & 2.41e-6 & 1.67e-6\\
+		 &  &    &   Random  &  $71 \pm 4$ s &   $1.66 \pm 0.04$ s  &  4.93 GB  &   3.55 GB  & 1.59e-6 & 3.41e-6\\
+		 &  & 10   &   Sphere  &  $57.0 \pm 0.1$ s &  $1.78 \pm 0.04$ s  &  3.09 GB  &   3.22 GB  & 2.00e-6 & 2.86e-6\\
+		 &  &    &   Random  & $131 \pm 2$ s &   $2.11 \pm 0.06$ s  &  4.93 GB  &   3.88 GB  & 1.71e-6 & 3.84e-6\\
+		\hline
+	\end{tabular}
+	\label{tab:performance}
+ \end{table*}
+
+Larger figure
+\begin{figure*}
+	\centerline{\includegraphics {figures/software.pdf}}
+	\caption{Simplified UML model of all PyExaFMM components. Trees and operators are precomputed and stored in the HDF5 database. Except for the `Fmm' object which acts as the user interface, all other components are modules consisting of simple functions.}
+	\label{fig:design}
+\end{figure*}
 
 % \begin{table}
 % 	\centering
@@ -122,30 +150,32 @@ The particle fast multipole method [FMM] is a good case study for understanding 
 % 	\label{tab:compression}
 %  \end{table}
 
-\section{PERFORMANCE}
+% \section{PERFORMANCE}
+% foo
 
 
-\section{CONCLUSION}
+% \section{CONCLUSION}
 
+% foo
 
-\section{ACKNOWLEDGMENT}
+% \section{ACKNOWLEDGMENT}
 
-SK is supported by EPSRC Studentship 2417009.
+% SK is supported by EPSRC Studentship 2417009.
 
-\bibliography{pyexafmm}
-\bibliographystyle{ieeetr}
+% \bibliography{pyexafmm}
+% \bibliographystyle{ieeetr}
 
-\begin{IEEEbiography}{Srinath Kailasa}{\,}is a Graduate Student at University College London, currently pursuing a PhD in Computational Mathematics. He received an MPhys in Physics (2017) and an MSc in Scientific Computing (2020) from the University of Durham, and University College London respectively, interspersed with time as a Software Engineer in industry. His research interests are in high-performance and scientific computing. Contact him at srinath.kailasa.18@ucl.ac.uk.
-\end{IEEEbiography}
+% \begin{IEEEbiography}{Srinath Kailasa}{\,}is a Graduate Student at University College London, currently pursuing a PhD in Computational Mathematics. He received an MPhys in Physics (2017) and an MSc in Scientific Computing (2020) from the University of Durham, and University College London respectively, interspersed with time as a Software Engineer in industry. His research interests are in high-performance and scientific computing. Contact him at srinath.kailasa.18@ucl.ac.uk.
+% \end{IEEEbiography}
 
-\begin{IEEEbiography}{Timo Betcke}{\,}is Professor of Computational Mathematics at University College London. Is the lead investigator of the Bempp project, an open-source boundary element library. He studied Engineering in Germany as Undergraduate and then completed a PhD in Oxford in Numerical Analysis. From 2005 to 2006 he had various research positions until he became a Lecturer at UCL in 2011. Since 2018 he is a full Professor in the Department of Mathematics at UCL. Contact him at t.betcke@ucl.ac.uk.
-\end{IEEEbiography}
+% \begin{IEEEbiography}{Timo Betcke}{\,}is Professor of Computational Mathematics at University College London. Is the lead investigator of the Bempp project, an open-source boundary element library. He studied Engineering in Germany as Undergraduate and then completed a PhD in Oxford in Numerical Analysis. From 2005 to 2006 he had various research positions until he became a Lecturer at UCL in 2011. Since 2018 he is a full Professor in the Department of Mathematics at UCL. Contact him at t.betcke@ucl.ac.uk.
+% \end{IEEEbiography}
 
-\begin{IEEEbiography}{Tingyu Wang}{\,}is a PhD student in Mechanical Engineering at the George Washington University. Contact him at twang66@email.gwu.edu.
-\end{IEEEbiography}
+% \begin{IEEEbiography}{Tingyu Wang}{\,}is a PhD student in Mechanical Engineering at the George Washington University. Contact him at twang66@email.gwu.edu.
+% \end{IEEEbiography}
 
-\begin{IEEEbiography}{Lorena. A. Barba}{\,}is a Professor of Mechanical and Aerospace Engineering at the George Washington University.  Contact her at labarba@email.gwu.edu.
-\end{IEEEbiography}
+% \begin{IEEEbiography}{Lorena. A. Barba}{\,}is a Professor of Mechanical and Aerospace Engineering at the George Washington University.  Contact her at labarba@email.gwu.edu.
+% \end{IEEEbiography}
 
 \end{document}
 
