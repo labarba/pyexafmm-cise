@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.5.4)  10 AUG 2021 14:34
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.5.4)  10 AUG 2021 16:07
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -454,40 +454,16 @@ Overfull \hbox (18.0pt too wide) has occurred while \output is active
  []
 
 [3]
-<figures/tree.pdf, id=92, 462.81323pt x 342.19693pt>
+<figures/tree.pdf, id=108, 462.81323pt x 342.19693pt>
 File: figures/tree.pdf Graphic file (type pdf)
 <use figures/tree.pdf>
 Package pdftex.def Info: figures/tree.pdf  used on input line 113.
 (pdftex.def)             Requested size: 462.81209pt x 342.19608pt.
-<figures/operators.pdf, id=93, 431.86136pt x 241.44012pt>
+<figures/operators.pdf, id=109, 431.86136pt x 241.44012pt>
 File: figures/operators.pdf Graphic file (type pdf)
 <use figures/operators.pdf>
 Package pdftex.def Info: figures/operators.pdf  used on input line 119.
 (pdftex.def)             Requested size: 431.86029pt x 241.43953pt.
-<figures/operator_runtimes.pdf, id=94, 235.61739pt x 165.2823pt>
-File: figures/operator_runtimes.pdf Graphic file (type pdf)
-<use figures/operator_runtimes.pdf>
-Package pdftex.def Info: figures/operator_runtimes.pdf  used on input line 126.
-(pdftex.def)             Requested size: 235.61679pt x 165.28188pt.
-LaTeX Font Info:    Calculating math sizes for size <8.5> on input line 151.
-
-Overfull \hbox (27.21957pt too wide) in paragraph at lines 152--175
- [][] 
- []
-
-<figures/software.pdf, id=97, 410.81348pt x 183.60562pt>
-File: figures/software.pdf Graphic file (type pdf)
-<use figures/software.pdf>
-Package pdftex.def Info: figures/software.pdf  used on input line 179.
-(pdftex.def)             Requested size: 410.81247pt x 183.60516pt.
-
-Underfull \hbox (badness 2443) in paragraph at lines 195--196
-[]\OT1/ptm/m/n/10.53937 SK is sup-ported by EP-SRC Stu-dentship
- []
-
-(/home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.bbl
-LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <8> not available
-(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 5.
 
 Overfull \vbox (7.9474pt too high) has occurred while \output is active []
 
@@ -495,6 +471,24 @@ Overfull \vbox (7.9474pt too high) has occurred while \output is active []
 Overfull \vbox (6.27187pt too high) has occurred while \output is active []
 
  [4]
+Underfull \hbox (badness 1715) in paragraph at lines 137--138
+[]\OT1/ptm/m/n/10.53937 - (3) Op-er-a-tor and tree pre-com-pu-ta-tions.
+ []
+
+
+Underfull \hbox (badness 1389) in paragraph at lines 137--138
+\OT1/ptm/m/n/10.53937 Tech-nol-ogy used (HDF5). User con-fig-u-ra-tion
+ []
+
+
+Underfull \vbox (badness 3557) has occurred while \output is active []
+
+<figures/software.pdf, id=125, 410.81348pt x 183.60562pt>
+File: figures/software.pdf Graphic file (type pdf)
+<use figures/software.pdf>
+Package pdftex.def Info: figures/software.pdf  used on input line 144.
+(pdftex.def)             Requested size: 410.81247pt x 183.60516pt.
+
 Overfull \vbox (5.97588pt too high) has occurred while \output is active []
 
 
@@ -502,18 +496,38 @@ Overfull \hbox (18.0pt too wide) has occurred while \output is active
 | [] 
  []
 
-[5 </home/sri/Documents/Papers/pyexafmm-cise/article/figures/tree.pdf>])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 212.
-
+[5 </home/sri/Documents/Papers/pyexafmm-cise/article/figures/tree.pdf>]
 Overfull \vbox (7.9474pt too high) has occurred while \output is active []
 
 
 Overfull \vbox (6.27187pt too high) has occurred while \output is active []
 
- [6 </home/sri/Documents/Papers/pyexafmm-cise/article/figures/operators.pdf> </home/sri/Documents/Papers/pyexafmm-cise/article/figures/operator_runtimes.pdf
+ [6 </home/sri/Documents/Papers/pyexafmm-cise/article/figures/operators.pdf> </home/sri/Documents/Papers/pyexafmm-cise/article/figures/software.pdf
 
-pdfTeX warning: pdflatex (file /home/sri/Documents/Papers/pyexafmm-cise/article/figures/operator_runtimes.pdf): PDF inclusion: multiple pdfs with page group included in a single page
+pdfTeX warning: pdflatex (file /home/sri/Documents/Papers/pyexafmm-cise/article/figures/software.pdf): PDF inclusion: multiple pdfs with page group included in a single page
 >]
+<figures/operator_runtimes.pdf, id=6428, 235.61739pt x 165.2823pt>
+File: figures/operator_runtimes.pdf Graphic file (type pdf)
+<use figures/operator_runtimes.pdf>
+Package pdftex.def Info: figures/operator_runtimes.pdf  used on input line 168.
+(pdftex.def)             Requested size: 235.61679pt x 165.28188pt.
+LaTeX Font Info:    Calculating math sizes for size <8.5> on input line 175.
+
+Overfull \hbox (27.21957pt too wide) in paragraph at lines 176--199
+ [][] 
+ []
+
+
+Underfull \hbox (badness 2443) in paragraph at lines 214--215
+[]\OT1/ptm/m/n/10.53937 SK is sup-ported by EP-SRC Stu-dentship
+ []
+
+(/home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.bbl
+LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <8> not available
+(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 5.
+)
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 231.
+
 Overfull \vbox (5.97588pt too high) has occurred while \output is active []
 
 
@@ -521,30 +535,36 @@ Overfull \hbox (18.0pt too wide) has occurred while \output is active
 | [] 
  []
 
-[7 </home/sri/Documents/Papers/pyexafmm-cise/article/figures/software.pdf>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 212.
+[7 </home/sri/Documents/Papers/pyexafmm-cise/article/figures/operator_runtimes.pdf>]
+Overfull \vbox (7.9474pt too high) has occurred while \output is active []
+
+
+Overfull \vbox (6.27187pt too high) has occurred while \output is active []
+
+ [8]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 231.
  (/home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 212.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 212.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 231.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 231.
 Package rerunfilecheck Info: File `pyexafmm.out' has not changed.
-(rerunfilecheck)             Checksum: 4FC6327BC7DB0042E62E3F0EC74B682F;558.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 212.
+(rerunfilecheck)             Checksum: BBE5A35050826E390F3247A3340BD205;849.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 231.
  ) 
 Here is how much of TeX's memory you used:
- 7613 strings out of 481239
- 115144 string characters out of 5920378
- 389006 words of memory out of 5000000
- 22675 multiletter control sequences out of 15000+600000
- 603115 words of font info for 160 fonts, out of 8000000 for 9000
+ 7624 strings out of 481239
+ 115258 string characters out of 5920378
+ 384006 words of memory out of 5000000
+ 22680 multiletter control sequences out of 15000+600000
+ 604875 words of font info for 162 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 38i,9n,31p,2000b,466s stack positions out of 5000i,500n,10000p,200000b,80000s
-pdfTeX warning (dest): name{section*.4} has been referenced but does not exist, replaced by a fixed one
+ 38i,9n,31p,2000b,331s stack positions out of 5000i,500n,10000p,200000b,80000s
+pdfTeX warning (dest): name{section*.8} has been referenced but does not exist, replaced by a fixed one
 
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvbo8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on /home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.pdf (7 pages, 1184243 bytes).
+Output written on /home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.pdf (8 pages, 1187183 bytes).
 PDF statistics:
- 6525 PDF objects out of 7423 (max. 8388607)
- 4356 compressed objects within 44 object streams
- 34 named destinations out of 1000 (max. 500000)
- 93 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 6548 PDF objects out of 7423 (max. 8388607)
+ 4378 compressed objects within 44 object streams
+ 39 named destinations out of 1000 (max. 500000)
+ 125 words of extra memory for PDF output out of 10000 (max. 10000000)
 
