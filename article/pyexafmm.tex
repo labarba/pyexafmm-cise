@@ -71,11 +71,11 @@ where $K(., .)$ is called the `kernel' or Green's function, and the interactions
 	K(x, y) = \frac{1}{4\pi|x-y|}
 \end{flalign}
 
-we recognize (\ref{eq:n_body_problem}) as the calculation of the electrostatic potential $\phi_j$ at $y_j$ due to source particles at positions $x_j$. Without loss of generality, we can consider the sources and targets to correspond to the same set of particles, we take this as our benchmark problem. A naive calculation of (\ref{eq:n_body_problem}) at $N$ target positions results in an algorithm of $\mathcal{O}(N^2)$ runtime. The FMM is able to approximate this in $\mathcal{O}(N)$, with proscribed error bounds. It works by partitioning $D$ using a hierarchical tree. Level $0$ of the tree corresponds to a cube containing all source and target particles, it is then recursively partitioned into $8^l$ cubes where $l$ is a given level. The maximum level $l$, or \textit{leaf level}, of partitioning in a subset of $D$ is set by a user defined constant for the maximum number of particles allowed in a given tree node. Refinement proceeds until this condition is satisfied. Optionally, the domain can be refined in a \textit{non-uniform} manner such that the leaf level consists of boxes of different sizes, reflecting non-uniform particle distributions. Figure (\ref{fig:algorithm}b) illustrates the relationship between a given leaf box $T$ and its neighbors, termed \textit{interaction lists}, for a non-uniform tree in $\mathbb{R}^2$. The $U$ list consists boxes adjacent to $T$ - i.e. sharing an edge or vertex (or face in $\mathbb{R}^3$), known as its \textit{neighbors}. Neighbors at the same level of discretization are known as \textit{colleagues}.  The $V$ list consists of child boxes of the colleagues of $T$'s parent box, which are not-adjacent to $T$. The $W$ list consists of child boxes of $T$'s colleagues, which are not-adjacent to $T$, and the $X$ list consists of boxes for which $T$ is in the $W$ list. The $X$ and $W$ lists only occur in non-uniform trees, are only formed for leaf boxes.
+we recognize (\ref{eq:n_body_problem}) as the calculation of the electrostatic potential $\phi_j$ at $y_j$ due to source particles at positions $x_j$. Without loss of generality, we can consider the sources and targets to correspond to the same set of particles, we take this as our benchmark problem. A naive calculation of (\ref{eq:n_body_problem}) at $N$ target positions results in an algorithm of $\mathcal{O}(N^2)$ runtime. The FMM is able to approximate this in $\mathcal{O}(N)$, with proscribed error bounds. It works by partitioning $D$ using a hierarchical tree. Level $0$ of the tree corresponds to a cubic box containing all source and target particles, it is then recursively partitioned into $8^l$ boxes where $l$ is a given level. The maximum level $l$, or \textit{leaf level}, of partitioning in a subset of $D$ is set by a user defined constant for the maximum number of particles allowed in a given tree node. Refinement proceeds until this condition is satisfied. Optionally, the domain can be refined in a \textit{non-uniform} manner such that the leaf level consists of boxes of different sizes, reflecting non-uniform particle distributions. Figure (\ref{fig:algorithm}b) illustrates the relationship between a given leaf box $T$ and its neighbors, termed \textit{interaction lists}, for a non-uniform tree in $\mathbb{R}^2$. The $U$ list consists boxes adjacent to $T$ - i.e. sharing an edge or vertex (or face in $\mathbb{R}^3$), known as its \textit{neighbors}. Neighbors at the same level of discretization are known as \textit{colleagues}.  The $V$ list consists of child boxes of the colleagues of $T$'s parent box, which are not-adjacent to $T$. The $W$ list consists of child boxes of $T$'s colleagues, which are not-adjacent to $T$, and the $X$ list consists of boxes for which $T$ is in the $W$ list. The $X$ and $W$ lists only occur in non-uniform trees, are only formed for leaf boxes.
 
-The FMM consists of six operators: P2M, M2M, M2L, L2L, L2P and P2P, where a given operator is read as 'X to Y. `P' stands for particle(s), `M' for multipole expansion and `L' for local expansion. The operators can be seen to correspond to translations between expansion representations. A multipole expansion represents the aggregation of charge located within a given box in the tree, where the expansion center is set to coincide with the box center, and can be truncated to an `expansion order', $p$, for tunable accuracy. A multipole expansion can be translated into a local expansion centered on another box, inside of which it is valid, and it represents the aggregation of charge corresponding to the multipole expansion. This is the M2L operator. Similarly the expansion centers of local or multipole expansions can be shifted, which are the L2L and M2L operators respectively. The P2M operator is act of forming a multipole expansion for a set of particles. L2P and P2P refer to direct evaluations using (\ref{eq:n_body_problem}) between local expansion coefficients, or source particles, with a set of target particles, respectively.
+The FMM consists of six operators: P2M, M2M, M2L, L2L, L2P and P2P, where a given operator is read as 'X to Y. `P' stands for particle(s), `M' for multipole expansion and `L' for local expansion. The operators can be seen to correspond to translations between expansion representations. A multipole expansion represents the aggregation of charge located within a given box in the tree, where the expansion center is set to coincide with the box center, and can be truncated to an `expansion order', $p$, for tunable accuracy. A multipole expansion can be translated into a local expansion centered on another box, inside of which it is valid, and it represents the aggregation of charge corresponding to the multipole expansion. This is the M2L operator. Similarly the expansion centers of local or multipole expansions can be shifted, which are the L2L and M2M operators respectively. The P2M operator is act of forming a multipole expansion for a set of particles. L2P and P2P refer to direct evaluations using (\ref{eq:n_body_problem}) between local expansion coefficients, or source particles, with a set of target particles, respectively.
 
-Figure (\ref{fig:algorithm}) illustrates the FMM for a problem in $\mathbb{R}^2$. Figure (\ref{fig:algorithm}a) shows the recursive partition, and the first step of the algorithm - the \textit{upward pass}. The tree is traversed bottom-up, in which multipole expansions are found for boxes at the leaf level (P2M), the centers of which are shifted to the center of the corresponding `parent box' (M2M) and expansion coefficients summed in order to find the parent's multipole expansion. Figure (\ref{fig:algorithm}c) and Figure (\ref{fig:algorithm}d) show the second step - the \textit{downward pass}. The tree is traversed top-down, starting at level $2$. M2L transfers for nodes in a box's $V$ list are performed, followed by L2L transfers. Resulting in the local expansion for each leaf box. These local expansions compress the far field component of potential for targets within a given leaf. The far field is defined by a box and its ancestors' $V$ lists. The near field, defined by the $U$, $W$ and $X$ lists, is evaluated directly for boxes at the leaf level (P2P). For non-uniform trees the P2P step can be made more efficient by taking advantage of the $X$ and $W$ lists. Consider a leaf box $T$, we can use the multipole expansion of boxes in its $W$ list to evaluate their contribution towards potential for target points in $T$ (M2P). For boxes in $T$'s $X$ list, we can evaluate the source charges directly at the points supporting the local expansion (S2L), before performing L2P.
+Figure (\ref{fig:algorithm}) illustrates the FMM for a problem in $\mathbb{R}^2$. Figure (\ref{fig:algorithm}a) shows the recursive partition, and the first step of the algorithm - the \textit{upward pass}. The tree is traversed bottom-up, in which multipole expansions are found for boxes at the leaf level (P2M), the centers of which are shifted to the center of the corresponding `parent box' (M2M) and expansion coefficients summed in order to find the parent's multipole expansion. Figure (\ref{fig:algorithm}c) and Figure (\ref{fig:algorithm}d) show the second step - the \textit{downward pass}. The tree is traversed top-down, starting at level $2$. M2L transfers for nodes in a box's $V$ list are performed, followed by L2L transfers. Resulting in the local expansion for each leaf box. These local expansions compress the far field component of potential for targets within a given leaf, and are evaluated directly at the target particles (L2P). The far field is defined by a box and its ancestors' $V$ lists. The near field, defined by the $U$, $W$ and $X$ lists, is evaluated directly for boxes at the leaf level (P2P). For non-uniform trees the P2P step can be made more efficient by taking advantage of the $X$ and $W$ lists. Consider a leaf box $T$, we can use the multipole expansion of boxes in its $W$ list to evaluate their contribution towards potential for target points in $T$ (M2P). For boxes in $T$'s $X$ list, we can evaluate the source charges directly at the points supporting the local expansion (S2L), before performing L2P.
 
 As we traverse down the tree in the downward pass, more and more of the far field contribution to potential is compressed in the local expansion for a given box. We find this far field component by performing $M2L$ transfers for a given box, over its $V$ list, the size of which is bounded by a constant. Therefore we see the complexity of the FMM to be dictated by the number of nodes in the tree, which due to the maximum particle per node constraint will be restricted to $\mathcal{O}(N)$.
 
@@ -86,7 +86,7 @@ In the KIFMM \cite{Ying2004}, we use evaluations of the kernel function, rather 
 	\label{eq:order}
 \end{flalign}
 
-The sum (\ref{eq:n_body_problem}), for these equivalent charges is matched via least squares fitting to the \textit{check potential} $\phi^c$ calculated from the charges in the box directly at quadrature points on an \textit{check surface} that encloses the equivalent surface and the box. Each component of $\phi^c$, corresponding to a point on the check surface $y_j$, is calculated as,
+The sum (\ref{eq:n_body_problem}), for these equivalent charges is matched via least squares fitting to the \textit{check potential} $\phi^c$ calculated from the charges in the box directly at quadrature points on a \textit{check surface} that encloses the equivalent surface and the box. Each component of $\phi^c$, corresponding to a point on the check surface $y_j$, is calculated as,
 
 \begin{flalign}
 	\phi_{j}^c = \sum_{i=1}^{N_{box}} K(x_i, y_j) q_i
@@ -132,12 +132,14 @@ The matrix on the right hand side of (\ref{eq:p2m}) is taken to be the P2M opera
 
 - (1) Function composition. PyExaFMM consists of (compositions of) simple functions that make use of: bitwise operations, simple arithmetic. Example of Morton encoding functions, and how we don't pay further cost for passing into Numba once already there. Describe how parametrization of operators works in PyExaFMM (i.e. how data is copied to operators and the relative costs involved). Should mention that tree building library is separated from FMM library.
 
+
 - (2) Data oriented programming and API. API exposed via FMM class is a thin wrapper around numpy arrays containing expansion coefficients, potentials/gradients, and particle positions/charges. FMM loop logic is coded in Python, however actual floating point operations take place in numba compiled functions - separated via a `backend' interface. Storage of coefficients and results in vectors. Lookup tables for indices.
 
-- (3) Operator and tree precomputations. Technology used (HDF5). User configuration for experiments. Offer time benchmark for pre-computations wrt to C++.
+- (2') Architecture of library with reference to UML diagram and composition idea. i.e. start of with simple functions, create more complex Numba compiled operator functions, these are then alled from the thin Python layer.
+
+- (3) Operator and tree precomputations. Technology used (HDF5). User configuration for experiments.
 
 - (4) Conciseness of library. Python's expressiveness allows PyExaFMM to be a concise library, consisting of $\sim$3,000 lines of code, in comparison to comparable single-node C++ implementations ExaFMM-T ($\sim$7000 lines) \cite{Wang2021} or TBFMM ($\sim$20,000) \cite{Bramas2020}. This makes it easy for domain specialists to hack for their needs, without having to traverse a large/complex codebase.
-
 
 % Larger figure
 \begin{figure*}
@@ -159,9 +161,11 @@ The matrix on the right hand side of (\ref{eq:p2m}) is taken to be the P2M opera
 
 \section{Benchmarks}
 
+- (0) Mention machine used for computing benchmarks. Offer time benchmark for pre-computations wrt to C++ (trees + operators).
+
 - (1) Mention that C++ lib doesn't do M2L compression, instead does FFT based convolution.
 
-- (1) Comment on fractional runtimes of operators. Relative impact of compression (minimal), and how this shows that the complexity of the two softwares must be similar, and that the difference must be explained due to the Python/Numba interface.
+- (2) Comment on fractional runtimes of operators. Relative impact of compression (minimal), and how this shows that the complexity of the two softwares must be similar, and that the difference must be explained due to the Python/Numba interface.
 
 % Smaller figure
 \begin{figure}
@@ -199,15 +203,16 @@ The matrix on the right hand side of (\ref{eq:p2m}) is taken to be the P2M opera
  \end{table*}
 
 
+\section{CONCLUSION}
 
+- Numba constraints software design, and has its own learning curve. Not simple to just drop in and expect performance boost.
 
-% \section{PERFORMANCE}
-% foo
+- Performance debugging for more complex applications requires more knowledge than novice users can be expected to have.
 
+- Numba doesn't help much if there are big interpreter related costs (using large Numpy arrays) which add a large constant to runtime complexity.
 
-% \section{CONCLUSION}
+- Numba is clearly insufficient for more complex HPC applications, however performance is still fairly remarkable. Not to mention other benefits of Numba (rapid prototyping with Python, cross-platform builds, GPU development etc.)
 
-% foo
 
 \section{ACKNOWLEDGMENT}
 
