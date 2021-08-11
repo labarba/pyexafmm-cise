@@ -1,14 +1,16 @@
 \BOOKMARK [1][-]{section*.1}{THE FAST MULTIPOLE METHOD}{}% 1
 \BOOKMARK [1][-]{section*.2}{TECHNIQUES FOR ACHIEVING PERFORMANCE}{}% 2
-\BOOKMARK [2][-]{section*.3}{Compressing M2L Operator with SVD}{section*.2}% 3
-\BOOKMARK [2][-]{section*.4}{Software Design}{section*.2}% 4
-\BOOKMARK [2][-]{section*.5}{Parallelization Strategies for FMM operators}{section*.2}% 5
-\BOOKMARK [1][-]{section*.6}{Benchmarks}{}% 6
-\BOOKMARK [1][-]{section*.7}{CONCLUSION}{}% 7
-\BOOKMARK [1][-]{section*.8}{ACKNOWLEDGMENT}{}% 8
-\BOOKMARK [1][-]{section*.9}{REFERENCES}{}% 9
-\BOOKMARK [1][-]{IEEEbiography.0}{Biographies}{}% 10
-\BOOKMARK [2][-]{IEEEbiography.1}{Srinath Kailasa}{IEEEbiography.0}% 11
-\BOOKMARK [2][-]{IEEEbiography.2}{Tingyu Wang}{IEEEbiography.0}% 12
-\BOOKMARK [2][-]{IEEEbiography.3}{Lorena. A. Barba}{IEEEbiography.0}% 13
-\BOOKMARK [2][-]{IEEEbiography.4}{Timo Betcke}{IEEEbiography.0}% 14
+\BOOKMARK [2][-]{section*.3}{Compressing the M2L Operator with SVD}{section*.2}% 3
+\BOOKMARK [2][-]{section*.4}{Efficiently Representing the Tree}{section*.2}% 4
+\BOOKMARK [2][-]{section*.5}{Precomputing FMM Operators}{section*.2}% 5
+\BOOKMARK [2][-]{section*.6}{Software Design}{section*.2}% 6
+\BOOKMARK [2][-]{section*.7}{Parallelization Strategies for FMM operators}{section*.2}% 7
+\BOOKMARK [1][-]{section*.8}{Benchmarks}{}% 8
+\BOOKMARK [1][-]{section*.9}{CONCLUSION}{}% 9
+\BOOKMARK [1][-]{section*.10}{ACKNOWLEDGMENT}{}% 10
+\BOOKMARK [1][-]{section*.11}{REFERENCES}{}% 11
+\BOOKMARK [1][-]{IEEEbiography.0}{Biographies}{}% 12
+\BOOKMARK [2][-]{IEEEbiography.1}{Srinath Kailasa}{IEEEbiography.0}% 13
+\BOOKMARK [2][-]{IEEEbiography.2}{Tingyu Wang}{IEEEbiography.0}% 14
+\BOOKMARK [2][-]{IEEEbiography.3}{Lorena. A. Barba}{IEEEbiography.0}% 15
+\BOOKMARK [2][-]{IEEEbiography.4}{Timo Betcke}{IEEEbiography.0}% 16
