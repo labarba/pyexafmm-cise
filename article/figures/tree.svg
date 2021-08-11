@@ -23,9 +23,9 @@
      inkscape:pagecheckerboard="0"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="1.4095277"
-     inkscape:cx="185.52314"
-     inkscape:cy="200.42175"
+     inkscape:zoom="1.9933731"
+     inkscape:cx="337.86951"
+     inkscape:cy="275.16173"
      inkscape:window-width="1920"
      inkscape:window-height="1043"
      inkscape:window-x="0"
@@ -6075,7 +6075,7 @@
     <g
        inkscape:label="Layer 1"
        id="layer1-5"
-       transform="matrix(0.83835521,0,0,0.83835521,139.97974,233.67559)">
+       transform="matrix(0.83835521,0,0,0.83835521,193.71569,234.29832)">
       <rect
          style="fill:none;fill-opacity:0.760784;stroke:#000000;stroke-width:0.120931;stroke-miterlimit:4;stroke-dasharray:none"
          id="rect935"
@@ -16226,7 +16226,7 @@
          style="stroke-width:0.200435">P2P</tspan></text>
     <g
        id="g38125"
-       transform="translate(143.17174,242.31576)">
+       transform="matrix(-0.85678307,0.51567699,0.51567699,0.85678307,253.51321,211.57166)">
       <path
          style="fill:#666666;fill-opacity:1;stroke:none;stroke-width:0.037085;stroke-miterlimit:4.8;stroke-dasharray:none;stroke-opacity:1"
          id="path38117"
@@ -16261,56 +16261,71 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.11667px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.200435"
-       x="163.1292"
-       y="304.07605"
+       x="215.40063"
+       y="305.22263"
        id="text38289"><tspan
          sodipodi:role="line"
          id="tspan38287"
-         x="163.1292"
-         y="304.07605"
-         style="font-size:2.11667px">(b) Potentially Non-Uniform Leaf Level</tspan></text>
+         x="215.40063"
+         y="305.22263"
+         style="font-size:2.11667px">(b) Optionally Non-Uniform Leaf Partition</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.11667px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.200435"
        x="160.74803"
-       y="253.04051"
+       y="252.45805"
        id="text46297"><tspan
          sodipodi:role="line"
          id="tspan46295"
          x="160.74803"
-         y="253.04051"
+         y="252.45805"
          style="font-size:2.11667px">(a) Recursive Partitioning and Upward Pass -</tspan><tspan
          sodipodi:role="line"
          x="160.74803"
-         y="255.68636"
+         y="255.1039"
          style="font-size:2.11667px"
          id="tspan97466">P2M and M2M Transfers</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.11667px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.200435"
-       x="218.93532"
-       y="253.04051"
+       x="214.48335"
+       y="249.60706"
        id="text60423"><tspan
          sodipodi:role="line"
-         id="tspan60421"
-         x="218.93532"
-         y="253.04051"
-         style="font-size:2.11667px">(c) Downward Pass - M2L Transfers</tspan></text>
+         x="214.48335"
+         y="249.60706"
+         style="font-size:2.11667px"
+         id="tspan145318">(c) Downward Pass - M2L Transfers</tspan><tspan
+         sodipodi:role="line"
+         x="214.48335"
+         y="252.2529"
+         style="font-size:2.11667px"
+         id="tspan145322">Highlighted Boxes Correspond to Target Box</tspan><tspan
+         sodipodi:role="line"
+         x="214.48335"
+         y="254.89873"
+         style="font-size:2.11667px"
+         id="tspan151810">and its V List. Red Boxes Already Encapsulated </tspan><tspan
+         sodipodi:role="line"
+         x="214.48335"
+         y="257.54456"
+         style="font-size:2.11667px"
+         id="tspan145324">in  Local Expansion </tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.11667px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.200435"
        x="270.33188"
-       y="253.04051"
+       y="252.45805"
        id="text85578"><tspan
          sodipodi:role="line"
          x="270.33188"
-         y="253.04051"
+         y="252.45805"
          style="font-size:2.11667px"
          id="tspan86502">(d) Downward Pass - L2L Transfers </tspan><tspan
          sodipodi:role="line"
          x="270.33188"
-         y="255.68636"
+         y="255.1039"
          style="font-size:2.11667px"
-         id="tspan86506">and Evaluation at Leaves</tspan></text>
+         id="tspan86506">and Near-Field Evaluation at Leaves</tspan></text>
   </g>
 </svg>
