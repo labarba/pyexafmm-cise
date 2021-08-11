@@ -67,8 +67,8 @@ The particle FMM \cite{Greengard1987} is an algorithm for approximating the $N$-
 where $K(., .)$ is called the `kernel' or Green's function, and the interactions are weighted by $q_i$. This calculation appears in numerous contexts across science and engineering. For example, if we interpret $q_i$ as a charge, and take the Green's function to be,
 
 \begin{flalign}
-	\label{eq:laplace_kernel}
 	K(x, y) = \frac{1}{4\pi|x-y|}
+	\label{eq:laplace_kernel}
 \end{flalign}
 
 we recognize (\ref{eq:n_body_problem}) as the calculation of the electrostatic potential $\phi_j$ at $y_j$ due to source particles at positions $x_i$ with charges $q_i$. Without loss of generality we can consider the sources and targets to correspond to the same set of particles, we take this as our benchmark problem. A naive calculation of (\ref{eq:n_body_problem}) at $N$ target positions results in an algorithm of $\mathcal{O}(N^2)$ runtime. The FMM is able to approximate this in $\mathcal{O}(N)$, with proscribed error bounds. It works by partitioning $D$ using a hierarchical tree. Level $0$ of the tree corresponds to a cubic box containing all source and target particles, it is then recursively partitioned into $8^l$ boxes where $l$ is a given level. The maximum level $l$, or \textit{leaf level}, of partitioning in a subset of $D$ is set by a user defined constant for the maximum number of particles allowed in a given tree node. Refinement proceeds until this condition is satisfied. Optionally, the domain can be refined in a \textit{non-uniform} manner such that the leaf level consists of boxes of different sizes, reflecting non-uniform particle distributions. Figure (\ref{fig:algorithm}b) illustrates the relationship between a given leaf box $T$ and its neighbors, termed \textit{interaction lists}, for a non-uniform tree in $\mathbb{R}^2$. The $U$ list consists boxes adjacent to $T$ - i.e. sharing an edge or vertex (or face in $\mathbb{R}^3$), known as its \textit{neighbors}. Neighbors at the same level of discretization are known as \textit{colleagues}.  The $V$ list consists of child boxes of the colleagues of $T$'s parent box, which are not-adjacent to $T$. The $W$ list consists of child boxes of $T$'s colleagues, which are not-adjacent to $T$, and the $X$ list consists of boxes for which $T$ is in the $W$ list. The $X$ and $W$ lists only occur in non-uniform trees, are only formed for leaf boxes.
@@ -124,9 +124,36 @@ The matrix on the right hand side of (\ref{eq:p2m}) is taken to be the P2M opera
 
 \section{TECHNIQUES FOR ACHIEVING PERFORMANCE}
 
-\subsection{Compressing M2L Operator with Randomized SVD}
+\subsection{Compressing M2L Operator with SVD}
 
-- Introduce randomized compression in 500 words. Demonstrate by applying directly to M2L matrix, rather than a formal intro due to space constraints.
+The maximum size of a $V$ list in three dimensions is 189. Therefore naively forming M2L matrices, and performing inversions for each box during the downward pass is costly. Instead, we label each unique $V$ list interaction at a given tree level with a \textit{transfer vector} \cite{Fong2009}. Note that there are at most $7^3-3^3=316$ transfer vectors at a given level. As usual we seek the equivalent charge around a target box due to a source box in its $V$ list, by matching the kernel evaluations at a check surface enclosing the target box and its equivalent surface,
+
+\begin{flalign}
+	K^{se2tc} q^s_e = K^{te2tc} q^t_e
+\end{flalign}
+
+where $K^{se2tc}$ is the matrix with elements calculated using (\ref{eq:laplace_kernel}), between the source box's equivalent surface, and a target box's check surface, $K^{te2tc}$ is calculated using the target box's equivalent and check surfaces, $q^s_e$ is the known equivalent charge at the source box, and $q^t_e$ is unknown. We form the M2L matrix by inverting $K^{te2tc}$,
+
+\begin{flalign}
+	q^t_e = \underbrace{(K^{te2tc})^{-1} K^{se2tc}}_{M2L} q^s_e
+\end{flalign}
+
+We can form an M2L matrix at level $l$, for source boxes corresponding to all unique transfer vectors for a single target box, and concatenate them,
+
+\begin{flalign}
+	M2L_{l} = \begin{pmatrix}
+M2L_1 & M2L_2 & ... &  M2L_{316}
+\label{eq:concatenated_m2l}
+\end{pmatrix}
+\end{flalign}
+
+Note that $M2L_l \in \mathbb{R}^{N_c \times 316N_e}$, where $N_c$ and $N_e$ are the number of quadrature points on the check and equivalent surfaces, respectively. When we encounter an M2L interaction during the downward pass, we simply compute the corresponding transfer vector and lookup the sub-matrix of (\ref{eq:concatenated_m2l}), which can be pre-computed and cached, that corresponds to its M2L matrix. PyExaFMM reduces the application and storage costs of concatenated M2L matrices for a given level further by applying \textit{SVD compression} to (\ref{eq:concatenated_m2l}). Consider taking the SVD of $M2L_l$
+
+\begin{flalign}
+	M2L_l = \sum_{j=1}^r \sigma_ju_jv_j^T
+\end{flalign}
+
+where $r=\text{rank}(M2L_l) = N_c$ is the row rank, $u_j$ and $v_j$ are the left and right singular vectors respectively, and the singular values $\sigma_j$ are arranged in weakly decreasing order. We can cutoff this sum at a \textit{compression rank} $k \leq N_c$ to approximate $M2L_l$. PyExaFMM implements the \textit{randomized SVD} of Halko et. al \cite{Halko2011}. The algorithm can be decomposed into a series of matrix vector products, optimized by BLAS, making it fast to compute.
 
 \subsection{Software Design}
 
@@ -147,7 +174,6 @@ The matrix on the right hand side of (\ref{eq:p2m}) is taken to be the P2M opera
 	\caption{Simplified UML model of all PyExaFMM components. Trees and operators are precomputed and stored in the HDF5 database. Except for the `Fmm' object which acts as the user interface, all other components are modules consisting of simple functions.}
 	\label{fig:design}
 \end{figure*}
-
 
 \subsection{Parallelization Strategies for FMM operators}
 

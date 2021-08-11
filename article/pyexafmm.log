@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.5.4)  11 AUG 2021 09:52
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.5.4)  11 AUG 2021 10:44
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -479,14 +479,6 @@ Overfull \vbox (7.9474pt too high) has occurred while \output is active []
 Overfull \vbox (6.27187pt too high) has occurred while \output is active []
 
  [4]
-Underfull \vbox (badness 3557) has occurred while \output is active []
-
-<figures/software.pdf, id=131, 410.81348pt x 183.60562pt>
-File: figures/software.pdf Graphic file (type pdf)
-<use figures/software.pdf>
-Package pdftex.def Info: figures/software.pdf  used on input line 146.
-(pdftex.def)             Requested size: 410.81247pt x 183.60516pt.
-
 Overfull \vbox (5.97588pt too high) has occurred while \output is active []
 
 
@@ -495,28 +487,45 @@ Overfull \hbox (18.0pt too wide) has occurred while \output is active
  []
 
 [5 </home/sri/Documents/Papers/pyexafmm-cise/article/figures/tree.pdf>]
+<figures/software.pdf, id=6291, 410.81348pt x 183.60562pt>
+File: figures/software.pdf Graphic file (type pdf)
+<use figures/software.pdf>
+Package pdftex.def Info: figures/software.pdf  used on input line 173.
+(pdftex.def)             Requested size: 410.81247pt x 183.60516pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
 Overfull \vbox (7.9474pt too high) has occurred while \output is active []
 
 
 Overfull \vbox (6.27187pt too high) has occurred while \output is active []
 
- [6 </home/sri/Documents/Papers/pyexafmm-cise/article/figures/operators.pdf> </home/sri/Documents/Papers/pyexafmm-cise/article/figures/software.pdf
-
-pdfTeX warning: pdflatex (file /home/sri/Documents/Papers/pyexafmm-cise/article/figures/software.pdf): PDF inclusion: multiple pdfs with page group included in a single page
->]
-<figures/operator_runtimes.pdf, id=6434, 235.61739pt x 165.2823pt>
+ [6 </home/sri/Documents/Papers/pyexafmm-cise/article/figures/operators.pdf>]
+<figures/operator_runtimes.pdf, id=6431, 235.61739pt x 165.2823pt>
 File: figures/operator_runtimes.pdf Graphic file (type pdf)
 <use figures/operator_runtimes.pdf>
-Package pdftex.def Info: figures/operator_runtimes.pdf  used on input line 172.
+Package pdftex.def Info: figures/operator_runtimes.pdf  used on input line 198.
 (pdftex.def)             Requested size: 235.61679pt x 165.28188pt.
-LaTeX Font Info:    Calculating math sizes for size <8.5> on input line 179.
+LaTeX Font Info:    Calculating math sizes for size <8.5> on input line 205.
 
-Overfull \hbox (27.21957pt too wide) in paragraph at lines 180--203
+Overfull \hbox (27.21957pt too wide) in paragraph at lines 206--229
  [][] 
  []
 
 
-Underfull \hbox (badness 2443) in paragraph at lines 219--220
+Overfull \vbox (5.97588pt too high) has occurred while \output is active []
+
+
+Overfull \hbox (18.0pt too wide) has occurred while \output is active
+| [] 
+ []
+
+[7 </home/sri/Documents/Papers/pyexafmm-cise/article/figures/software.pdf> </home/sri/Documents/Papers/pyexafmm-cise/article/figures/operator_runtimes.pdf
+
+pdfTeX warning: pdflatex (file /home/sri/Documents/Papers/pyexafmm-cise/article/figures/operator_runtimes.pdf): PDF inclusion: multiple pdfs with page group included in a single page
+>]
+Underfull \hbox (badness 2443) in paragraph at lines 245--246
 []\OT1/ptm/m/n/10.53937 SK is sup-ported by EP-SRC Stu-dentship
  []
 
@@ -529,47 +538,37 @@ Underfull \hbox (badness 2080) in paragraph at lines 18--21
  []
 
 )
-Overfull \vbox (5.97588pt too high) has occurred while \output is active []
-
-
-Overfull \hbox (18.0pt too wide) has occurred while \output is active
-| [] 
- []
-
-[7 </home/sri/Documents/Papers/pyexafmm-cise/article/figures/operator_runtimes.pdf>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 236.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 262.
 
 Overfull \vbox (7.9474pt too high) has occurred while \output is active []
 
 
 Overfull \vbox (6.27187pt too high) has occurred while \output is active []
 
- [8
-
-]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 236.
+ [8]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 262.
  (/home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 236.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 236.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 262.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 262.
 Package rerunfilecheck Info: File `pyexafmm.out' has not changed.
-(rerunfilecheck)             Checksum: 5932484259CDEDBFBCB210F50D604103;896.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 236.
+(rerunfilecheck)             Checksum: 87A30640EE53E621ED24684C4F9C375F;885.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 262.
  ) 
 Here is how much of TeX's memory you used:
- 7628 strings out of 481239
- 115311 string characters out of 5920378
- 385040 words of memory out of 5000000
- 22682 multiletter control sequences out of 15000+600000
- 604875 words of font info for 162 fonts, out of 8000000 for 9000
+ 7638 strings out of 481239
+ 115449 string characters out of 5920378
+ 384162 words of memory out of 5000000
+ 22686 multiletter control sequences out of 15000+600000
+ 605382 words of font info for 163 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 38i,10n,31p,2023b,397s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,15n,31p,2023b,322s stack positions out of 5000i,500n,10000p,200000b,80000s
 pdfTeX warning (dest): name{section*.9} has been referenced but does not exist, replaced by a fixed one
 
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvbo8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on /home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.pdf (8 pages, 1188878 bytes).
+Output written on /home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.pdf (8 pages, 1197086 bytes).
 PDF statistics:
- 6554 PDF objects out of 7423 (max. 8388607)
- 4384 compressed objects within 44 object streams
- 41 named destinations out of 1000 (max. 500000)
+ 6566 PDF objects out of 7423 (max. 8388607)
+ 4396 compressed objects within 44 object streams
+ 47 named destinations out of 1000 (max. 500000)
  133 words of extra memory for PDF output out of 10000 (max. 10000000)
 

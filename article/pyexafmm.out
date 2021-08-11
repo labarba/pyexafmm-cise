@@ -1,6 +1,6 @@
 \BOOKMARK [1][-]{section*.1}{THE FAST MULTIPOLE METHOD}{}% 1
 \BOOKMARK [1][-]{section*.2}{TECHNIQUES FOR ACHIEVING PERFORMANCE}{}% 2
-\BOOKMARK [2][-]{section*.3}{Compressing M2L Operator with Randomized SVD}{section*.2}% 3
+\BOOKMARK [2][-]{section*.3}{Compressing M2L Operator with SVD}{section*.2}% 3
 \BOOKMARK [2][-]{section*.4}{Software Design}{section*.2}% 4
 \BOOKMARK [2][-]{section*.5}{Parallelization Strategies for FMM operators}{section*.2}% 5
 \BOOKMARK [1][-]{section*.6}{Benchmarks}{}% 6
