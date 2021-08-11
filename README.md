@@ -4,7 +4,6 @@
 
 - I want to introduce Numba as a tool for HPC with Python for more complex algorithms. FMM is a good benchmark, with a;
     - Recursive data structure
-    - Large numbers of floating point operations (number crunching)
     - Lots of linear algebra operations (SVD, MatMul etc), which Numba optimizes for.
 
 - I want to demonstrate that it's ok, but not great
@@ -96,6 +95,7 @@ I want to explain:
 Benchmarks:
     - Tree construction
     - Operator precomputation
+    - Morton operations (need to show that algebraic operations are very fast to compute)
 
 Figures:
 
@@ -110,7 +110,6 @@ Figures:
 
 - Re-add the loop figure
     - Cut down words introducing FMM
-
 
 
 # Notes
