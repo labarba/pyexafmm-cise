@@ -1,14 +1,15 @@
 {
-    "experiment": "test_random",
-    "npoints": 1000000,
+    "experiment": "compile",
+    "npoints": 10000,
     "data_type": "random",
-    "order_equivalent": 4,
-    "order_check": 4,
+    "order_equivalent": 10,
+    "order_check": 10,
     "kernel": "laplace",
     "backend": "numba",
     "alpha_inner": 1.05,
     "alpha_outer": 2.9,
     "max_level": 10,
     "max_points": 150,
-    "target_rank": 50
+    "target_rank": 50,
+    "precision": "double"
 }
