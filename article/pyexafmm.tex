@@ -210,7 +210,7 @@ Numba has a large impact on functions that use simple instructions, for example 
 
 Table (\ref{tab:performance}) illustrates the accuracy, peak memory consumption and runtime of PyExaFMM with respect to ExaFMM-T. Experiments are run for 1,000,000 source and target particles distributed in two geometries: distributed randomly in a cubic unit box, and distributed randomly on the surface of a sphere with unit radius, and a constraint of at most 150 particles per leaf box. We observe similar errors and memory usage between the two softwares, runtime increases as a function of expansion order $p$ and compression parameter $k$, and is approximately $\mathcal{O}(10)$ slower in PyExaFMM.
 
-From figure (\ref{fig:operator_runtimes}) we see that for similar expansion orders the operator implementations for both softwares take similar fractions of total runtime. This implies that PyExaFMM shares a similar computational complexity with ExaFMM-T, and that there must be a large constant added to runtime, due to Python related overhead. PyExaFMM is run in two regimes: low $k$ and high $k$, to test the impact of compression parameter on the composition of fractional runtimes. We observe that it leads to significant increase in the fraction dedicated to the M2L operator, from 80\% to 89\%.
+From figure (\ref{fig:operator_runtimes}) we see that for similar expansion orders the operator implementations for both softwares take similar fractions of total runtime. This implies that PyExaFMM shares a similar computational complexity with ExaFMM-T, and that there is a large constant added to runtime due to Python related overhead. PyExaFMM is run in two regimes: low $k$ and high $k$, to test the impact of compression parameter on the composition of fractional runtimes. We observe that it leads to significant increase in the fraction dedicated to the M2L operator, from 80\% to 89\%.
 
 % Smaller figure
 \begin{figure}
@@ -221,27 +221,19 @@ From figure (\ref{fig:operator_runtimes}) we see that for similar expansion orde
 
 \begin{table*}
 	\centering
-	\caption{Number of particles $N=$1,000,000 leading to $M$ leaves in a given geometry. $k$ is the compression rank for PyExaFMM. Charge densities are chosen in the interval $[0, 1)$. Runtimes exclude tree building time.}
+	\caption{Number of particles $N=$1,000,000 leading to $M$ leaves in a given geometry. $k$ is the compression rank for PyExaFMM. Charge densities are chosen in the interval $[0, 1)$. Runtimes exclude tree building time. Memory usage and relative error reported to 3 s.f.}
 	\begin{tabular}{|*{10}{c|}}
 		\hline
 		& & &   & \multicolumn{2}{c|}{Runtime} & \multicolumn{2}{c|}{Peak Memory} & \multicolumn{2}{c|}{Relative Error}\\
 		\hline
 		$k$ & $M$ &$p$ &  Geometry   &   PyExaFMM  &  ExaFMM-T &    PyExaFMM  &  ExaFMM-T  &   PyExaFMM  &  ExaFMM-T\\
 		\hline
-		10 & 17,017 & 6   &   Sphere  &  $10.6 \pm 0.1$ s & $0.41 \pm 0.04$ s  &  2.96 GB  &   2.34 GB  & 1.00e-4 & 8.75e-5\\
-		 & 32,768 &    &   Random  &  $13.2 \pm 0.2$ s &  $0.41 \pm 0.05$ s &  4.93 GB  &   2.98 GB  & 8.75e-5 & 7.66e-5\\
-		 &  & 10   &   Sphere  &  $57.0 \pm 0.1$ s &  $1.78 \pm 0.04$ s  &  3.09 GB  &   3.22 GB  & 2.00e-6 & 2.86e-6\\
-		 &  &    &   Random  & $131 \pm 2$ s &   $2.11 \pm 0.06$ s  &  4.93 GB  &   3.88 GB  & 1.71e-6 & 3.84e-6\\
-%%%%
-		100 & 17,017 & 6   &   Sphere  &  $10.6 \pm 0.1$ s & $0.41 \pm 0.04$ s  &  2.96 GB  &   2.34 GB  & 1.00e-4 & 8.75e-5\\
-		 & 32,768 &    &   Random  &  $13.2 \pm 0.2$ s &  $0.41 \pm 0.05$ s &  4.93 GB  &   2.98 GB  & 8.75e-5 & 7.66e-5\\
-		 &  & 10   &   Sphere  &  $57.0 \pm 0.1$ s &  $1.78 \pm 0.04$ s  &  3.09 GB  &   3.22 GB  & 2.00e-6 & 2.86e-6\\
-		 &  &    &   Random  & $131 \pm 2$ s &   $2.11 \pm 0.06$ s  &  4.93 GB  &   3.88 GB  & 1.71e-6 & 3.84e-6\\
-%%%%
-		Full Rank & 17,017 & 6   &   Sphere  &  $10.6 \pm 0.1$ s & $0.41 \pm 0.04$ s  &  2.96 GB  &   2.34 GB  & 1.00e-4 & 8.75e-5\\
-		 & 32,768 &    &   Random  &  $13.2 \pm 0.2$ s &  $0.41 \pm 0.05$ s &  4.93 GB  &   2.98 GB  & 8.75e-5 & 7.66e-5\\
-		 &  & 10   &   Sphere  &  $57.0 \pm 0.1$ s &  $1.78 \pm 0.04$ s  &  3.09 GB  &   3.22 GB  & 2.00e-6 & 2.86e-6\\
-		 &  &    &   Random  & $131 \pm 2$ s &   $2.11 \pm 0.06$ s  &  4.93 GB  &   3.88 GB  & 1.71e-6 & 3.84e-6\\
+		10 & 17,017 & 6 &   Sphere  &  $14.0 \pm 0.2$ s & $0.97 \pm 0.03$ s  &  6.21 GB  &   5.25 GB  & 1.00e-4 & 8.75e-5\\
+		 & 32,768 &    &   Random  &  $17.7 \pm 0.5$ s &  $1.23 \pm 0.05$ s &  8.20 GB  &   5.34 GB  & 8.75e-5 & 7.66e-5\\
+		100 & 17,017 &    &   Sphere  &  $13.9 \pm 0.2$ s &   &  6.21 GB  &   & 1.00e-4 & 8.75e-5\\
+		 & 32,768 &    &   Random  &  $22.8 \pm 0.2$ s &  &  8.20 GB  &  & 8.75e-5 & 7.66e-5\\
+		Full Rank & 17,017 &   &   Sphere  &  $16.2 \pm 0.1$ s &   &  6.27 GB  &    & 1.00e-4 & 8.75e-5\\
+		 & 32,768 &    &   Random  &  $54 \pm 3$ s &   &  8.20 GB  &  & 8.75e-5 & 7.66e-5\\
 		\hline
 	\end{tabular}
 	\label{tab:performance}
