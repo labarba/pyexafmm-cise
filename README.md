@@ -2,104 +2,163 @@
 
 # Outline
 
-## 0 Abstract
-- Question: Can we design a HPC code all in Python? Why this is an important question to answer ...
-- Answer: No, because ...
-- Utility of testing hypothesis with FMM algorithm (and what they are useful for - briefly): complex heirarchical datastructure, non-trivial to apply optimisation tools. Lots of data organisation, which is limited by the interpreter.
-- What this paper presents (implementation and design description - how they are influenced by our tools, convergence testing, benchmarking on different problems)
+- I want to introduce Numba as a tool for HPC with Python for more complex algorithms. FMM is a good benchmark, with a;
+    - Recursive data structure
+    - Lots of linear algebra operations (SVD, MatMul etc), which Numba optimizes for.
 
-## 1 Introduction
+- I want to demonstrate that it's ok, but not great
+    - software design is constrained.
+    - costs associated with passing back and forth between machine code, and python interpreter born out in slow runtimes.
+    - protyping for performance is not easy, and advanced knowledge is required to debug performance.
 
-- The point of this paper, why are we making another FMM? What is the FMM?
--  Tie together reasoning for using Python to code a non-trivial algorithm. (Ease of deployment, interoperbility with Python universe, low barrier to entry for non-software specialists)
-- Particle FMM, why it's useful, and in which contexts. Relevant references for more in depth discussion in the literature. Probably easiest to just introduce it as a problem in computational electromagnetics.
-- Current advances in written software for it
-- Python, and it's utility.
-- The concept of JIT and Numba, and how they work roughly.
-- Can we code a HPC library using just Python data/numerics stack? If so it would make our lives as Computational Scientists a lot easier/faster! Allowing you to go from prototype to performance without software engineering hassle introduced by C++.
-- Paper organisation in terms of following sections ...
+I want to explain:
+- Software decisions I made:
+    - Linear representation of tree. Why is this better than a custom Node class?
+        - Simplest representation of a tree possible, and is compatible with Numba or CPython libraries
+        - designing for separability, want to be able to use library in non-numba contexts
+        - algebraically defined tree-node attributes are very fast to compute (offer benchmark) and are orders of magnitude smaller in impact than the runtime.
+        - But, traversal requires a lookup table linking the key and the index in the array representation.
 
-References:
-1. Numba, lam, petriou, sievert
-2. FMM implementations that already exist: https://www.swmath.org/?term=FMM
-3. Original Paper, Greengard + Rokhlin
+- Software optimizations I used:
+    - Data Driven Design
+        - The separation of computational loops into a backend module to allow easy Numba decoration.
+        - Minimal use of Python object model.
+    - Caching of repeatedly used data in a HDF5 database, loaded into RAM at runtime
+    - Design of functions to use only:
+        - optimized Numba implementations (linear algebra)
+        - simple arithmetic/bitwise operations
+            - These kind of functions are most efficiently translated by Numba.
+        - Or, compositions of simpler functions that have been njit'd using the above strategy.
 
+- Parallel strategies for Numba performance:
+    - I designed data structures for cache-coherence
+        - For P2M and Near Field operators
+        - aligned vectors for expansions coefficients as well as target results.
+    - I needed methods that Numba could translate into fast machine code to be run on each thread
+        - I'm talking about the M2L calculation specifically, and the hash calculation method
+        - The tree represented linearly in an array
+            - Tree traversal was then bitwise operations or index lookups
+    - I relied on different strategies when I couldn't apriori allocate enough memory for results
+        - Specifically the W list calculations
+    - The strategies themselves:
+        - Pre-allocating space for rapidly passing kernel over source/target pairs and storing result
+            - I did this for the P2P calulcations and the P2P (u list, and node) as well as L2T
+            - Pre-allocating space requires allocating enough for entire possible interaction list, as can't apriori know how big this will be.
+            - P2M does a version of this, but slightly differently in that pre-allocation doesn't need to alloc to the max size of an interaction list as we know how many sources there are in a given leaf.
+        - Just running prange over leaves/keys (S2L and M2T)
+            - creating surfaces as needed, no cache-optizations
+                - X list too small to be worth it
+                - W list too large to be worth it
+            - M2L a version of this too, but no surface creation
 
-## 2 KIFMM Algorithm
+- Maths optimizations
+    - rSVD of M2L, but this is specific to the FMM
+    - matmul is optimized already with BLAS.
 
-- Basic concept behind KIFMM (relevant operations, and FMM algorithm structure)
-- What kind of problems KIFMM can be applied to.
-- Octrees, and adaptive octree explanation as a part of this.
-- Concept of balancing, and how it effects the computation of interaction lists.
-- The main bottlenecks in programming efficient KIFMMs
+- My points:
+    - Proved by the way I had to design it:
+        - Designed around simple data structures.
+        - Numba constrains design to a small subset of Python, has its own learning curve
+            - e.g. designing 'hashing' function that uses simple instructions.
+        - It's not possible to naively drop in, a lot of careful optimizations are needed to achieve peak performance with Numba.
+            - Hot loops have to be separated from business logic of app
+            - Have to ensure that methods use simple instructions, manually. Going out of your way to avoid 'pythonic' (object oriented) code.
+            - Debugging performance issues requires advanced knowledge - flying in the face of being 'drop-in' tool for naive use by domain specialist
+                - e.g. oversubscription issues, and choice of threading layers
+
+    - Proved by difference in operator application times:
+        - There are costs to passing into nopython mode from python
+            - Argument parsing cost, computation/number of calls into nopython mode has to be considered.
+            - Allocating memory with numpy is handled differently in the numba runtime, than when allocating within no-python mode. Requires the creation of an additional struct to handle reference to python object. As well as routines to ensure that writing back in original buffer is threadsafe.
+            - There are checks by the Numba dispatcher to
+                - Find the correct function handle for argument type.
+            - Compiled machine code is more complex than direct C++/Fortran code
+                - instructions to handle python/NRT interface
+                - error handling for incompatible operations
+                    - for example the inability to convert into primitive types.
+        - I need to find good theoretical justification for this.
+            - I need to understand how Numba allocs (stack vs heap) and how this can matter
+                - Numba allocs using NRT (Numba Run Time) - a C library using wrappers around malloc/free etc.
+                - interfaces to Python, to allow conversion between python obj and NRT meminfo object via a reference.
+                - Numba has to unbox/box primitives.
+                - Python and Numba both alloc always on heap
+            - I need to understand impact of Python's alloc/C function calls
+                - I don't use python functions in Numba routines, I hand control to NRT. The NRT converts Py objects to something it can handle, and loads data via a reference to the underlying pyobject.
+    - Proved by LOC
+        - Relative simplicity of PyExaFMM
+            - but you still need to understand Numba in detail to retain efficiency, which is against what we are attempting to show tbh.
+    - Proved by Benchmarks
+        - Can achieve comparable accuracy for slower runtime cost.
+        - Memory usage is comparable, which is expected.
+        - Numba is very useful, with a lot of functionality, but the interface it exposes to pass between compiled machine code and Python runtime, is not efficient enough for all HPC applications.
+
+Benchmarks:
+    - Tree construction
+    - Operator precomputation
+    - Morton operations (need to show that algebraic operations are very fast to compute)
 
 Figures:
-1. Illustrate operators, and least-squares problem for M2M/L2L/M2L/P2M
-2. Illustrate operators wrt to an octree (or quadtree) if it's easier to draw, similar to GPU gems book
-3. Illustration of interaction list cases (u, x, v, w)
 
-References:
-1. Ying paper
+- Operator application times for both softwares on benchmark problem
+    - bar-chart like lashuk paper
+    - Shows where Python is shitty
 
-## 3. Techniques for Achieving Performance
+- Table with different parameter settings including memory/accuracy information alongside runtimes.
+    - Shows that it works
 
-- Rely on effective data representations and data organisation to achieve performance. This is hard to achieve for FMM. Need to store coefficients, and custom operators for basically all nodes in memory.
-Need to represent the nodes in an easily parallelisable way. Need tree operations to be fast (i.e. parent to child, finding siblings etc).
+- Keep the KIFMM operator figures
 
-### 3.1 What is Numba?
+- Re-add the loop figure
+    - Cut down words introducing FMM
 
-What is it, how does it work, what is it useful for? Where is numba used in this project (AdaptOctree construction, P2M step)
 
-### 3.2 Data Structures
+# Notes
 
-- Morton representation, (linear) adaptive octree. Provide algorithms used for tree construction, balancing, and morton encoding method. Provide a benchmark of tree construction times for a few shapes, and realistic problem sizes.
-- Explain how Numba is used in AdaptOctree, especially detail the difficulties faced in achieving things like: hashing, set inclusion, mutable return types (tree construction) first-class functions (effective interaction list computatoin). Explain how many Python idioms have to be set aside, and one has to think like a C programmer.
-- Explain what the end result of this data representation is, and indeed has to be, for optimisation. Aligned vectors, linked by indices, that can be optimised by the compiler for fast access as well as SIMD operation. Explain how this organisation is all done as single node python code, offer benchmarks for how significant this can be.
+Numba's initial focus is to target a Python subset that makes heavy use of ndarrays and numeric scalars in loops so that users no longer need to rewrite their Python code in a low level language for better performance (over those loops).
 
-Figures:
-1. Illustration of Morton encoding (?)
-2. Benchmark table for runtime, memory usage, against tree construction in exafmm-t for different geometries (sphere, random) for different discretisation
+> The key word is 'better' not 'best'
 
-References:
-1. Tu/Ghattas paper for Morton encoding reference
-2. Links to AdaptOctree software
+The basic structure of arrays
+    - data pointer to the base of the memory buffer
+    - two integer arrays describing the dimensionality (shape), and strides between elements along each dimension.
 
-### 3.3 Precomputing Operators
+Numba is aware of the structure of arrays, can access these fields directly for calculating the offset of an element given an index value. Can generate efficient loops that index into ndarrays with performance similar to equivalent code written in a compiled language.
 
-- Optimisations required for practical implementations, requirement to cache and store operators, quickly lookup (precomputed) operators, avoid redundant calculation
-- Concept of transfer vectors, as well as how we do this in practice. How is this complicated by Numba? How one sometimes feels limited by Numba, into programming with an invisible framework.
-- Using HDF5 effectively as a cache to load required data into memory.
+> Bypasses unnecessary indirection for indexing values from Numpy arrays.
 
-References:
-1. Darve paper which introduces transfer vectors
-2. HDF5 software reference
+Numba lets LLVM optimize loops for vectorization.
 
-### 3.4 Compressing M2L
+> This can fail, for example if a loop is over an array without a contiguous layout - therefore won't be sped up with vectorization applied.
 
-- Overview of rSVD, and how it's used here.
-- Show how error is dominated by FMM error through experiment.
+Numba does not replace the interpreter, unlike many other JIT compilers, requires the user to declare JIT'ble using a decorator.
 
-Figures:
-1. Convergence as a function of K
-2. Runtime as a function of K
+> UI benefits: No explicit type annotation, Numba inspects arg types for creating signature when function is first called.
 
-References:
-1. Original Halko reference
+Polymorphism is resolved at compile time.
 
-### 3.5 Software Architecture
+Numba is more opportunistic and opinionated than PyPy or Pyston (Other JIT compilers)
 
-- Overview of the separation of algorithm from compute backend. Code example of the API.
-- I envision this section to focus on a discussion about the way in which compute kernels are written for optimum performance with Numba. I.e. they have minimal lookups, and are largely just matvecs.
-- The choice available in Numba, and how to choose the best choice, case-study of writing the laplace green func/green func gradient well.
+> Opportunistic - focus on narrow subset of Python use-cases (hot numeric loops, simple GPU and multithreading support)
 
-## 4. Performance Comparison with State of the Art
+> Opinionated - Promotes array oriented programming via NumPy arrays.
 
-- Accuracy, speed, and memory footprint as a function of experimental size. For different geometries. (sphere, random)
+If Numba fails to infer types, and compiles in 'object mode' and thus relying on the Python runtime, the generated code is equivalent to 'unrolling' the interpreter loop; and thus removing the interpreter overhead.
 
-Figures:
-- Critical graph of convergence of multipole and local expansions for different geometries, as a function of discretisation (compression's contribution to error should already have been demonstrated).
+When calling a function during CPython execution, interpreter creates a new frame for the function and executes the function bytecode. The bytecode is an instruction stream - similar to x86 assembly. Branches are encoded as absolute/relative jump instructions. Some bytecode instructions perform multiple tasks.
 
-## 5 Conclusion
-- Shows that we can code non-trivial algorithms fairly effectively in Python, but come with their own difficulties - programming to an invisible framework - and learning curve.
-- Time wasted on (non-trivial) software issues to cope with/get around Python interpreter, could have been spent on optimising an already performant code.
-- Bottlenecks for data organisation which are done via python where JIT compilation has no effect. Difficult to avoid without degrading software quality - specific examples
+> JUMP_IF_TRUE_OR_POP - jumps to target address if the value on the top of stack evaluates to true, otherwise pops the TOS
+
+> FOR_ITER - encodes the for-loop construct, asks for the next value of the iterator at the TOS. If the iterator is exhausted, it pops the stack and jumps to the end of the loop. Otherwise the next value of the iterator is pushed up the stack.
+
+Both of these instructions change the control flow of the program, and have optional stack-effects.
+
+Can't be mapped directly to a low-level representation used by LLVM IR.
+
+Numba passes this Python bytecode through several layers of analysis, before translation.
+
+> Numba converts array expressions into loops to avoid allocating temporary arrays for intermediate results.
+
+In the lowering to LLVM stage we have type information for all values in the Numba IR. For each Python function, two functions are emitted in LLVM:
+
+- One for the actual compiled function
+- A wrapper that acts as a bridge between the interpreted Python runtime and the compiled Numba runtime. The wrapper unboxes Python objects into machine representations (handled by the NRT) for use as arguments within the compiled function - therefore we pay the arg parsing cost within this wrapper function. The returned values from the compiled function is boxed back into a PyObject from the machine representation when returned to the Python interpreter.
