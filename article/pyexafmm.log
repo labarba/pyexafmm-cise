@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.5.4)  13 AUG 2021 14:03
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.5.4)  13 AUG 2021 15:00
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -463,14 +463,6 @@ Overfull \hbox (18.0pt too wide) has occurred while \output is active
 
 
 ]
-Underfull \hbox (badness 1552) in paragraph at lines 57--58
-[]\OT1/ptm/m/n/10.53937 Numba is a `drop-in' tool. Func-tions or
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
 Overfull \vbox (7.9474pt too high) has occurred while \output is active []
 
 
@@ -530,7 +522,7 @@ Overfull \hbox (18.0pt too wide) has occurred while \output is active
  []
 
 [7]
-Underfull \vbox (badness 2495) has occurred while \output is active []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -561,7 +553,7 @@ Overfull \hbox (18.0pt too wide) has occurred while \output is active
  []
 
 [9 </home/sri/Documents/Papers/pyexafmm-cise/article/figures/operator_runtimes.pdf>]
-Underfull \hbox (badness 2443) in paragraph at lines 254--255
+Underfull \hbox (badness 2443) in paragraph at lines 253--254
 []\OT1/ptm/m/n/10.53937 SK is sup-ported by EP-SRC Stu-dentship
  []
 
@@ -574,7 +566,7 @@ Underfull \hbox (badness 2080) in paragraph at lines 18--21
  []
 
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 271.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 270.
 
 Overfull \vbox (7.9474pt too high) has occurred while \output is active []
 
@@ -582,26 +574,26 @@ Overfull \vbox (7.9474pt too high) has occurred while \output is active []
 Overfull \vbox (6.27187pt too high) has occurred while \output is active []
 
  [10]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 271.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 270.
  (/home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 271.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 271.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 270.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 270.
 Package rerunfilecheck Info: File `pyexafmm.out' has not changed.
 (rerunfilecheck)             Checksum: 0400F1C2E6F41DF19EDBB783528C897B;1056.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 271.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 270.
  ) 
 Here is how much of TeX's memory you used:
  7859 strings out of 481239
  118058 string characters out of 5920378
- 385309 words of memory out of 5000000
+ 385312 words of memory out of 5000000
  22897 multiletter control sequences out of 15000+600000
  603459 words of font info for 154 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 38i,15n,31p,2230b,322s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,15n,31p,2255b,313s stack positions out of 5000i,500n,10000p,200000b,80000s
 pdfTeX warning (dest): name{section*.11} has been referenced but does not exist, replaced by a fixed one
 
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvbo8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on /home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.pdf (10 pages, 1202865 bytes).
+Output written on /home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.pdf (10 pages, 1201972 bytes).
 PDF statistics:
  6599 PDF objects out of 7423 (max. 8388607)
  4427 compressed objects within 45 object streams
