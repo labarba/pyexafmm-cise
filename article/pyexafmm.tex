@@ -44,7 +44,7 @@
 \markboth{Department Head}{Paper title}
 
 \begin{abstract}
-The particle fast multipole method is a good case study for understanding the efficacy of Python for developing high-performance software for non-trivial algorithms, due its reliance on a hierarchical tree data structure. In this paper we describe the mathematical and software engineering techniques used to extract performance for PyExaFMM, a Python based solver for the particle fast multipole method, accelerated with Numba, designed to be run on single-node multicore architectures. We report that we achieve runtimes within 10-50$\times$ of the state of the art C++ implementation, with comparable accuracy and memory footprint for three dimensional problems in double precision.
+The particle fast multipole method is a good case study for understanding the efficacy of Python for developing high-performance software for non-trivial algorithms due its reliance on a hierarchical tree data structure. In this paper we describe the mathematical and software engineering techniques used to extract performance for PyExaFMM, a Python based solver for the particle fast multipole method, accelerated with Numba, designed to be run on single-node multicore architectures. We report benchmarks for accuracy, runtimes and memory usage with respect to a state of the art C++ implementation, ExaFMM-T.
 \end{abstract}
 
 \maketitle
@@ -197,6 +197,8 @@ Numba implements its threading layer in an agnostic way, compatible with OpenMP 
 
 PyExaFMM implements two parallelization strategies for FMM operators. For the P2M, L2P and P2P operators we allocate aligned vectors of the `sources' and `targets' for each target box being considered at a given level. For brevity, we overload the term `source' to refer local expansion points, and `target' to refer to multipole expansion points in the L2P and P2M operators, respectively. The kernel function, and its corresponding gradient function, are run in parallel over sources and targets batched by their corresponding target box.
 
+% We note that from within Numba functions, memory is managed by the Numba runtime [NRT], a library for allocating and freeing memory written in C. The NRT is also responsible for safely boxing primitive types into Python objects when it returns control to the interpreter.
+
 As we don't apriori know the size of the interaction lists for a given box, we have to allocate enough space at runtime to store the maximum allowable number of sources and targets for each operator, and use \textit{index pointers} to lookup data for a given target box. Allocation cost is restricted by the constraint dictating the maximum number of particles per leaf node, and the order of the local and multipole expansions. For the P2P operator, cost is also restricted by the 2:1 balance condition, which limits the maximum size of the $U$ list to 60 in 3D. This strategy is optimized for cache re-use due to the aligned vectors.
 
 For the M2L and M2P operators, the maximum size of the $V$ and $W$ lists for all boxes at a given level make the above strategy expensive in terms of memory. In 3D, after imposing a 2:1 balance condition, a given target box has up to 189 source boxes in its $V$ list, and 148 in its $W$ list. For example, allocating an array to store the coordinates for source particles in double precision for boxes in the $W$ list of a uniform tree with 5 levels, hence 32768 target leaf boxes, with at most 150 particles per leaf box, requires $\sim 17$GB. Again, we overload the term `source' to refer to multipole expansion points in both operators, and `target' to refer to local expansion points the M2L operator. Instead, we perform a parallel loop over all target boxes at a given level. We don't optimize for CPU cache re-use as we look up data from an un-aligned global array. The maximum size of the $X$ list for a given box is 19 in 3D, we observe empirically that this is too small to be impacted by the first strategy. Each thread, computing the S2L operation over a target box's $X$ list, contains relatively little computation. Therefore, it is computed in a similar way to the M2L and M2P operators.
@@ -207,18 +209,16 @@ We aimed to restrict computations within threads to BLAS operations. However, ou
 
 Benchmarks are taken on an Intel i7-9750H mobile workstation, running Ubuntu 20.04.2, GCC 9.3.0 and OpenMP 4.5. Timings are repeated 5 times for statistics, and standard deviation is used to describe error, and is reported to one significant figure.
 
-Numba compilation makes many of PyExaFMM's functions competitive with ExaFMM-T's C++ implementation. Our implementation of (\ref{eq:laplace_kernel}) evaluates interactions between 100,000 sources and targets in $4.7 \pm 0.3$ s compared to $2.00 \pm 0.01$ s with ExaFMM-T. For a problem with 1,000,000 randomly distributed particles, and a constraint of at most 150 particles per leaf box, and depth 5, tree building and balancing takes $2.75 \pm 0.04$ s compared to $0.64 \pm 0.01$ s in ExaFMM-T. Operator pre-computation times depend on the expansion order of the multipole and local expansions, $p$, as well as the depth of the tree. However it is fast enough not to significantly impact on workflow. For the above problem with $p=10$ expansions, it takes $4.0 \pm 0.2 s$ to pre-compute all operators.
+Numba compilation makes many of PyExaFMM's functions competitive with ExaFMM-T's C++ implementation. Our implementation of (\ref{eq:laplace_kernel}) evaluates interactions between 100,000 sources and targets in $4.7 \pm 0.3$ s compared to $2.00 \pm 0.01$ s with ExaFMM-T. For a problem with 1,000,000 randomly distributed particles, and a constraint of at most 150 particles per leaf box, and depth 5, tree building and balancing takes $2.75 \pm 0.04$ s compared to $0.64 \pm 0.01$ s in ExaFMM-T. Operator pre-computation times depend on the expansion order of the multipole and local expansions, $p$, as the depth of the tree and compression rank $k$. It is fast enough not to significantly impact on workflow. For the above problem with $p=6$ expansions and $k=100$, it takes $5.01 \pm 0.2$ s to pre-compute all operators, for $k=188$ (full rank), it takes $8.00 \pm 0.3$ s.
 
-Numba has a large impact on functions that use simple instructions, for example tree operations, which use only bit shifts or arithmetic instructions. Finding the neighbors of a given box takes $0.991 \pm 0.002$ $\mu$s compared to $63 \pm 1$ $\mu$s without Numba, finding a box's parent takes $171 \pm 1$ ns compared to $573 \pm 3$ ns and finding a box's children takes $386 \pm 9$ ns compared to $5.02 \pm 0.09$ $\mu$s.
+Experiments in table (\ref{tab:performance}) measuring the accuracy, peak memory consumption, and runtimes of the two softwares are tested for two source and target particle distributions: randomly in a cubic unit box, and randomly on the surface of a sphere with unit radius. We test with 1,000,000 source and target particles, and a constraint of 150 particles per leaf box.
 
-Table (\ref{tab:performance}) illustrates the accuracy, peak memory consumption and runtime of PyExaFMM with respect to ExaFMM-T. Experiments are run for 1,000,000 source and target particles distributed in two geometries: distributed randomly in a cubic unit box, and distributed randomly on the surface of a sphere with unit radius, and a constraint of at most 150 particles per leaf box. We observe similar errors and memory usage between the two softwares, runtime increases as a function of expansion order $p$ and compression parameter $k$, and is approximately $\mathcal{O}(10)$ slower in PyExaFMM.
-
-From figure (\ref{fig:operator_runtimes}) we see that for similar expansion orders the operator implementations for both softwares take similar fractions of total runtime. This implies that PyExaFMM shares a similar computational complexity with ExaFMM-T, and that there is a large constant added to runtime due to Python related overhead. PyExaFMM is run in two regimes: low $k$ and high $k$, to test the impact of compression parameter on the composition of fractional runtimes. We observe that it leads to significant increase in the fraction dedicated to the M2L operator, from 80\% to 89\%.
+We observe that our implementation is bound by the M2L implementation. Table (\ref{tab:performance}) shows how runtimes increase as a function of M2L compression rank $k$ for both geometries, and figure (\ref{fig:operator_runtimes}) shows how the M2L operator increasingly dominates PyExaFMM's runtime as a function of $k$. The M2L operator depends on loads from global memory, and is not cache-optimized due to the large memory requirements of doing so. We see that although compression significantly reduces runtimes, it does so at the expense of relative error. Importantly, from figure (\ref{fig:operator_runtimes}a) and (\ref{fig:operator_runtimes}b), where we test both softwares with the $p=6$ expansions and set $k=10$, we see that the FMM operators take similar proportions of total runtime. From table (\ref{tab:performance}) we see that PyExaFMM remains $\mathcal{O}(10)$ slower. This implies that PyExaFMM applies an approximately constant overhead for a computing solutions at a given expansion order $p$ regardless of compression. The minimal design of PyExaFMM's interface, with most computation and memory management taken place within Numba compiled functions, implies that this overhead is attributable to the performance disadvantage of Python and Numba in comparison to C++.
 
 % Smaller figure
 \begin{figure}
 	\centerline{\includegraphics {figures/operator_runtimes.pdf}}
-	\caption{Fractional runtimes broken down by operator for (a) ExaFMM-T $p=4$ (b) ExaFMM-T $p=6$ (c) PyExaFMM $p=4$, $k=50$ (d) PyExaFMM $p=6$, $k=50$ (e) PyExaFMM $p=6$, $k=150$}
+	\caption{Fractional runtimes broken down by operator for (a) ExaFMM-T $p=6$ (b) PyExaFMM $p=6$, $k=10$ (c) PyExaFMM $p=6$, $k=50$ (d) PyExaFMM $p=6$, $k=100$ (e) PyExaFMM $p=6$, $k=188$ (full rank)}
 	\label{fig:operator_runtimes}
 \end{figure}
 
@@ -237,33 +237,17 @@ From figure (\ref{fig:operator_runtimes}) we see that for similar expansion orde
 		 & &    &   Random  &  $36.7 \pm 0.4$ s &  &  4.68 GB  &  & 3.96e-7 & \\
 		 & & Full Rank  &   Sphere  &  $15.8 \pm 0.1$ s &   &  2.70 GB  &  & 4.61e-7 & \\
 		 & & (152) &   Random  &  $50.5 \pm 0.7$ s &   &  4.72 GB  &  & 3.94e-7 & \\
-		% \hdashline
-		% %  & &    &  & &   &  &  & & \\
-		% 10 & 17,017 & 10 &   Sphere  &  $14.0 \pm 0.2$ s & $1.77 \pm 0.2$ s  &  2.64 GB  &  1.96 GB  & 4.64e-4 & 3.82e-7 \\
-		%  & 32,768 &    &   Random  &  $17.7 \pm 0.5$ s &  $2.43 \pm 0.02$ s &  4.66 GB  &  2.04 GB  & 1.46e-4 &  3.31e-7\\
-		%  & & 100   &   Sphere  &  $13.9 \pm 0.2$ s &   &  2.66 GB  &   & 4.58e-7 &  \\
-		%  & &    &   Random  &  $22.8 \pm 0.2$ s &  &  4.68 GB  &  & 3.46e-6 & \\
-		%  & & Full Rank  &   Sphere  &  $16.2 \pm 0.1$ s &   &  2.70 GB  &  & 4.61e-7 & \\
-		%  & & (488) &   Random  &  $54 \pm 3$ s &   &  4.72 GB  &  & 3.94e-7 & \\
-
 		\hline
 	\end{tabular*}
 	\label{tab:performance}
  \end{table*}
 
-% \begin{tabularx}{\textwidth}{X|l}
-%   \textbf{Symptom} & \textbf{Metric} \\
-% \hline
-% Class that has many accessor methods and accesses a lot of external data & ATFD is more than a few\\
-% Class that is large and complex & WMC is high\\
-% Class that has a lot of methods that only operate on a proper subset of the instance variable set & TCC is low\\
-% \end{tabularx}
 
 \section{CONCLUSION}
 
-In this paper we've shown how to use Numba to create a performant application for an algorithm with a complex data structure. We've shown how Numba can constrain software design, and has its own learning curve. Additionally, we've shown that developers must be careful to design methods and data structures around Numba's framework to experience a performance benefit. Performance debugging for more complex applications may require more knowledge than novice users can be expected to have, for example in optimizing the performance of multithreaded applications.
+In this paper we've shown how to use Numba to create a performant application for an algorithm with a complex data structure. We've shown how Numba can constrain software design, and that developers must be careful in designing methods and data structures in order to experience a performance benefit. Furthermore, performance debugging for more complex applications may require more knowledge than novice users can be expected to have, for example in optimizing the performance of multithreaded applications. Therefore, despite being trivial to `drop-in' to an existing application, Numba can be seen to have its own learning curve for achieving performance.
 
-Numba will not be able to optimize an application that has significant interpreter overheads, for example large array manipulations or allocations, and we see this reflected in PyExaFMM's runtime. Despite this, we conclude that Numba is a remarkable tool. With a great deal of functionality, allowing one to develop fast, heterogenous, cross-platform numerical applications, using only Python. Performance for PyExaFMM is still good, and it offers a platform for rapid experimentation and prototyping new extensions to the FMM algorithm, despite not being suitable for HPC.
+Furthermore, Numba is not able to optimize applications with significant array manipulations or allocations. We see this reflected in PyExaFMM's poor runtime performance in comparison to ExaFMM-T. Despite this, we conclude that Numba is a remarkable tool. With a great deal of functionality, allowing one to develop fast, heterogenous, cross-platform numerical applications, using only Python. Performance for PyExaFMM is still good, and it offers a platform for experimentation and prototyping, despite not being suitable for HPC.
 
 \section{ACKNOWLEDGMENT}
 
