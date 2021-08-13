@@ -2,10 +2,13 @@
 
 \usepackage[colorlinks,urlcolor=blue,linkcolor=blue,citecolor=blue]{hyperref}
 
+\usepackage{tabularx}
 \usepackage{upmath}
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{array}
+\usepackage{arydshln}
+
 \newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
 
 \jvol{XX}
@@ -41,7 +44,7 @@
 \markboth{Department Head}{Paper title}
 
 \begin{abstract}
-The particle fast multipole method is a good case study for understanding the efficacy of Python for developing high-performance software for non-trivial algorithms, due its reliance on a hierarchical tree data structure. In this paper we describe the mathematical and software engineering techniques used to extract performance for PyExaFMM, a Python based solver for the particle fast multipole method, accelerated with Numba, designed to be run on single-node multicore architectures. We report that we achieve runtimes within $\mathcal{O}(10)$ of the state of the art C++ implementation, with comparable accuracy and memory footprint for three dimensional problems in double precision.
+The particle fast multipole method is a good case study for understanding the efficacy of Python for developing high-performance software for non-trivial algorithms, due its reliance on a hierarchical tree data structure. In this paper we describe the mathematical and software engineering techniques used to extract performance for PyExaFMM, a Python based solver for the particle fast multipole method, accelerated with Numba, designed to be run on single-node multicore architectures. We report that we achieve runtimes within 10-50$\times$ of the state of the art C++ implementation, with comparable accuracy and memory footprint for three dimensional problems in double precision.
 \end{abstract}
 
 \maketitle
@@ -215,30 +218,46 @@ From figure (\ref{fig:operator_runtimes}) we see that for similar expansion orde
 % Smaller figure
 \begin{figure}
 	\centerline{\includegraphics {figures/operator_runtimes.pdf}}
-	\caption{Fractional runtimes broken down by operator for (a) ExaFMM-T $p=4$ (b) ExaFMM-T $p=7$ (c) PyExaFMM $p=4$, $k=50$ (d) PyExaFMM $p=7$, $k=50$ (e) PyExaFMM $p=7$, $k=150$}
+	\caption{Fractional runtimes broken down by operator for (a) ExaFMM-T $p=4$ (b) ExaFMM-T $p=6$ (c) PyExaFMM $p=4$, $k=50$ (d) PyExaFMM $p=6$, $k=50$ (e) PyExaFMM $p=6$, $k=150$}
 	\label{fig:operator_runtimes}
 \end{figure}
 
 \begin{table*}
 	\centering
-	\caption{Number of particles $N=$1,000,000 leading to $M$ leaves in a given geometry. $k$ is the compression rank for PyExaFMM. Charge densities are chosen in the interval $[0, 1)$. Runtimes exclude tree building time. Memory usage and relative error reported to 3 s.f.}
-	\begin{tabular}{|*{10}{c|}}
+	\caption{PyExaFMM (Py) vs ExaFMM-T (Ex-T). Number of particles $N=$1,000,000 leading to $M$ leaves in a given geometry. $k$ is the compression rank for PyExaFMM. Charge densities are chosen in the interval $[0, 1)$. Runtimes exclude tree building time. Memory usage and relative error reported to 3 s.f.}
+	\begin{tabular*}{0.934\textwidth}{|*{10}{c|}}
 		\hline
 		& & &   & \multicolumn{2}{c|}{Runtime} & \multicolumn{2}{c|}{Peak Memory} & \multicolumn{2}{c|}{Relative Error}\\
 		\hline
-		$k$ & $M$ &$p$ &  Geometry   &   PyExaFMM  &  ExaFMM-T &    PyExaFMM  &  ExaFMM-T  &   PyExaFMM  &  ExaFMM-T\\
+		$p$ & $M$ &$k$ &  Geometry   &   Py  &  Ex-T &    Py  &  Ex-T  &   Py  &  Ex-T\\
 		\hline
-		10 & 17,017 & 6 &   Sphere  &  $14.0 \pm 0.2$ s & $1.77 \pm 0.2$ s  &  6.21 GB  &  5.25 GB  & 4.64e-4 & 3.82e-7 \\
-		 & 32,768 &    &   Random  &  $17.7 \pm 0.5$ s &  $2.43 \pm 0.02$ s &  8.20 GB  &  5.34 GB  & 1.46e-4 &  3.31e-7\\
-		100 & &    &   Sphere  &  $13.9 \pm 0.2$ s &   &  6.21 GB  &   & 4.58e-7 &  \\
-		 & &    &   Random  &  $22.8 \pm 0.2$ s &  &  8.20 GB  &  & 3.46e-6 & \\
-		Full Rank & &   &   Sphere  &  $16.2 \pm 0.1$ s &   &  6.27 GB  &  & 4.61e-7 & \\
-		 & &    &   Random  &  $54 \pm 3$ s &   &  8.20 GB  &  & 3.94e-7 & \\
+		6 & 17,017 & 10 &   Sphere  &  $10.7 \pm 0.3$ s & $0.92 \pm 0.03$ s  &  2.64 GB  &  1.96 GB  & 4.64e-4 & 3.82e-7 \\
+		 & 32,768 &    &   Random  &  $17.5 \pm 0.3$ s &  $1.10 \pm 0.03$ s &  4.66 GB  &  2.04 GB  & 1.46e-4 &  3.31e-7\\
+		 & & 100   &   Sphere  &  $13.6 \pm 0.3$ s &   &  2.66 GB  &   & 4.58e-7 &  \\
+		 & &    &   Random  &  $36.7 \pm 0.4$ s &  &  4.68 GB  &  & 3.96e-7 & \\
+		 & & Full Rank  &   Sphere  &  $15.8 \pm 0.1$ s &   &  2.70 GB  &  & 4.61e-7 & \\
+		 & & (152) &   Random  &  $50.5 \pm 0.7$ s &   &  4.72 GB  &  & 3.94e-7 & \\
+		% \hdashline
+		% %  & &    &  & &   &  &  & & \\
+		% 10 & 17,017 & 10 &   Sphere  &  $14.0 \pm 0.2$ s & $1.77 \pm 0.2$ s  &  2.64 GB  &  1.96 GB  & 4.64e-4 & 3.82e-7 \\
+		%  & 32,768 &    &   Random  &  $17.7 \pm 0.5$ s &  $2.43 \pm 0.02$ s &  4.66 GB  &  2.04 GB  & 1.46e-4 &  3.31e-7\\
+		%  & & 100   &   Sphere  &  $13.9 \pm 0.2$ s &   &  2.66 GB  &   & 4.58e-7 &  \\
+		%  & &    &   Random  &  $22.8 \pm 0.2$ s &  &  4.68 GB  &  & 3.46e-6 & \\
+		%  & & Full Rank  &   Sphere  &  $16.2 \pm 0.1$ s &   &  2.70 GB  &  & 4.61e-7 & \\
+		%  & & (488) &   Random  &  $54 \pm 3$ s &   &  4.72 GB  &  & 3.94e-7 & \\
+
 		\hline
-	\end{tabular}
+	\end{tabular*}
 	\label{tab:performance}
  \end{table*}
 
+% \begin{tabularx}{\textwidth}{X|l}
+%   \textbf{Symptom} & \textbf{Metric} \\
+% \hline
+% Class that has many accessor methods and accesses a lot of external data & ATFD is more than a few\\
+% Class that is large and complex & WMC is high\\
+% Class that has a lot of methods that only operate on a proper subset of the instance variable set & TCC is low\\
+% \end{tabularx}
 
 \section{CONCLUSION}
 

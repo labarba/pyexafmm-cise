@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.5.4)  13 AUG 2021 09:37
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.5.4)  13 AUG 2021 11:50
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -255,19 +255,28 @@ Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 286.
 )
 \Hy@SectionHShift=\skip55
+) (/usr/share/texlive/texmf-dist/tex/latex/tools/tabularx.sty
+Package: tabularx 2020/01/15 v2.11c `tabularx' package (DPC)
+\TX@col@width=\dimen162
+\TX@old@table=\dimen163
+\TX@old@col=\dimen164
+\TX@target=\dimen165
+\TX@delta=\dimen166
+\TX@cols=\count194
+\TX@ftn=\toks18
 ) (/home/sri/Documents/Papers/pyexafmm-cise/article/upmath.sty
 Package: upmath 2010/10/20 v1.1 CUP LaTeX2e package
  (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
  (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
-\@emptytoks=\toks18
-\ex@=\dimen162
+\@emptytoks=\toks19
+\ex@=\dimen167
 )
-\pmbraise@=\dimen163
+\pmbraise@=\dimen168
 )
-\c@mv@upright=\count194
-\c@mv@boldupright=\count195
+\c@mv@upright=\count195
+\c@mv@boldupright=\count196
 LaTeX Font Info:    Overwriting symbol font `letters' in version `upright'
 (Font)                  OML/cmm/m/it --> OML/eur/m/n on input line 82.
 LaTeX Font Info:    Overwriting symbol font `letters' in version `boldupright'
@@ -291,96 +300,112 @@ Package: amstext 2000/06/29 v2.01 AMS text
 ) (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 2016/03/08 v2.02 operator names
 )
-\inf@bad=\count196
+\inf@bad=\count197
 LaTeX Info: Redefining \frac on input line 227.
-\uproot@=\count197
-\leftroot@=\count198
+\uproot@=\count198
+\leftroot@=\count199
 LaTeX Info: Redefining \overline on input line 389.
-\classnum@=\count199
-\DOTSCASE@=\count266
+\classnum@=\count266
+\DOTSCASE@=\count267
 LaTeX Info: Redefining \ldots on input line 486.
 LaTeX Info: Redefining \dots on input line 489.
 LaTeX Info: Redefining \cdots on input line 610.
 \Mathstrutbox@=\box54
 \strutbox@=\box55
-\big@size=\dimen164
+\big@size=\dimen169
 LaTeX Font Info:    Redeclaring font encoding OML on input line 733.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 734.
-\macc@depth=\count267
-\c@MaxMatrixCols=\count268
+\macc@depth=\count268
+\c@MaxMatrixCols=\count269
 \dotsspace@=\muskip17
-\c@parentequation=\count269
-\dspbrk@lvl=\count270
-\tag@help=\toks19
-\row@=\count271
-\column@=\count272
-\maxfields@=\count273
-\andhelp@=\toks20
-\eqnshift@=\dimen165
-\alignsep@=\dimen166
-\tagshift@=\dimen167
-\tagwidth@=\dimen168
-\totwidth@=\dimen169
-\lineht@=\dimen170
-\@envbody=\toks21
+\c@parentequation=\count270
+\dspbrk@lvl=\count271
+\tag@help=\toks20
+\row@=\count272
+\column@=\count273
+\maxfields@=\count274
+\andhelp@=\toks21
+\eqnshift@=\dimen170
+\alignsep@=\dimen171
+\tagshift@=\dimen172
+\tagwidth@=\dimen173
+\totwidth@=\dimen174
+\lineht@=\dimen175
+\@envbody=\toks22
 \multlinegap=\skip57
 \multlinetaggap=\skip58
-\mathdisplay@stack=\toks22
+\mathdisplay@stack=\toks23
 LaTeX Info: Redefining \[ on input line 2859.
 LaTeX Info: Redefining \] on input line 2860.
+) (/usr/share/texlive/texmf-dist/tex/latex/arydshln/arydshln.sty
+Package: arydshln 2019/02/21 v1.76 
+\dashlinedash=\dimen176
+\dashlinegap=\dimen177
+\adl@box=\box56
+\adl@height=\dimen178
+\adl@heightsave=\dimen179
+\adl@depth=\dimen180
+\adl@depthsave=\dimen181
+\adl@finaldepth=\dimen182
+\adl@columns=\count275
+\adl@ncol=\count276
+\adl@currentcolumn=\count277
+\adl@currentcolumnsave=\count278
+\adl@totalheight=\count279
+\adl@totalheightsave=\count280
+\adl@dash=\count281
+\adl@gap=\count282
+\adl@cla=\count283
+\adl@clb=\count284
+\adl@everyvbox=\toks24
+\adl@LTpagetotal=\dimen183
 )
-\c@theorem=\count274
-\c@lemma=\count275
+\c@theorem=\count285
+\c@lemma=\count286
  (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
 File: l3backend-pdfmode.def 2020-02-03 L3 backend support: PDF mode
-\l__kernel_color_stack_int=\count276
-\l__pdf_internal_box=\box56
+\l__kernel_color_stack_int=\count287
+\l__pdf_internal_box=\box57
 ) (/home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.aux)
 \openout1 = `pyexafmm.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
  (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count277
-\scratchdimen=\dimen171
-\scratchbox=\box57
-\nofMPsegments=\count278
-\nofMParguments=\count279
-\everyMPshowfont=\toks23
-\MPscratchCnt=\count280
-\MPscratchDim=\dimen172
-\MPnumerator=\count281
-\makeMPintoPDFobject=\count282
-\everyMPtoPDFconversion=\toks24
+\scratchcounter=\count288
+\scratchdimen=\dimen184
+\scratchbox=\box58
+\nofMPsegments=\count289
+\nofMParguments=\count290
+\everyMPshowfont=\toks25
+\MPscratchCnt=\count291
+\MPscratchDim=\dimen185
+\MPnumerator=\count292
+\makeMPintoPDFobject=\count293
+\everyMPtoPDFconversion=\toks26
 ) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
- (/usr/share/texlive/texmf-dist/tex/latex/grfext/grfext.sty
-Package: grfext 2019/12/03 v1.3 Manage graphics extensions (HO)
-)
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
-Package grfext Info: Graphics extension search list:
-(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPEG,.JBIG2,.JB2,.eps]
-(grfext)             \AppendGraphicsExtensions on input line 504.
  (/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-\AtBeginShipoutBox=\box58
-Package hyperref Info: Link coloring ON on input line 22.
+\AtBeginShipoutBox=\box59
+Package hyperref Info: Link coloring ON on input line 25.
  (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
  (/usr/share/texlive/texmf-dist/tex/latex/refcount/refcount.sty
@@ -388,23 +413,23 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 ) (/usr/share/texlive/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count283
+\c@section@level=\count294
 )
-LaTeX Info: Redefining \ref on input line 22.
-LaTeX Info: Redefining \pageref on input line 22.
-LaTeX Info: Redefining \nameref on input line 22.
+LaTeX Info: Redefining \ref on input line 25.
+LaTeX Info: Redefining \pageref on input line 25.
+LaTeX Info: Redefining \nameref on input line 25.
  (/home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.out) (/home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.out)
 \@outlinefile=\write3
 \openout3 = `pyexafmm.out'.
 
 LaTeX Font Info:    Font shape `OT1/phv/b/it' in size <9.5> not available
-(Font)              Font shape `OT1/phv/b/sl' tried instead on input line 43.
-LaTeX Font Info:    Calculating math sizes for size <9.5> on input line 44.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 44.
+(Font)              Font shape `OT1/phv/b/sl' tried instead on input line 46.
+LaTeX Font Info:    Calculating math sizes for size <9.5> on input line 47.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 47.
  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 44.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 47.
  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
@@ -413,7 +438,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-LaTeX Font Info:    Trying to load font information for TS1+phv on input line 49.
+LaTeX Font Info:    Trying to load font information for TS1+phv on input line 52.
  (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1phv.fd
 File: ts1phv.fd 2001/06/04 scalable font definitions for TS1/phv.
 )
@@ -428,19 +453,19 @@ Overfull \hbox (18.0pt too wide) has occurred while \output is active
 
 
 ]
-LaTeX Font Info:    Calculating math sizes for size <10.53937> on input line 50.
+LaTeX Font Info:    Calculating math sizes for size <10.53937> on input line 53.
 
-Underfull \hbox (badness 3323) in paragraph at lines 50--51
+Underfull \hbox (badness 3323) in paragraph at lines 53--54
 []\OT1/ptm/m/n/10.53937 PyExaFMM[][][][][] is a solver for the three-
  []
 
 
-Underfull \hbox (badness 6910) in paragraph at lines 50--51
+Underfull \hbox (badness 6910) in paragraph at lines 53--54
 \OT1/ptm/m/n/10.53937 dimensional par-ti-cle fast mul-ti-pole method
  []
 
 
-Underfull \hbox (badness 1552) in paragraph at lines 54--55
+Underfull \hbox (badness 1552) in paragraph at lines 57--58
 []\OT1/ptm/m/n/10.53937 Numba is a `drop-in' tool. Func-tions or
  []
 
@@ -461,15 +486,15 @@ Overfull \hbox (18.0pt too wide) has occurred while \output is active
 [3]
 Underfull \vbox (badness 3179) has occurred while \output is active []
 
-<figures/tree.pdf, id=121, 462.81323pt x 342.19693pt>
+<figures/tree.pdf, id=120, 462.81323pt x 342.19693pt>
 File: figures/tree.pdf Graphic file (type pdf)
 <use figures/tree.pdf>
-Package pdftex.def Info: figures/tree.pdf  used on input line 113.
+Package pdftex.def Info: figures/tree.pdf  used on input line 116.
 (pdftex.def)             Requested size: 462.81209pt x 342.19608pt.
-<figures/operators.pdf, id=122, 431.86136pt x 241.44012pt>
+<figures/operators.pdf, id=121, 431.86136pt x 241.44012pt>
 File: figures/operators.pdf Graphic file (type pdf)
 <use figures/operators.pdf>
-Package pdftex.def Info: figures/operators.pdf  used on input line 119.
+Package pdftex.def Info: figures/operators.pdf  used on input line 122.
 (pdftex.def)             Requested size: 431.86029pt x 241.43953pt.
 
 Overfull \vbox (7.9474pt too high) has occurred while \output is active []
@@ -500,7 +525,7 @@ Underfull \vbox (badness 7576) has occurred while \output is active []
 <figures/software.pdf, id=6447, 410.81348pt x 183.60562pt>
 File: figures/software.pdf Graphic file (type pdf)
 <use figures/software.pdf>
-Package pdftex.def Info: figures/software.pdf  used on input line 186.
+Package pdftex.def Info: figures/software.pdf  used on input line 189.
 (pdftex.def)             Requested size: 410.81247pt x 183.60516pt.
 
 Overfull \vbox (5.97588pt too high) has occurred while \output is active []
@@ -523,21 +548,16 @@ Overfull \vbox (7.9474pt too high) has occurred while \output is active []
 Overfull \vbox (6.27187pt too high) has occurred while \output is active []
 
  [8 </home/sri/Documents/Papers/pyexafmm-cise/article/figures/software.pdf>]
-Underfull \hbox (badness 1681) in paragraph at lines 205--206
+Underfull \hbox (badness 1681) in paragraph at lines 208--209
 \OT1/ptm/m/n/10.53937 mo-bile work-sta-tion, run-ning Ubuntu 20.04.2,
  []
 
 <figures/operator_runtimes.pdf, id=6477, 235.28735pt x 165.2823pt>
 File: figures/operator_runtimes.pdf Graphic file (type pdf)
 <use figures/operator_runtimes.pdf>
-Package pdftex.def Info: figures/operator_runtimes.pdf  used on input line 217.
+Package pdftex.def Info: figures/operator_runtimes.pdf  used on input line 220.
 (pdftex.def)             Requested size: 235.28677pt x 165.28188pt.
-LaTeX Font Info:    Calculating math sizes for size <8.5> on input line 224.
-
-Overfull \hbox (23.49834pt too wide) in paragraph at lines 225--240
- [][] 
- []
-
+LaTeX Font Info:    Calculating math sizes for size <8.5> on input line 227.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
@@ -550,7 +570,7 @@ Overfull \hbox (18.0pt too wide) has occurred while \output is active
  []
 
 [9 </home/sri/Documents/Papers/pyexafmm-cise/article/figures/operator_runtimes.pdf>]
-Underfull \hbox (badness 2443) in paragraph at lines 251--252
+Underfull \hbox (badness 2443) in paragraph at lines 270--271
 []\OT1/ptm/m/n/10.53937 SK is sup-ported by EP-SRC Stu-dentship
  []
 
@@ -563,7 +583,7 @@ Underfull \hbox (badness 2080) in paragraph at lines 18--21
  []
 
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 268.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 287.
 
 Overfull \vbox (7.9474pt too high) has occurred while \output is active []
 
@@ -571,26 +591,26 @@ Overfull \vbox (7.9474pt too high) has occurred while \output is active []
 Overfull \vbox (6.27187pt too high) has occurred while \output is active []
 
  [10]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 268.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 287.
  (/home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 268.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 268.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 287.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 287.
 Package rerunfilecheck Info: File `pyexafmm.out' has not changed.
 (rerunfilecheck)             Checksum: 0400F1C2E6F41DF19EDBB783528C897B;1056.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 268.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 287.
  ) 
 Here is how much of TeX's memory you used:
- 7648 strings out of 481239
- 115564 string characters out of 5920378
- 381064 words of memory out of 5000000
- 22689 multiletter control sequences out of 15000+600000
+ 7878 strings out of 481239
+ 118360 string characters out of 5920378
+ 385288 words of memory out of 5000000
+ 22916 multiletter control sequences out of 15000+600000
  605382 words of font info for 163 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  38i,15n,31p,2230b,322s stack positions out of 5000i,500n,10000p,200000b,80000s
 pdfTeX warning (dest): name{section*.11} has been referenced but does not exist, replaced by a fixed one
 
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvbo8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on /home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.pdf (10 pages, 1210249 bytes).
+Output written on /home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.pdf (10 pages, 1210176 bytes).
 PDF statistics:
  6599 PDF objects out of 7423 (max. 8388607)
  4426 compressed objects within 45 object streams
