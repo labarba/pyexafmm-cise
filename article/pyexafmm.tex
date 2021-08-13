@@ -202,7 +202,7 @@ We aimed to restrict computations within threads to BLAS operations. However, ou
 
 \section{Benchmarks}
 
-Benchmarks are taken on an Intel i7-9750H mobile workstation, running Ubuntu 20.04.2, GCC 9.3.0 and OpenMP 4.5. Measurements are repeated 5 times for statistics, and standard deviation is used to describe error, and is reported to one significant figure.
+Benchmarks are taken on an Intel i7-9750H mobile workstation, running Ubuntu 20.04.2, GCC 9.3.0 and OpenMP 4.5. Timings are repeated 5 times for statistics, and standard deviation is used to describe error, and is reported to one significant figure.
 
 Numba compilation makes many of PyExaFMM's functions competitive with ExaFMM-T's C++ implementation. Our implementation of (\ref{eq:laplace_kernel}) evaluates interactions between 100,000 sources and targets in $4.7 \pm 0.3$ s compared to $2.00 \pm 0.01$ s with ExaFMM-T. For a problem with 1,000,000 randomly distributed particles, and a constraint of at most 150 particles per leaf box, and depth 5, tree building and balancing takes $2.75 \pm 0.04$ s compared to $0.64 \pm 0.01$ s in ExaFMM-T. Operator pre-computation times depend on the expansion order of the multipole and local expansions, $p$, as well as the depth of the tree. However it is fast enough not to significantly impact on workflow. For the above problem with $p=10$ expansions, it takes $4.0 \pm 0.2 s$ to pre-compute all operators.
 
@@ -228,12 +228,12 @@ From figure (\ref{fig:operator_runtimes}) we see that for similar expansion orde
 		\hline
 		$k$ & $M$ &$p$ &  Geometry   &   PyExaFMM  &  ExaFMM-T &    PyExaFMM  &  ExaFMM-T  &   PyExaFMM  &  ExaFMM-T\\
 		\hline
-		10 & 17,017 & 6 &   Sphere  &  $14.0 \pm 0.2$ s & $0.97 \pm 0.03$ s  &  6.21 GB  &   5.25 GB  & 1.00e-4 & 8.75e-5\\
-		 & 32,768 &    &   Random  &  $17.7 \pm 0.5$ s &  $1.23 \pm 0.05$ s &  8.20 GB  &   5.34 GB  & 8.75e-5 & 7.66e-5\\
-		100 & 17,017 &    &   Sphere  &  $13.9 \pm 0.2$ s &   &  6.21 GB  &   & 1.00e-4 & 8.75e-5\\
-		 & 32,768 &    &   Random  &  $22.8 \pm 0.2$ s &  &  8.20 GB  &  & 8.75e-5 & 7.66e-5\\
-		Full Rank & 17,017 &   &   Sphere  &  $16.2 \pm 0.1$ s &   &  6.27 GB  &    & 1.00e-4 & 8.75e-5\\
-		 & 32,768 &    &   Random  &  $54 \pm 3$ s &   &  8.20 GB  &  & 8.75e-5 & 7.66e-5\\
+		10 & 17,017 & 6 &   Sphere  &  $14.0 \pm 0.2$ s & $1.77 \pm 0.2$ s  &  6.21 GB  &  5.25 GB  & 4.64e-4 & 3.82e-7 \\
+		 & 32,768 &    &   Random  &  $17.7 \pm 0.5$ s &  $2.43 \pm 0.02$ s &  8.20 GB  &  5.34 GB  & 1.46e-4 &  3.31e-7\\
+		100 & &    &   Sphere  &  $13.9 \pm 0.2$ s &   &  6.21 GB  &   & 4.58e-7 &  \\
+		 & &    &   Random  &  $22.8 \pm 0.2$ s &  &  8.20 GB  &  & 3.46e-6 & \\
+		Full Rank & &   &   Sphere  &  $16.2 \pm 0.1$ s &   &  6.27 GB  &  & 4.61e-7 & \\
+		 & &    &   Random  &  $54 \pm 3$ s &   &  8.20 GB  &  & 3.94e-7 & \\
 		\hline
 	\end{tabular}
 	\label{tab:performance}
