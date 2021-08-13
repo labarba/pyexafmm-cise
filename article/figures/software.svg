@@ -24,12 +24,12 @@
      inkscape:document-units="mm"
      showgrid="false"
      inkscape:zoom="2.0000001"
-     inkscape:cx="266.49999"
-     inkscape:cy="117.75"
-     inkscape:window-width="1920"
-     inkscape:window-height="1043"
-     inkscape:window-x="0"
-     inkscape:window-y="700"
+     inkscape:cx="374.24998"
+     inkscape:cy="117.74999"
+     inkscape:window-width="1080"
+     inkscape:window-height="1789"
+     inkscape:window-x="1920"
+     inkscape:window-y="34"
      inkscape:window-maximized="1"
      inkscape:current-layer="layer1"
      fit-margin-top="0.2"
@@ -211,7 +211,7 @@
          y="59.378448">Fmm</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:2.82222px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583"
+       style="font-size:2.82222px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;stroke-width:0.264583"
        x="196.2448"
        y="63.310112"
        id="text90965"><tspan
@@ -219,7 +219,7 @@
          id="tspan90963"
          style="font-size:2.82222px;stroke-width:0.264583"
          x="196.2448"
-         y="63.310112">+ target_values</tspan></text>
+         y="63.310112">+ potentials</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:2.82222px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583"
