@@ -44,7 +44,7 @@
 \markboth{Department Head}{Paper title}
 
 \begin{abstract}
-Numba is a game changing compiler for high performance computing with Python. The machine code it produces runs outside of the single-threaded Python interpreter, and can therefore fully utilize the resources of modern CPUs. This means support for parallel multithreading and auto vectorization if available, just like in a compiled language such as C++ or Fortran. Here we document our attempt to use Numba to develop a fully multithreaded implementation of the Fast Multipole Method, an algorithm which relies on a non-linear data structure and contains a significant amount of data organization that would ordinarily be run through the Python interpreter. We explain how Numba influences the design and structure of software, as well as its major pitfalls. We find that Numba doesn't live up to its promise due to overhead from the unavoidable interaction between the Python interpreter and Numba compiled code, and that our software remains an order of magnitude slower than ExaFMM-T, the leading C++ implementation of the same algorithm. However, we achieved a dramatic speedup in comparison to vanilla Python, illustrating how Numba is an excellent choice for projects in which the hackability, portability and simplicity that Python offers are a greater priorities than raw performance.
+    Numba is a game changing compiler for high performance computing with Python. The machine code it produces runs outside of the single-threaded Python interpreter, and can therefore fully utilize the resources of modern CPUs. This means support for parallel multithreading and auto vectorization if available, just like in a compiled language such as C++ or Fortran. Here we document our attempt to use Numba to develop a fully multithreaded implementation of the Fast Multipole Method, an algorithm which relies on a non-linear data structure and contains a significant amount of data organization that would ordinarily be run through the Python interpreter. We explain how Numba influences the design and structure of software, as well as its major pitfalls. We find that Numba doesn't live up to its promise due to overhead from the unavoidable interaction between the Python interpreter and Numba compiled code, and that our software remains an order of magnitude slower than ExaFMM-T, the leading C++ implementation of the same algorithm. However, we achieved a dramatic speedup in comparison to vanilla Python, illustrating how Numba is an excellent choice for projects in which the hackability, portability and simplicity that Python offers are a greater priorities than raw performance.
 \end{abstract}
 
 \maketitle
@@ -56,26 +56,32 @@ As the actual number-crunching itself happens outside of the interpreter, the GI
 
 This is the context in which Numba was introduced \cite{Lam2015}. It is a compiler that specifically targets and optimizes Python code written with Numpy's ndarray data structure. Its power comes from the ability to generate multithreaded architecture optimized compiled code while \textit{only writing Python}. The promise of Numba is the ability to develop applications with speed that can rival C++ or Fortran, while retaining the simplicity and productivity of working in Python. We put this promise to the test by developing PyExaFMM\footnote{https://github.com/exafmm/pyexafmm}, an implementation of the particle Kernel-Independent Fast Multipole Method [FMM] \cite{Ying2004}, in three dimensions. Efficient implementations of this algorithm are complicated by a recursively defined tree data structure and a series of operations which each require significant data organization and careful memory allocation. These features made PyExaFMM an excellent test case to see whether Numba could free us as Computational Scientists from the complexities of compiled languages.
 
-We begin with an overview of Numba, focussing on when and where its use is appropriate. After introducing the necessary concepts of the FMM such as its data structure and the computations involved, we proceed with an overview of how we designed our software's data structures and API to optimally use Numba. We show how we optimized multithreaded functions for cache re-use, and discuss the main pitfalls we encountered with Numba. We conclude with two benchmarks. Firstly, we measure the impact that Numba has on vanilla Python implementations of the FMM's operators. Secondly, we demonstrate PyExaFMM's performance by comparing memory usage and runtime with ExaFMM-T \cite{Wang2021}, the leading C++ implementation of the same algorithm. We note that a strict like-for-like comparison between the two implementations isn't possible. The softwares take different approaches to the implementation of their operations and data structures. However, as the differences in the design of PyExaFMM are heavily influenced by Numba and Python, it remains useful as an illustration of what can be achieved with Python in comparison to a compiled language.
+We begin with an overview of Numba, focussing on when and where its use is appropriate. After introducing the necessary concepts of the FMM such as its data structure and the computations involved, we proceed with an overview of how we designed our software's data structures and API to optimally use Numba. We show how we optimized multithreaded functions for cache re-use, and discuss the main pitfalls we encountered with Numba. We conclude with two benchmarks. Firstly, we measure the impact that Numba has on vanilla Python implementations of the FMM's operators. Secondly, we demonstrate PyExaFMM's performance by comparing memory usage and runtime with ExaFMM-T \cite{Wang2021}, the leading C++ implementation of the same algorithm. We note that a strict like-for-like comparison between the two implementations isn't possible. The softwares take different approaches to the implementation of their operations and data structures. However, as the differences in the design of PyExaFMM are heavily influenced by Numba and Python, it remains useful as an illustration of what can be achieved with Python in comparison to a compiled language to solve the same problem.
 
 \section{NUMBA}
 
+The ndarray data structure provided by Numpy is central to computational science in Python as it provides a way to create of allocating aligned n-dimensional buffers from Python.
+
+- Explanation of the numpy data structure, and its critical role in computational science, projects that use this data structure (sklearn, scipy, pandas etc.)
+
+- How numba targets Python code that uses this data structure. Initially, it was developed to remove layers of indirection (following multiple pointers to load data) in numpy code. This is because numpy ndarray struct has stride and bounds/dim of data it contains, so can in theory load from pointers instead of following indirection. It uses the LLVM infrastructure to optimize operations on the ndarray, especially where loops are involved - can fuse them i.e. intelligently combine loops to save computations, and apply auto vectorization if available on your cpu, and multithread using openMP or intel tbb as a backend. LLVM is a generic infrastructure for targeting various hardware architecture, so Numba's design allows to also compile for GPUs.
+
+- Numba cannot
+
 - Scope and aim of Numba. What is it designed to do, and what isn't it designed to do. Where it can be impactful. (ndarrays, fusing loops, autovectorization and what this is via llvm)
 
-- diagram of how Numba works, including how the api works i.e. python wrapper function, that dispatches python objects to compiled numba functions. 
+- diagram of how Numba works, including how the api works i.e. python wrapper function, that dispatches python objects to compiled numba functions, Explain how Numba can target multiple types of target due its generic design via this diagram.
 
-- Explain how Numba can target multiple types of target due its generic design.
-
-- how numba functions interacts with python interpreter, and the explanation of boxing/unboxing and a metric for this cost vs function arguments.
+- how numba functions interacts with python interpreter, and the explanation of boxing/unboxing and a metric for this cost. Can only think of a good metric once I have a more secure understanding of the exact interaction here.
 
 - code snippet for numba in real life, and when/where it is not appropriate. Contextualization of the code snippet wrt to the diagram of how Numba works.
 
-- overview of multithreading in scientific python and the current state of affairs and why this isn't appropriate for hpc apps in pure python, and multithreading api in numba, and make analogies with openmp where they exist. Thread oversubscription issues and their origin and how to avoid this.
+- overview of multithreading in scientific python and the current state of affairs and why this isn't appropriate for hpc apps in pure python, and multithreading api in numba, and make analogies with openmp where they exist. Link to recent efforts to implement an OpenMP interface within Numba? Thread oversubscription issues and their origin and how to avoid this in Numba. Comment on the quality of this solution - the py multithreading papers from intel group have good information and experiments regarding this.
 
 \section{THE FAST MULTIPOLE METHOD}
 
 - data structure - hierarchical, non-uniform leaves, results in 4 distinct interactions. (U, V, X, W). Explanation how this is represented linearly here in order to work with Numba.
-	this can be illustrated with a picture. Can refer to a figure in another paper.
+this can be illustrated with a picture. Can refer to a figure in another paper.
 
 - Discretization needs to be illustratred, check surface and equivalent surfaces. Can refer to a figure in another paper.
 
@@ -83,7 +89,7 @@ We begin with an overview of Numba, focussing on when and where its use is appro
 
 - upward pass - post order traversal
 
-P2M 
+P2M
 - parallel. loop over leaves. check potential = $O(n_l \cdot n_{crit} \cdot n_c)$ equivalent charge = $O(n_l \cdot n_e \cdot  n_c)$.
 
 M2M
@@ -93,9 +99,9 @@ M2M
 
 L2L. serial - interaction
 
-M2L 
+M2L
 
-S2L 
+S2L
 
 P2P
 
@@ -111,18 +117,18 @@ Pictures:
 \section{DATA ORIENTED DESIGN}
 
 - Data oriented design.
-	- How this is reflected in tree design
-	- How this is reflected in kernel design
-	- API design
+- How this is reflected in tree design
+- How this is reflected in kernel design
+- API design
 
 - Software design diagram
-	- Minimize the impact of running code in the interpreter.
+- Minimize the impact of running code in the interpreter.
 
 % Larger figure
 \begin{figure*}
-	\centerline{\includegraphics {figures/software.pdf}}
-	\caption{Simplified UML model of all PyExaFMM components. Trees and operators are precomputed and stored in the HDF5 database. The `Fmm' object which acts as the user interface, all other components are modules consisting of methods on operating on arrays.}
-	\label{fig:design}
+    \centerline{\includegraphics {figures/software.pdf}}
+    \caption{Simplified UML model of all PyExaFMM components. Trees and operators are precomputed and stored in the HDF5 database. The `Fmm' object which acts as the user interface, all other components are modules consisting of methods on operating on arrays.}
+    \label{fig:design}
 \end{figure*}
 
 \section{MULTITHREADING IN NUMBA}
