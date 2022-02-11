@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.5.4)  11 FEB 2022 14:04
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.5.4)  11 FEB 2022 18:03
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -477,6 +477,10 @@ LaTeX Warning: File `loop_fusion.py' already exists on the system.
                Not generating it from this source.
 
 
+LaTeX Warning: File `nested_function.py' already exists on the system.
+               Not generating it from this source.
+
+
 LaTeX Warning: File `parallel_multithreading.py' already exists on the system.
                Not generating it from this source.
 
@@ -487,22 +491,22 @@ File: l3backend-pdfmode.def 2020-02-03 L3 backend support: PDF mode
 ) (/home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.aux)
 \openout1 = `pyexafmm.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 58.
-LaTeX Font Info:    ... okay on input line 58.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 58.
-LaTeX Font Info:    ... okay on input line 58.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 58.
-LaTeX Font Info:    ... okay on input line 58.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 58.
-LaTeX Font Info:    ... okay on input line 58.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 58.
-LaTeX Font Info:    ... okay on input line 58.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 58.
-LaTeX Font Info:    ... okay on input line 58.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 58.
-LaTeX Font Info:    ... okay on input line 58.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 58.
-LaTeX Font Info:    ... okay on input line 58.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 104.
+LaTeX Font Info:    ... okay on input line 104.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 104.
+LaTeX Font Info:    ... okay on input line 104.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 104.
+LaTeX Font Info:    ... okay on input line 104.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 104.
+LaTeX Font Info:    ... okay on input line 104.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 104.
+LaTeX Font Info:    ... okay on input line 104.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 104.
+LaTeX Font Info:    ... okay on input line 104.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 104.
+LaTeX Font Info:    ... okay on input line 104.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 104.
+LaTeX Font Info:    ... okay on input line 104.
  (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count308
@@ -523,7 +527,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
 \AtBeginShipoutBox=\box107
-Package hyperref Info: Link coloring ON on input line 58.
+Package hyperref Info: Link coloring ON on input line 104.
  (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
  (/usr/share/texlive/texmf-dist/tex/latex/refcount/refcount.sty
@@ -533,16 +537,16 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count314
 )
-LaTeX Info: Redefining \ref on input line 58.
-LaTeX Info: Redefining \pageref on input line 58.
-LaTeX Info: Redefining \nameref on input line 58.
+LaTeX Info: Redefining \ref on input line 104.
+LaTeX Info: Redefining \pageref on input line 104.
+LaTeX Info: Redefining \nameref on input line 104.
  (/home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.out) (/home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.out)
 \@outlinefile=\write3
 \openout3 = `pyexafmm.out'.
 
 \c@lstlisting=\count315
 LaTeX Font Info:    Font shape `OT1/phv/b/it' in size <9.5> not available
-(Font)              Font shape `OT1/phv/b/sl' tried instead on input line 79.
+(Font)              Font shape `OT1/phv/b/sl' tried instead on input line 125.
 
 
 LaTeX Warning: Optional argument of \twocolumn too tall on page 1.
@@ -569,33 +573,31 @@ Overfull \hbox (18.0pt too wide) has occurred while \output is active
 
 
 ]
-LaTeX Font Info:    Calculating math sizes for size <10.53937> on input line 84.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 84.
+LaTeX Font Info:    Calculating math sizes for size <10.53937> on input line 130.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 130.
  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 84.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 130.
  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 Overfull \vbox (6.27187pt too high) has occurred while \output is active []
 
-LaTeX Font Info:    Trying to load font information for TS1+phv on input line 97.
+LaTeX Font Info:    Trying to load font information for TS1+phv on input line 143.
  (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1phv.fd
 File: ts1phv.fd 2001/06/04 scalable font definitions for TS1/phv.
 ) [2]
-Underfull \vbox (badness 5756) has occurred while \output is active []
+Underfull \hbox (badness 10000) in paragraph at lines 152--152
+[][][][]\OT1/ptm/m/n/8 A full list of sup-ported fea-tures for the cur-rent
+ []
 
-<figures/numba.pdf, id=92, 460.13841pt x 271.42949pt>
-File: figures/numba.pdf Graphic file (type pdf)
-<use figures/numba.pdf>
-Package pdftex.def Info: figures/numba.pdf  used on input line 105.
-(pdftex.def)             Requested size: 460.13728pt x 271.42882pt.
-Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 111.
-LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 111.
- (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1pcr.fd
-File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
-) (/home/sri/Documents/Papers/pyexafmm-cise/article/loop_fusion.py) (/home/sri/Documents/Papers/pyexafmm-cise/article/parallel_multithreading.py)
+
+Underfull \hbox (badness 5652) in paragraph at lines 152--152
+\OT1/ptm/m/n/8 re-lease can be found at: https://numba.pydata.org/numba-
+ []
+
+
 Overfull \vbox (6.27187pt too high) has occurred while \output is active []
 
 
@@ -604,27 +606,34 @@ Overfull \hbox (18.0pt too wide) has occurred while \output is active
  []
 
 [3]
+Underfull \hbox (badness 2503) in paragraph at lines 158--159
+[]\OT1/ptm/m/n/10.53937 This ex-poses a sig-nif-i-cant prob-lem with
+ []
+
+<figures/numba.pdf, id=106, 460.13841pt x 271.42949pt>
+File: figures/numba.pdf Graphic file (type pdf)
+<use figures/numba.pdf>
+Package pdftex.def Info: figures/numba.pdf  used on input line 161.
+(pdftex.def)             Requested size: 460.13728pt x 271.42882pt.
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 167.
+LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 167.
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1pcr.fd
+File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
+) (/home/sri/Documents/Papers/pyexafmm-cise/article/loop_fusion.py
+LaTeX Font Info:    Font shape `OT1/pcr/m/it' in size <8> not available
+(Font)              Font shape `OT1/pcr/m/sl' tried instead on input line 4.
+) (/home/sri/Documents/Papers/pyexafmm-cise/article/nested_function.py)
 Overfull \vbox (7.9474pt too high) has occurred while \output is active []
 
 
 Overfull \vbox (6.27187pt too high) has occurred while \output is active []
 
- [4 </home/sri/Documents/Papers/pyexafmm-cise/article/figures/numba.pdf>]
-<figures/software.pdf, id=251, 410.81348pt x 183.60562pt>
+ [4]
+<figures/software.pdf, id=147, 410.81348pt x 183.60562pt>
 File: figures/software.pdf Graphic file (type pdf)
 <use figures/software.pdf>
-Package pdftex.def Info: figures/software.pdf  used on input line 165.
+Package pdftex.def Info: figures/software.pdf  used on input line 215.
 (pdftex.def)             Requested size: 410.81247pt x 183.60516pt.
-
-Underfull \hbox (badness 2443) in paragraph at lines 202--203
-[]\OT1/ptm/m/n/10.53937 SK is sup-ported by EP-SRC Stu-dentship
- []
-
-(/home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.bbl
-LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <8> not available
-(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 5.
-)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 220.
 
 Overfull \vbox (5.97588pt too high) has occurred while \output is active []
 
@@ -633,36 +642,56 @@ Overfull \hbox (18.0pt too wide) has occurred while \output is active
 | [] 
  []
 
-[5]
+[5 </home/sri/Documents/Papers/pyexafmm-cise/article/figures/numba.pdf>] (/home/sri/Documents/Papers/pyexafmm-cise/article/parallel_multithreading.py)
+Underfull \hbox (badness 2443) in paragraph at lines 245--246
+[]\OT1/ptm/m/n/10.53937 SK is sup-ported by EP-SRC Stu-dentship
+ []
+
+(/home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.bbl
+LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <8> not available
+(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 5.
+)
 Overfull \vbox (7.9474pt too high) has occurred while \output is active []
 
 
 Overfull \vbox (6.27187pt too high) has occurred while \output is active []
 
  [6 </home/sri/Documents/Papers/pyexafmm-cise/article/figures/software.pdf>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 220.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 263.
+
+Overfull \vbox (5.97588pt too high) has occurred while \output is active []
+
+
+Overfull \hbox (18.0pt too wide) has occurred while \output is active
+| [] 
+ []
+
+[7
+
+]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 263.
  (/home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 220.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 220.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 263.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 263.
 Package rerunfilecheck Info: File `pyexafmm.out' has not changed.
-(rerunfilecheck)             Checksum: 11631F0C780C61A1B19B1B37CB87E512;792.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 220.
+(rerunfilecheck)             Checksum: 1B559ACAEE228A41E0DD43619A7B7D47;792.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 263.
  ) 
 Here is how much of TeX's memory you used:
- 9785 strings out of 481239
- 143858 string characters out of 5920378
- 598785 words of memory out of 5000000
- 24790 multiletter control sequences out of 15000+600000
- 597863 words of font info for 140 fonts, out of 8000000 for 9000
+ 9860 strings out of 481239
+ 144947 string characters out of 5920378
+ 623785 words of memory out of 5000000
+ 24809 multiletter control sequences out of 15000+600000
+ 598480 words of font info for 142 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 38i,10n,40p,1412b,1338s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,9n,40p,1589b,1388s stack positions out of 5000i,500n,10000p,200000b,80000s
 pdfTeX warning (dest): name{section*.9} has been referenced but does not exist, replaced by a fixed one
 
-{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvbo8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on /home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.pdf (6 pages, 188469 bytes).
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrro8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvbo8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on /home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.pdf (7 pages, 206718 bytes).
 PDF statistics:
- 336 PDF objects out of 1000 (max. 8388607)
- 267 compressed objects within 3 object streams
- 52 named destinations out of 1000 (max. 500000)
+ 414 PDF objects out of 1000 (max. 8388607)
+ 342 compressed objects within 4 object streams
+ 103 named destinations out of 1000 (max. 500000)
  123 words of extra memory for PDF output out of 10000 (max. 10000000)
 

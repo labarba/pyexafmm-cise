@@ -1,8 +1,8 @@
 \BOOKMARK [1][-]{section*.1}{NUMBA}{}% 1
-\BOOKMARK [1][-]{section*.2}{THE FAST MULTIPOLE METHOD}{}% 2
-\BOOKMARK [1][-]{section*.3}{DATA ORIENTED DESIGN}{}% 3
-\BOOKMARK [1][-]{section*.4}{MULTITHREADING IN NUMBA}{}% 4
-\BOOKMARK [1][-]{section*.5}{PITFALLS OF NUMBA}{}% 5
+\BOOKMARK [1][-]{section*.2}{PITFALLS OF NUMBA}{}% 2
+\BOOKMARK [1][-]{section*.3}{THE FAST MULTIPOLE METHOD}{}% 3
+\BOOKMARK [1][-]{section*.4}{DATA ORIENTED DESIGN}{}% 4
+\BOOKMARK [1][-]{section*.5}{MULTITHREADING IN NUMBA}{}% 5
 \BOOKMARK [1][-]{section*.6}{BENCHMARKS}{}% 6
 \BOOKMARK [1][-]{section*.7}{CONCLUSION}{}% 7
 \BOOKMARK [1][-]{section*.8}{ACKNOWLEDGMENT}{}% 8
