@@ -93,18 +93,29 @@ We begin with an overview of Numba, focussing on when and where its use is appro
 
 \section{NUMBA}
 
-Numba is a compiler for Python that targets a subset of the language that manipulates the $n$-dimensional array data structure from Numpy, the ndarray. Unlike a Python list, where each element is linked to the previous element by a pointer, and elements can be of any type, Numpy arrays are homogeneously typed and stored contiguously in memory.
+Numba is a compiler for Python that targets a subset of the language that manipulates the $n$-dimensional array data structure from Numpy, the ndarray. Unlike a Python list, where each element is linked to the previous element by a pointer, and elements can be of any type, Numpy arrays are homogeneously typed and stored contiguously in memory. This means that adjacent array elements are stored in adjacent memory locations, which results in two benefits for scientific computing. Firstly, as modern CPUs tend to cache memory at adjacent registers when asked to load data from a given address, this memory layout is useful in algorithms which iterate over arrays as the CPU's cache is likely to contain the next element being operated on. This is known as \textit{locality of reference}. Secondly, the contiguous nature of the array means Numpy is able to calculate the memory addresses of sub-arrays using its knowledge of the pointer to the start of the array, the data type, and the number of elements in the slice. This is in contrast to Python lists, where subsequent element are found by following trails of pointers, known as \textit{indirection}.
 
-This means that all array elements must be of the same type, and adjacent array elements are stored in adjacent memory locations. This results in two benefits for scientific computing. Firstly, modern CPUs tend to cache memory at adjacent registers when asked to load data from a given address, this is useful in algorithms which iterate over arrays as the cache is likely to contain the next element being operated on by the algorithm, saving time. This is known as \textit{locality of reference}. Secondly, the contiguous nature of the array means Numpy is able to calculate the memory addresses of sub-arrays using its knowledge of the pointer to the start of the array, the data type, and the number of elements in the slice. This is in contrast to Python lists, where subsequent element are found by following trails of pointers, known as \textit{indirection}.
+Numba was built to further optimize operations using ndarrays, specifically
 
-Numba is built using LLVM, a tool for building custom compilers, that provides an API to generate machine code for different hardware architectures such as CPUs and GPUs. LLVM is also able to analyze the code it's compiling for hardware level optimizations such as auto vectorization. Numba doesn't replace the Python interpreter, instead  functions are marked for Numba compilation with a decorator (see listings (\ref{code:loop_fusion}) and (\ref{code:parallel_multithreading})), and when called at runtime compiled on the fly, as illustrated in figure (\ref{fig:numba}).
+- loop fusion, indirection.
+
+
+Numba is built using LLVM [FURTHER READING ON LLVM], a tool for building custom compilers, that provides an API to generate machine code for different hardware architectures such as CPUs and GPUs. LLVM is also able to analyze the code it's compiling for hardware level optimizations such as auto vectorization. So Numba attempts to optimize Python code for your hardware
+
+From a user perspective, Numba doesn't interfere with workflow - functions are marked for compilation with a special decorator (see listings) and Numba's runtime compiles functions on the fly, when they are called from the Python interpreter.
+
+instead  functions are marked for Numba compilation with a decorator (see listings (\ref{code:loop_fusion}) and (\ref{code:parallel_multithreading})), and when called at runtime compiled on the fly. The execution path of what happens when a Numbafied function is called from the Python interpreter is illustrated in figure (\ref{fig:numba}).
+
+
+Despite being a compiler, Numba doesn't replace the Python interpreter. As seen from figure (\ref{fig:numba}), Numba interacts with the Python interpter dynamically and the control of program execution is passed back and forth between the Numba runtime and the intereter. There is an inherent cost to this interaction which is due to having to `box' and unbox data types between types compatible with Python and the native compiled numba function. [INSERT BENCHMARK EXPERIMENT HERE FOR BOXING AND UNBOXING COST]
 
 \begin{figure*}
     \centerline{\includegraphics {figures/numba.pdf}}
-    \caption{The execution path when calling a Numba compiled function from the Python interpreter. The green path is only taken if the function hasn't been called before. The red path is taken if a compiled version with the correct type signature already exists in the Numba cache.}
+    \caption{Simplified execution path when calling a Numba compiled function from the Python interpreter. The green path is only taken if the function hasn't been called before. The red path is taken if a compiled version with the correct type signature already exists in the Numba cache.}
     \label{fig:numba}
 \end{figure*}
-	
+
+
 \lstinputlisting[float=t, caption={An example in which loops are fused.}\label{code:loop_fusion}]{loop_fusion.py}
 
 \lstinputlisting[float=t, caption={An example of parallel multithreading.}\label{code:parallel_multithreading}]{parallel_multithreading.py}
@@ -175,7 +186,7 @@ Pictures:
 
 \section{MULTITHREADING IN NUMBA}
 
-- overview of multithreading in scientific python and the current state of affairs and why this isn't appropriate for hpc apps in pure python, and multithreading api in numba, and make analogies with openmp where they exist. Link to recent efforts to implement an OpenMP interface within Numba? 
+- overview of multithreading in scientific python and the current state of affairs and why this isn't appropriate for hpc apps in pure python, and multithreading api in numba, and make analogies with openmp where they exist. Link to recent efforts to implement an OpenMP interface within Numba?
 
 Thread oversubscription issues and their origin and how to avoid this in Numba. Comment on the quality of this solution - the py multithreading papers from intel group have good information and experiments regarding this.
 
