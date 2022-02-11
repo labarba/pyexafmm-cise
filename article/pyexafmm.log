@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.5.4)  11 FEB 2022 18:03
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.5.4)  11 FEB 2022 18:12
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -547,21 +547,24 @@ LaTeX Info: Redefining \nameref on input line 104.
 \c@lstlisting=\count315
 LaTeX Font Info:    Font shape `OT1/phv/b/it' in size <9.5> not available
 (Font)              Font shape `OT1/phv/b/sl' tried instead on input line 125.
-
-
-LaTeX Warning: Optional argument of \twocolumn too tall on page 1.
-
-
+LaTeX Font Info:    Calculating math sizes for size <10.53937> on input line 130.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 130.
+ (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 130.
+ (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
+Overfull \vbox (16.4583pt too high) has occurred while \output is active []
 
-LaTeX Warning: Text page 1 contains only floats.
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
+LaTeX Font Info:    Trying to load font information for TS1+phv on input line 131.
+ (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1phv.fd
+File: ts1phv.fd 2001/06/04 scalable font definitions for TS1/phv.
+)
 Overfull \vbox (6.27187pt too high) has occurred while \output is active []
 
 
@@ -573,21 +576,15 @@ Overfull \hbox (18.0pt too wide) has occurred while \output is active
 
 
 ]
-LaTeX Font Info:    Calculating math sizes for size <10.53937> on input line 130.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 130.
- (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-LaTeX Font Info:    Trying to load font information for U+msb on input line 130.
- (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Overfull \vbox (7.9474pt too high) has occurred while \output is active []
+
+
 Overfull \vbox (6.27187pt too high) has occurred while \output is active []
 
-LaTeX Font Info:    Trying to load font information for TS1+phv on input line 143.
- (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1phv.fd
-File: ts1phv.fd 2001/06/04 scalable font definitions for TS1/phv.
-) [2]
+ [2]
 Underfull \hbox (badness 10000) in paragraph at lines 152--152
 [][][][]\OT1/ptm/m/n/8 A full list of sup-ported fea-tures for the cur-rent
  []
@@ -688,7 +685,7 @@ Here is how much of TeX's memory you used:
 pdfTeX warning (dest): name{section*.9} has been referenced but does not exist, replaced by a fixed one
 
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrro8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvbo8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on /home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.pdf (7 pages, 206718 bytes).
+Output written on /home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.pdf (7 pages, 206674 bytes).
 PDF statistics:
  414 PDF objects out of 1000 (max. 8388607)
  342 compressed objects within 4 object streams
