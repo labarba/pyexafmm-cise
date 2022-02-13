@@ -169,15 +169,11 @@ Though Numba is advertised as an easy way of injecting performance into your pro
 
 \section{THE FAST MULTIPOLE METHOD}
 
-The particle FMM is an approximation algorithm for $N$-body problems in which each of the particle interacts with all other particles, for example in calculating electrostatic potentials from a set of charged particles. Using this as our 
-The naive computation is $O(N^2)$, however the FMM compresses groups of interactions far away from a given particle to reduce the overall complexity to just $O(N)$ with a well described accuracy bound for a chosen discretization. The algorithm relies on a hierarchical octree data structure to discretize the problem domain in three dimensions, see figure 1 in \cite{Sundar2007}. The Kernel Independent FMM \cite{Ying2004} approximates the
+The particle FMM is an approximation algorithm for $N$-body problems in which $N$ source particles interact with $M$ target particles \cite{Greengard1987}. Without loss of generality we can consider the sources and targets to correspond to the same set of particles. An example of this situation is in calculating electrostatic potentials from a set of charged particles, and we use this as our reference problem to test the performance of our software. The naive computation is $O(N^2)$, as each particle will have to calculate its interaction with all other particles. The FMM compresses groups of interactions far away from a given particle to reduce the overall complexity to just $O(N)$ with a well described accuracy bound for a chosen level of discretization. Problems with this structure appear across science and engineering and have been made tractable using the FMM, resultantly it's been described as one of the ten most important algorithms of the twentieth century \cite{Cipra2000}.
 
-Discretization on the surface of each node in the octree is dictated by a parameter $p$ called the expansion order in FMM literature, and dictates the number of quadrature points on the surface of a
+The algorithm relies on a hierarchical octree data structure to discretize the problem domain in three dimensions (see figure 1 in \cite{Sundar2007}) and consists of six operators: P2M, M2M, M2L, L2L, L2P and P2P. An operator is read as 'X to Y', where `P' stands for particle(s),`M' for \textit{multipole expansion} and `L' for \textit{local expansion}. These expansions are ways of describing the charge contained within subregions of the octree, and can be tuned to a given accuracy, described by a parameter called the expansion order, or $p$. A multipole expansion represents the aggregation of charge located with a given node of the octree, where the expansion center is set to coincide with the box center. A multipole expansion can be translated into a local expansion centered on another node, inside of which it is valid. The act of performing the translation is the M2L operator, therefore the operators can be seen to be translations between expansion representations. Similarly, the expansion centers of of local or multipole expansions can be shifted, which are the L2L and M2M operators respectively. The P2M operator is the act of forming a multipole expansion for a set of particles within a node. L2P and P2P refer to directly evaluating the interaction in $O(N^2)$ between local expansion coefficients, or a set of source particles, at a set of target particles, respectively.
 
-[explanation of how discretization varies with precision] figures 4 and 5 in \cite{Ying2004} show discretization in 3D.
-
-and relies on eight operators that are called during a bottom-up traversal of this tree followed by a top-down traversal. These operators are referred to as the P2M, M2M, M2L L2L, M2P, S2L, S2P and P2P, for our purposes it's enough to note the computations involved in each of these operators, and defer to the literature for an explanation of their significance: \cite{Ying2004,Greengard1987,Lashuk2012}.
-
+The Kernel Independent FMM \cite{Ying2004} is a re-formulation of the FMM with a structure that favours parallelization, as the operators can be decomposed into series of matrix vector products.
 
 P2M
 - parallel. loop over leaves. check potential = $O(n_l \cdot n_{crit} \cdot n_c)$ equivalent charge = $O(n_l \cdot n_e \cdot  n_c)$.
@@ -195,14 +191,11 @@ S2L
 
 P2P
 
-Pictures:
-- illustrate expansion orders for approximating in a single box?
-
-- tree figure, and list of kernels that are compueted at each stage, and exactly what the computations involve for kernel independent fmm. Offer complexity bounds on these calculations. Contextualize the computations required of each kernel. i.e. P2P is raw multithreading performance.
+- Contextualize the computations required of each kernel. i.e. P2P is raw multithreading performance.
 
 - Offer analysis of where it is suitable to parallelize.
 
-- A short note on the decision for M2l via SVD for FMM experts.
+
 
 \section{DATA ORIENTED DESIGN}
 
@@ -233,6 +226,12 @@ Thread oversubscription issues and their origin and how to avoid this in Numba. 
 
 \lstinputlisting[float=t, caption={An example of parallel multithreading.}\label{code:parallel_multithreading}]{parallel_multithreading.py}
 
+\section{DIFFERENCES WITH EXAFMM-T}
+
+- PyExaFMM's tree data structure influence by Numba preference for linear data structure.
+
+- A short note on the decision for M2l via SVD for FMM experts.
+
 
 \section{BENCHMARKS}
 
@@ -246,7 +245,7 @@ foo bar
 
 \section{ACKNOWLEDGMENT}
 
-SK is supported by EPSRC Studentship 2417009.
+SK is sported by EPSRC Studentship 2417009.
 
 \bibliography{pyexafmm}
 
