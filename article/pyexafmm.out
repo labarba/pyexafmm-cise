@@ -1,15 +1,16 @@
 \BOOKMARK [1][-]{section*.1}{NUMBA}{}% 1
 \BOOKMARK [1][-]{section*.2}{PITFALLS OF NUMBA}{}% 2
 \BOOKMARK [1][-]{section*.3}{THE FAST MULTIPOLE METHOD}{}% 3
-\BOOKMARK [1][-]{section*.4}{MULTITHREADING IN NUMBA}{}% 4
-\BOOKMARK [1][-]{section*.5}{DATA ORIENTED DESIGN}{}% 5
-\BOOKMARK [1][-]{section*.6}{DIFFERENCES WITH EXAFMM-T}{}% 6
-\BOOKMARK [1][-]{section*.7}{BENCHMARKS}{}% 7
-\BOOKMARK [1][-]{section*.8}{CONCLUSION}{}% 8
-\BOOKMARK [1][-]{section*.9}{ACKNOWLEDGMENT}{}% 9
-\BOOKMARK [1][-]{section*.10}{REFERENCES}{}% 10
-\BOOKMARK [1][-]{IEEEbiography.0}{Biographies}{}% 11
-\BOOKMARK [2][-]{IEEEbiography.1}{Srinath Kailasa}{IEEEbiography.0}% 12
-\BOOKMARK [2][-]{IEEEbiography.2}{Tingyu Wang}{IEEEbiography.0}% 13
-\BOOKMARK [2][-]{IEEEbiography.3}{Lorena. A. Barba}{IEEEbiography.0}% 14
-\BOOKMARK [2][-]{IEEEbiography.4}{Timo Betcke}{IEEEbiography.0}% 15
+\BOOKMARK [1][-]{section*.4}{COMPUTATIONAL STRUCTURE OF FMM OPERATORS}{}% 4
+\BOOKMARK [1][-]{section*.5}{MULTITHREADING IN NUMBA}{}% 5
+\BOOKMARK [1][-]{section*.6}{DATA ORIENTED DESIGN}{}% 6
+\BOOKMARK [1][-]{section*.7}{DIFFERENCES WITH EXAFMM-T}{}% 7
+\BOOKMARK [1][-]{section*.8}{BENCHMARKS}{}% 8
+\BOOKMARK [1][-]{section*.9}{CONCLUSION}{}% 9
+\BOOKMARK [1][-]{section*.10}{ACKNOWLEDGMENT}{}% 10
+\BOOKMARK [1][-]{section*.11}{REFERENCES}{}% 11
+\BOOKMARK [1][-]{IEEEbiography.0}{Biographies}{}% 12
+\BOOKMARK [2][-]{IEEEbiography.1}{Srinath Kailasa}{IEEEbiography.0}% 13
+\BOOKMARK [2][-]{IEEEbiography.2}{Tingyu Wang}{IEEEbiography.0}% 14
+\BOOKMARK [2][-]{IEEEbiography.3}{Lorena. A. Barba}{IEEEbiography.0}% 15
+\BOOKMARK [2][-]{IEEEbiography.4}{Timo Betcke}{IEEEbiography.0}% 16
