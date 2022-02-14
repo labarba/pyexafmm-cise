@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.5.4)  13 FEB 2022 22:57
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.5.4)  14 FEB 2022 00:28
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -576,11 +576,6 @@ Overfull \hbox (18.0pt too wide) has occurred while \output is active
 
 
 ]
-Underfull \hbox (badness 1831) in paragraph at lines 138--139
-\OT1/ptm/m/n/10.53937 ti-mally use Numba. We con-clude with two
- []
-
-
 Overfull \vbox (7.9474pt too high) has occurred while \output is active []
 
 
@@ -628,6 +623,9 @@ Overfull \vbox (7.9474pt too high) has occurred while \output is active []
 Overfull \vbox (6.27187pt too high) has occurred while \output is active []
 
  [4]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
 Overfull \vbox (5.97588pt too high) has occurred while \output is active []
 
 
@@ -635,11 +633,11 @@ Overfull \hbox (18.0pt too wide) has occurred while \output is active
 | [] 
  []
 
-[5 </home/sri/Documents/Papers/pyexafmm-cise/article/figures/numba.pdf>]
-<figures/software.pdf, id=324, 410.81348pt x 183.60562pt>
+[5 </home/sri/Documents/Papers/pyexafmm-cise/article/figures/numba.pdf>] (/home/sri/Documents/Papers/pyexafmm-cise/article/parallel_multithreading.py)
+<figures/software.pdf, id=320, 410.81348pt x 183.60562pt>
 File: figures/software.pdf Graphic file (type pdf)
 <use figures/software.pdf>
-Package pdftex.def Info: figures/software.pdf  used on input line 228.
+Package pdftex.def Info: figures/software.pdf  used on input line 259.
 (pdftex.def)             Requested size: 410.81247pt x 183.60516pt.
 
 Overfull \vbox (7.9474pt too high) has occurred while \output is active []
@@ -647,15 +645,17 @@ Overfull \vbox (7.9474pt too high) has occurred while \output is active []
 
 Overfull \vbox (6.27187pt too high) has occurred while \output is active []
 
- [6] (/home/sri/Documents/Papers/pyexafmm-cise/article/parallel_multithreading.py)
-Underfull \hbox (badness 7613) in paragraph at lines 269--270
+ [6]
+Underfull \hbox (badness 7613) in paragraph at lines 285--286
 []\OT1/ptm/m/n/10.53937 SK is sported by EP-SRC Stu-dentship
  []
 
 (/home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.bbl
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <8> not available
 (Font)              Font shape `OT1/phv/m/sl' tried instead on input line 5.
-
+)
 Overfull \vbox (5.97588pt too high) has occurred while \output is active []
 
 
@@ -663,8 +663,8 @@ Overfull \hbox (18.0pt too wide) has occurred while \output is active
 | [] 
  []
 
-[7 </home/sri/Documents/Papers/pyexafmm-cise/article/figures/software.pdf>])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 287.
+[7 </home/sri/Documents/Papers/pyexafmm-cise/article/figures/software.pdf>]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 303.
 
 Overfull \vbox (7.9474pt too high) has occurred while \output is active []
 
@@ -674,29 +674,29 @@ Overfull \vbox (6.27187pt too high) has occurred while \output is active []
  [8
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 287.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 303.
  (/home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 287.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 287.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 303.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 303.
 Package rerunfilecheck Info: File `pyexafmm.out' has not changed.
-(rerunfilecheck)             Checksum: C861D8DD7CF35E81A4098C1817A77EB6;855.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 287.
+(rerunfilecheck)             Checksum: FD2F2E1C268EDB80321F878BF7891442;855.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 303.
  ) 
 Here is how much of TeX's memory you used:
- 9865 strings out of 481239
- 145006 string characters out of 5920378
+ 9866 strings out of 481239
+ 145014 string characters out of 5920378
  606785 words of memory out of 5000000
- 24811 multiletter control sequences out of 15000+600000
+ 24812 multiletter control sequences out of 15000+600000
  598480 words of font info for 142 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 38i,10n,40p,1683b,1388s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,10n,40p,2048b,1388s stack positions out of 5000i,500n,10000p,200000b,80000s
 pdfTeX warning (dest): name{section*.10} has been referenced but does not exist, replaced by a fixed one
 
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrro8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvbo8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on /home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.pdf (8 pages, 238033 bytes).
+Output written on /home/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.pdf (8 pages, 235731 bytes).
 PDF statistics:
- 445 PDF objects out of 1000 (max. 8388607)
- 367 compressed objects within 4 object streams
+ 441 PDF objects out of 1000 (max. 8388607)
+ 363 compressed objects within 4 object streams
  106 named destinations out of 1000 (max. 500000)
  131 words of extra memory for PDF output out of 10000 (max. 10000000)
 

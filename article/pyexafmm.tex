@@ -135,7 +135,7 @@ As the actual number-crunching itself happens outside of the interpreter, the GI
 
 This is the context in which Numba was introduced \cite{Lam2015}. It is a compiler that specifically targets and optimizes Python code written with Numpy's ndarray data structure. Its power comes from the ability to generate multithreaded architecture optimized compiled code while \textit{only writing Python}. The promise of Numba is the ability to develop applications with speed that can rival C++ or Fortran, while retaining the simplicity and productivity of working in Python. We put this promise to the test by developing PyExaFMM\footnote{https://github.com/exafmm/pyexafmm}, an implementation of the Kernel-Independent Particle Fast Multipole Method [FMM] \cite{Ying2004,Greengard1987}, in three dimensions. Efficient implementations of this algorithm are complicated by a recursively defined tree data structure and a series of operations which each require significant data organization and careful memory allocation. These features made PyExaFMM an excellent test case to see whether Numba could free us as Computational Scientists from the complexities of compiled languages.
 
-We begin with an overview of Numba, focussing on when and where its use is appropriate and its major pitfalls. After introducing the necessary concepts of the FMM such as its data structure and the computations involved, we provide an overview of how we designed our software's data structures, algorithm implementations, and application programming interface [API] to optimally use Numba. We conclude with two benchmarks. Firstly, we measure the impact that Numba has on vanilla Python implementations of the FMM's operators. Secondly, we demonstrate PyExaFMM's performance by comparing memory usage and runtime with ExaFMM-T \cite{Wang2021}, the leading C++ implementation of the same algorithm. We note that a strict like-for-like comparison between the two implementations isn't possible. The softwares take different approaches to the implementation of some of their operations and data structures. However, as the differences in the design of PyExaFMM are heavily influenced by Numba and Python, it remains useful as an illustration of what can be achieved with Python in comparison to a compiled language to solve the same problem.
+We begin with an overview of Numba, focussing on when and where its use is appropriate and its major pitfalls. After introducing the necessary concepts of the FMM such as its data structure and the computations involved, we provide an overview of how we designed our software's data structures, algorithm implementations, and application programming interface [API] to optimally use Numba. We conclude benchmarks demonstrating the impact of Numba on vanilla Python implementations of the FMM's operators, the cost of passing between the Python interpreter and Numba compiled code, and performance in terms of memory and runtime in comparison to ExaFMM-T \cite{Wang2021}, the leading C++ implementation of the same algorithm. We note that a strict like-for-like comparison between the two implementations isn't possible. The softwares take different approaches to the implementation of some of their operations and data structures. However, as the differences in the design of PyExaFMM are heavily influenced by Numba and Python, it remains useful as an illustration of what can be achieved with Python in comparison to a compiled language to solve the same problem.
 
 \section{NUMBA}
 
@@ -169,27 +169,42 @@ Though Numba is advertised as an easy way of injecting performance into your pro
 
 \section{THE FAST MULTIPOLE METHOD}
 
-The particle FMM is an approximation algorithm for $N$-body problems in which $N$ source particles interact with $M$ target particles \cite{Greengard1987}. Without loss of generality we can consider the sources and targets to correspond to the same set of particles. An example of this situation is in calculating electrostatic potentials from a set of charged particles, and we use this as our reference problem to test the performance of our software. Consider a three-dimensional domain, with a set of $N$ charged particles at positions $x_i$. The potential at a given particle due to all other particles, excluding self interaction, can be written as.
+The particle FMM is an approximation algorithm for $N$-body problems in which $N$ source particles interact with $M$ target particles \cite{Greengard1987}. Without loss of generality we can consider the sources and targets to correspond to the same set of particles. An example of this is the calculation of electrostatic potentials from a set of charged particles, and we use this as our reference problem to test the performance of our software. Consider a three-dimensional domain, with a set of $N$ charged particles at positions $x_i$. The potential, $\phi_j$, at a given particle at $x_j$ due to all other particles, excluding self interaction, can be written as.
 
 \begin{equation}
     \phi_j = \sum_{i=1, i \neq j}^{N} \frac{q_i}{| x_i-x_j |}
     \label{eq:laplace_kernel}
 \end{equation}
 
-where $\frac{1}{| x_i-x_j|}$ is called the kernel, or the Green's function, and $q_i$ is the charge at $x_i$. The naive computation over all particles is $O(N^2)$, however the FMM compresses groups of interactions far away from a given particle to reduce the overall complexity to just $O(N)$, with a well described error bound for a chosen level of discretization. Problems with this structure appear frequently in science and engineering and are made tractable using the FMM, resultantly it's been described as one of the ten most important algorithms of the twentieth century \cite{Cipra2000}.
+where $\frac{1}{| x_i-x_j|}$ is called the kernel, or the Green's function, and $q_i$ is the charge at $x_i$. The naive computation over all particles is $O(N^2)$, however the FMM compresses groups of interactions far away from a given particle to reduce the overall complexity to just $O(N)$, with a well described error bound for a chosen level of discretization. Problems with this structure appear frequently in science and engineering and are made tractable using the FMM, as a result it's been described as one of the ten most important algorithms of the twentieth century \cite{Cipra2000}. The algorithm relies on a hierarchical octree data structure to discretize the problem domain in three dimensions (see fig. 1 in \cite{Sundar2007}) and consists of eight operators: P2M, P2L, M2M, M2L, L2L, L2P, M2P and P2P applied during two consecutive traversals of the octree (bottom-up and then top-down). We defer to the FMM literature for a more detailed discussion on the mathematical significance and formulation of these operators \cite{Greengard1987}. The Kernel Independent FMM \cite{Ying2004}, implemented by PyExaFMM and ExaFMM-t, is a re-formulation of the FMM with a structure that favours parallelization. Indeed all of the operators can be decomposed into matrix-vector products, which fit well with Numba.
 
-The algorithm relies on a hierarchical octree data structure to discretize the problem domain in three dimensions (see figure 1 in \cite{Sundar2007}) and consists of eight operators: P2M, M2M, M2L, L2L, S2L, L2P, M2P and P2P. The depth of the octree is defined by a user provided value for $n_{crit}$, defining the maximum number of particles within a leaf node and hence defined by the distribution of particles. An operator is read as 'X to Y', where `P' stands for particle(s),`M' for \textit{multipole expansion} and `L' for \textit{local expansion}. These expansions are ways of describing the charge contained within subregions of the octree, and can be tuned to a given accuracy, described by a parameter called the expansion order, or $p$. A multipole expansion represents the aggregation of charge located with a given node of the octree, where the expansion center is set to coincide with the box center. A multipole expansion can be translated into a local expansion centered on another node, inside of which it is valid. The act of performing the translation is the M2L operator, therefore the operators can be seen to be translations between expansion representations. Similarly, the expansion centers of of local or multipole expansions can be shifted, which are the L2L and M2M operators respectively. The P2M operator is the act of forming a multipole expansion for a set of particles within a node. L2P and P2P refer to directly evaluating the interaction in $O(N^2)$ between local expansion coefficients, or a set of source particles, at a set of target particles, respectively.
+In formulating a parallelization strategy, the important quantities to understand are the computations involved and the whether there is any data being shared.
 
-The Kernel Independent FMM \cite{Ying2004} is a re-formulation of the FMM with a structure that favours parallelization. Indeed all of the operators can be decomposed into matrix-vector products, which fit well with Numba. Multipole expansions are found by enclosing a node with an `equivalent surface' discretized with $n_e$ quadrature points, at each of which is placed an `equivalent charge'. A `check surface' discretized with $n_c$ quadrature points, is then used to enclose both the equivalent surface and the node, and a potential is calculated at the check surface using (\ref{eq:laplace_kernel}) directly with either the particles with the node (for P2M) or the equivalent charges of child nodes contained within the node (for M2M) as the source particles. Finally, a least-squares fit is used to match this calculated potential to that generated by the equivalent charges. Similar logic is used to calculate the M2L and L2L operators, with modified check and equivalent surfaces (see fig. 5 \cite{Ying2004}). The L2P, M2P, S2L and P2P operators all involve using (\ref{eq:laplace_kernel}) for direct evaluations, rather than a least-squares fit. We defer to the FMM literature for more detailed discussion on the mathematical significance and formulation of these operators \cite{Ying2004,Greengard1987}.
+P2M
 
-In considering parallelization strategies, we are most interested in the computational cost of calculating each operator and the data that they rely on.
+M2M
 
-For the P2M operator, which is only applied at the octree's leaves, the calculation for the check potentials is $O(n_l \cdot n_{crit} \cdot n_c)$ followed by $O(n_l \cdot n_e \cdot n_c)$ for the multipole expansions, where $n_l$ denotes the number of leaves.
-data required
-complexity
-parallelization strategy
+L2L
 
-The M2M operator finds the contribution to the multipole expansion of a given node due to the expansions of all of its eight children, when applied at a given octree level, $l$, its complexity is $O(8^l \cdot n_e \cdot n_c)$.
+M2L
+
+P2P (L2P, M2P, S2L)
+
+
+% The depth of the octree is defined by a user provided value for $n_{crit}$, defining the maximum number of particles within a leaf node and hence defined by the distribution of particles. An operator is read as 'X to Y', where `P' stands for particle(s),`M' for \textit{multipole expansion} and `L' for \textit{local expansion}.
+
+% These expansions are ways of describing the charge contained within subregions of the octree, and can be tuned to a given accuracy, described by a parameter called the expansion order, or $p$. A multipole expansion represents the aggregation of charge located with a given node of the octree, where the expansion center is set to coincide with the box center. A multipole expansion can be translated into a local expansion centered on another node, inside of which it is valid. This is nothing other than the M2L operator, therefore the operators can be seen to be translations between expansion representations. Similarly, the expansion centers of of local or multipole expansions can be shifted, which are the L2L and M2M operators respectively. The P2M/P2L operators forms a multipole/local expansion for a set of particles within a node. The M2P, L2P and P2P refer to directly evaluating the interaction in $O(N^2)$ between multipole/local expansion equivalent charges, or a set of source particles, at a set of target particles, respectively. % Multipole expansions are found by enclosing a node with an `equivalent surface' discretized with $n_e$ quadrature points, at each of which is placed an `equivalent charge'. A `check surface' discretized with $n_c$ quadrature points, is then used to enclose both the equivalent surface and the node, and a potential is calculated at the check surface using (\ref{eq:laplace_kernel}) directly with either the particles with the node (for P2M) or the equivalent charges of child nodes contained within the node (for M2M) as the source particles. Finally, a least-squares fit is used to match this calculated potential to that generated by the equivalent charges. Similar logic is used to calculate the M2L and L2L operators, with modified check and equivalent surfaces (see fig. 5 \cite{Ying2004}). The L2P, M2P, S2L and P2P operators all involve using (\ref{eq:laplace_kernel}) for direct evaluations, rather than a least-squares fit.
+
+
+\section{MULTITHREADING IN NUMBA}
+
+Numba implements threading in a platform agnostic way,  giving users the choice between OpenMP or IntelTBB backends. We choose the OpenMP backend, as the size of the tasks performed by FMM operators are approximately uniform, whereas TBB implements scheduling optimizations more suited to unbalanced workloads.
+
+The P2M operator is only applied over the octree's leaves. The input data are the charges contained within each leaf, and their relevant surfaces, the operator outputting the multipole expansion. The calculation for the check potentials is $O(n_{crit} \cdot n_c)$ followed by $O(n_e \cdot n_c)$ for the multipole expansions for each leaf. This operator favours a parallelization over leaves as the calculations are independent.
+
+The M2M operator finds the contribution to the multipole expansion of a given node due to the multipole expansions of all of its eight children. The input
+
+when applied at a given octree level, $l$, its complexity is $O(8^l \cdot n_e \cdot n_c)$.
 data required
 complexity
 parallelization strategy
@@ -215,23 +230,6 @@ data required
 complexity
 parallelization strategy
 
-\section{DATA ORIENTED DESIGN}
-- tree design
-    - things this makes hard - neighbor searches.
-    - things it makes easy - locality of reference, easy interoperability with numba
-- API designed
-    - Minimize the impact of running code in the interpreter.
-- Software design diagram
-
-% Larger figure
-\begin{figure*}
-    \centerline{\includegraphics {figures/software.pdf}}
-    \caption{Simplified UML model of all PyExaFMM components. Trees and operators are precomputed and stored in the HDF5 database. The `Fmm' object which acts as the user interface, all other components are modules consisting of methods on operating on arrays.}
-    \label{fig:design}
-\end{figure*}
-
-\section{MULTITHREADING IN NUMBA}
-
 - Multithreading api in numba, and make analogies with openmp where they exist. Link to recent efforts to implement an OpenMP interface within Numba?
 
 - Thread oversubscription issues and their origin and how to avoid this in Numba. Comment on the quality of this solution - the py multithreading papers from intel group have good information and experiments regarding this.
@@ -247,6 +245,22 @@ M2M
 
 \lstinputlisting[float=t, caption={An example of parallel multithreading.}\label{code:parallel_multithreading}]{parallel_multithreading.py}
 
+\section{DATA ORIENTED DESIGN}
+
+- tree design
+    - things this makes hard - neighbor searches.
+    - things it makes easy - locality of reference, easy interoperability with numba
+- API designed
+    - Minimize the impact of running code in the interpreter.
+- Software design diagram
+
+% Larger figure
+\begin{figure*}
+    \centerline{\includegraphics {figures/software.pdf}}
+    \caption{Simplified UML model of all PyExaFMM components. Trees and operators are precomputed and stored in the HDF5 database. The `Fmm' object which acts as the user interface, all other components are modules consisting of methods on operating on arrays.}
+    \label{fig:design}
+\end{figure*}
+
 \section{DIFFERENCES WITH EXAFMM-T}
 
 - PyExaFMM's tree data structure influence by Numba preference for linear data structure.
@@ -258,11 +272,13 @@ M2M
 
 - contrast multithreading impact for each kernel
 
+- boxing cost for each kernel
+
 - compare and contrast pyexafmm vs exafmm for a given accuracy, try and find optimum compression parameter.(?)
 
 \section{CONCLUSION}
 
-foo bar
+In this paper we've shown how to use Numba to create a performant application for an algorithm with a complex data structure. We've shown how Numba can constrain software design, and that developers must be careful in designing methods and data structures in order to experience a performance benefit. Furthermore, performance debugging for more complex applications may require more knowledge than non-software specialists can be expected to have. Therefore, despite being trivial to drop-in to an existing application, Numba can be seen to have its own learning curve for achieving performance. Despite this, we conclude that Numba is a remarkable tool. With a great deal of functionality, allowing one to develop fast, heterogenous, cross-platform numerical applications, using only Python, and it offers a platform for experimentation and prototyping.
 
 \section{ACKNOWLEDGMENT}
 
