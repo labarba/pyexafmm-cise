@@ -215,7 +215,7 @@ M2M
 
 \lstinputlisting[float=t, caption={An example of parallel multithreading.}\label{code:parallel_multithreading}]{parallel_multithreading.py}
 
-\section{DATA ORIENTED DESIGN}
+\section{DATA ORIENTED DESIGN FOR NUMBA}
 
 - what is data oriented design? Why is it necessary? Why does Numba demand this?
 
@@ -262,7 +262,7 @@ A strict like-for-like comparison between the two implementations isn't possible
 
 \section{CONCLUSION}
 
-In this paper we've shown how to use Numba to create a performant application for an algorithm with a complex data structure. We've shown how Numba can constrain software design, and that developers must be careful in designing methods and data structures in order to experience a performance benefit. Furthermore, performance debugging for more complex applications may require more knowledge than non-software specialists can be expected to have. Numba can be seen to have its own learning curve for achieving performance. Numba is a remarkable tool despite this, with a great deal of functionality. It allows one to develop fast, heterogenous, cross-platform numerical applications, using only Python, and offers good performance while retaining the benefits of working in Python.
+We've shown how to use Numba to create a performant application for an algorithm with a complex data structure. We've shown where Numba can constrain software design, and that developers must be careful in order to experience a performance benefit. Achieving performance for complex implementations requires more software knowledge than non-software specialists can be expected to have, and Numba can be seen to have its own learning curve. Despite this, Numba is a remarkable tool, allowing the development of fast, heterogenous, cross-platform numerical applications, all from Python. Projects which favour hackability or have a small number of performance bottlenecks would benefit the most from a Numba implementation.
 
 \section{ACKNOWLEDGMENT}
 
