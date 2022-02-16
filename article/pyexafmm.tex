@@ -198,33 +198,15 @@ The P2L, P2M and M2L involve creating local and multipole expansions, and rely o
 
 The structure of the FMM's operators expose natural parallelism. The P2P is embarrassingly parallel over each target. As are the M2L, M2P, P2L and near field operators over their interaction lists. The near field, L2P, M2P, P2L and P2M operators are also embarrassingly parallel over the leaf nodes, as is the M2L over the nodes at a given level, and the M2M and L2L over sibling nodes which share a parent.
 
-\section{MULTITHREADING IN NUMBA}
+\section{DATA ORIENTED DESIGN DUE TO NUMBA}
 
-Numba enables multithreading via a simple parallel for loop syntax (see listing (\ref{code:parallel_multithreading})) reminiscent of OpenMP. Internally Numba can use either OpenMP or Intel TBB to generate multithreaded code. We choose OpenMP for PyExaFMM, as it's more suited to functions in which each thread has an approximately similar workload. The threading library can be set via the \lstinline{NUMBA_THREADING_LAYER} environment variable.
+Data oriented design is concerned with designing code that works on simple data structures, such as arrays, in order to optimally take advantage of modern hardware features such as cache-locality, and are easy to parallelize. This contrasts with object oriented design, where although code is organized around data - the focus is on user created objects where the actual layout of the data is hidden behind abstraction, making it difficult to write code to take advantage of cache locality.
 
-Numerical libraries such as Numpy and SciPy implement many of their operations, such as matrix multiplication, using multithreaded compiled libraries internally, such as OpenBLAS or IntelMKL. Numba compiled versions of these operations retains this internal multithreading. But when combined with a multithreaded region declared with Numba, as in listing (\ref{code:parallel_multithreading}), this leads to \textit{nested parallelism}. Where a parallel region calls a function with another parallel region inside it. Threads created by the two functions are not coordinated, and this leads to \textit{oversubscription}, where there the number of active threads exceeds the CPU's hardware capacity. Many threads are left idle while the CPU is forced to jump between threads operating on different data. This leads to broken cache locality and load imbalances where some threads are stuck waiting for others to finish \cite{Malakhov2016}. We avoid this in PyExaFMM by explicitly setting Numpy operations to be single threaded, via the environment variable \lstinline{OMP_NUM_THREADS=1}, before starting our program. This ensures that the only threads created are those explicitly declared using Numba.
+Numba's framework strongly encourages data oriented design principles, as its core focus is operations on ndarrays. This is reflected in the design of PyExaFMM's octrees as well as its API.
 
-- how kernels are multithreaded bearing in mind issues raise in Numba section, and data oriented design section.
+Octrees can either be `pointer based', or `linear'. A pointer based octree, as implemented by ExaFMM-T, uses objects to represent each node, with fields for a unique id, particle it contains, associated expansion coefficients or potentials, and pointers to their parent and sibling nodes. This makes searching for neighbors and siblings easy, as one has to just follow pointers. The linear octree, as implemented by PyExaFMM represents nodes by a unique id stored in a 1D vector, all other data such as expansion coefficients, particle data, and calculated potentials, are also stored in 1D vectors. Data is looked up by creating indices to tie a node's unique id to the associated data. This design choice is due to the constraints imposed by Numba, which makes working with arrays easy, but working with more complex user defined objects much harder. This is a good example of how Numba can affect design decisions, which may make software more complex.
 
-- Optimal design of multithreading approach relies on the actual constraints of the kernel in question, will need to get into specifics here of how each kernel was approached.
-
-- metric for portion of code that is run on single vs multiple threads, can actually time this at least roughly.
-
-\lstinputlisting[float=t, caption={An example of parallel multithreading.}\label{code:parallel_multithreading}]{parallel_multithreading.py}
-
-\section{DATA ORIENTED DESIGN FOR NUMBA}
-
-- what is data oriented design? Why is it necessary? Why does Numba demand this?
-
-- we implement it in three ways: (1) the simplicity of our containers, few abstractions (2) Our thin API in Python, shelving off most functionality to numba (3)
-
-- long nested operator functions
-
-- multipole and local expansions of whole tree stored as long 1D arrays
-
-- API designed
-
-- Minimize the impact of running code in the interpreter.
+Figure (\ref{fig:design}) illustrates PyExaFMM's API.
 
 % Larger figure
 \begin{figure*}
@@ -233,13 +215,28 @@ Numerical libraries such as Numpy and SciPy implement many of their operations, 
     \label{fig:design}
 \end{figure*}
 
+
+\section{MULTITHREADING IN NUMBA}
+
+Numba enables multithreading via a simple parallel for loop syntax (see listing (\ref{code:parallel_multithreading})) reminiscent of OpenMP. Internally Numba can use either OpenMP or Intel TBB to generate multithreaded code. We choose OpenMP for PyExaFMM, as it's more suited to functions in which each thread has an approximately similar workload. The threading library can be set via the \lstinline{NUMBA_THREADING_LAYER} environment variable.
+
+Numerical libraries such as Numpy and SciPy implement many of their operations, such as matrix multiplication, using multithreaded compiled libraries internally, such as OpenBLAS or IntelMKL. Numba compiled versions of these operations retains this internal multithreading. But when combined with a multithreaded region declared with Numba, as in listing (\ref{code:parallel_multithreading}), this leads to \textit{nested parallelism}. Where a parallel region calls a function with another parallel region inside it. Threads created by the two functions are not coordinated, and this leads to \textit{oversubscription}, where there the number of active threads exceeds the CPU's hardware capacity. Many threads are left idle while the CPU is forced to jump between threads operating on different data. This leads to broken cache locality and load imbalances where some threads are stuck waiting for others to finish \cite{Malakhov2016}. We avoid this in PyExaFMM by explicitly setting Numpy operations to be single threaded, via the environment variable \lstinline{OMP_NUM_THREADS=1}, before starting our program. This ensures that the only threads created are those explicitly declared using Numba.
+
+\lstinputlisting[float=t, caption={An example of parallel multithreading.}\label{code:parallel_multithreading}]{parallel_multithreading.py}
+
+\section{PARALLELIZATION STRATEGIES FOR FMM OPERATORS}
+
+The P2P, P2M, P2L, M2P, L2P and near field operators are parallelized over their targets, the leaf nodes. For the L2P, M2P, and near field operators we encourage cache locality for the P2P step, and keep the data structures passed to Numba as simple as possible, by allocating 1D vectors for the source positions, target positions and the source charges (or expansion coefficients - depending on the operator), such that all the data required to apply an operator to single target node is next to each other in memory. We store a vector of `index pointers', that allow us to bookend data for corresponding to different targets. We pass then this data to a P2P implementation parallelized over each leaf node.
+
+For the L2P and P2M operators, each target node is only using it's own associated data, whereas for the near field operator the source nodes are from its U list, the size of which is apriori unknown. To bypass this, we allocate enough memory to store up to 60 nodes worth of data for each target, corresponding to the maximum size of the U list. This strategy is too expensive in terms of memory to repeat for the M2L and M2P operators, as their interaction lists can potentially be much larger, at 189 and 146 nodes respectively. For these operators, we simply perform a parallel loop over the target nodes at given each level for the M2L, and over the leaf nodes for the M2P, looking up the relevant data from the linear tree. We also don't implement the cache-optimal strategy for the P2L operator, the interaction list is at most 19 nodes, and we found in practice that it did not benefit from it significantly.
+
 \section{DIFFERENCES WITH EXAFMM-T}
 
-- tree design is linear.
 
 - things this makes hard - neighbor searches.
 
 - things it makes easy - easy interoperability with numba
+
 A strict like-for-like comparison between the two implementations isn't possible. The softwares take different approaches to the implementation of some of their operations and data structures. However, as the differences in the design of PyExaFMM are heavily influenced by Numba and Python, it remains useful as an illustration of what can be achieved with Python in comparison to a compiled language to solve the same problem.
 
 - Main differences are tree design, and the replacement of FFT with rSVD.
