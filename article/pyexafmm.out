@@ -2,16 +2,14 @@
 \BOOKMARK [1][-]{section*.2}{PITFALLS OF NUMBA}{}% 2
 \BOOKMARK [1][-]{section*.3}{THE FAST MULTIPOLE METHOD}{}% 3
 \BOOKMARK [1][-]{section*.4}{COMPUTATIONAL STRUCTURE OF FMM OPERATORS}{}% 4
-\BOOKMARK [1][-]{section*.5}{DATA ORIENTED DESIGN DUE TO NUMBA}{}% 5
+\BOOKMARK [1][-]{section*.5}{DATA ORIENTED DESIGN}{}% 5
 \BOOKMARK [1][-]{section*.6}{MULTITHREADING IN NUMBA}{}% 6
 \BOOKMARK [1][-]{section*.7}{PARALLELIZATION STRATEGIES FOR FMM OPERATORS}{}% 7
-\BOOKMARK [1][-]{section*.8}{DIFFERENCES WITH EXAFMM-T}{}% 8
-\BOOKMARK [1][-]{section*.9}{BENCHMARKS}{}% 9
-\BOOKMARK [1][-]{section*.10}{CONCLUSION}{}% 10
-\BOOKMARK [1][-]{section*.11}{ACKNOWLEDGMENT}{}% 11
-\BOOKMARK [1][-]{section*.12}{REFERENCES}{}% 12
-\BOOKMARK [1][-]{IEEEbiography.0}{Biographies}{}% 13
-\BOOKMARK [2][-]{IEEEbiography.1}{Srinath Kailasa}{IEEEbiography.0}% 14
-\BOOKMARK [2][-]{IEEEbiography.2}{Tingyu Wang}{IEEEbiography.0}% 15
-\BOOKMARK [2][-]{IEEEbiography.3}{Lorena. A. Barba}{IEEEbiography.0}% 16
-\BOOKMARK [2][-]{IEEEbiography.4}{Timo Betcke}{IEEEbiography.0}% 17
+\BOOKMARK [1][-]{section*.8}{CONCLUSION}{}% 8
+\BOOKMARK [1][-]{section*.9}{ACKNOWLEDGMENT}{}% 9
+\BOOKMARK [1][-]{section*.10}{REFERENCES}{}% 10
+\BOOKMARK [1][-]{IEEEbiography.0}{Biographies}{}% 11
+\BOOKMARK [2][-]{IEEEbiography.1}{Srinath Kailasa}{IEEEbiography.0}% 12
+\BOOKMARK [2][-]{IEEEbiography.2}{Tingyu Wang}{IEEEbiography.0}% 13
+\BOOKMARK [2][-]{IEEEbiography.3}{Lorena. A. Barba}{IEEEbiography.0}% 14
+\BOOKMARK [2][-]{IEEEbiography.4}{Timo Betcke}{IEEEbiography.0}% 15
