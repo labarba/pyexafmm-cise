@@ -3,7 +3,11 @@ import numpy as np
 
 @numba.njit(cache=True, parallel=True)
 def multithreading(a):
-
- for i in numba.prange(10):
-  a[i] *= 10
+    # consider an 'a' as an nxn matrix
+    # This is a situation that can lead
+    # to thread oversubscription unless
+    # Numpy is configured to run single
+    # threaded.
+    for _ in numba.prange(10):
+        a @ a
 
