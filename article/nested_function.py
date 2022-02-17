@@ -11,7 +11,7 @@ results = numba.typed.Dict.empty(
 )
 
 @numba.njit
-def nested(arg, results):
+def nested(a, results):
     # This function expects a
     # typed dictionary as an
     # argument to store results
