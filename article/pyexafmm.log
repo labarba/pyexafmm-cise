@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.21)  17 FEB 2022 13:36
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.21)  17 FEB 2022 17:31
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -615,25 +615,32 @@ Overfull \vbox (7.9474pt too high) has occurred while \output is active []
 Overfull \vbox (6.27187pt too high) has occurred while \output is active []
 
  [2]
-Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 155.
-LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 155.
+<figures/boxing_cost_nargs.png, id=98, 425.59pt x 281.05pt>
+File: figures/boxing_cost_nargs.png Graphic file (type png)
+<use figures/boxing_cost_nargs.png>
+Package pdftex.def Info: figures/boxing_cost_nargs.png  used on input line 157.
+(pdftex.def)             Requested size: 227.62204pt x 150.31952pt.
+<figures/boxing_cost_types.png, id=100, 399.4925pt x 262.9825pt>
+File: figures/boxing_cost_types.png Graphic file (type png)
+<use figures/boxing_cost_types.png>
+Package pdftex.def Info: figures/boxing_cost_types.png  used on input line 164.
+(pdftex.def)             Requested size: 227.62204pt x 149.84137pt.
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 169.
+LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 169.
  (/usr/local/texlive/2020/texmf-dist/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 ) (/Users/sri/Documents/Papers/pyexafmm-cise/article/loop_fusion.py
 LaTeX Font Info:    Font shape `OT1/pcr/m/it' in size <8> not available
 (Font)              Font shape `OT1/pcr/m/sl' tried instead on input line 4.
 )
-Underfull \hbox (badness 10000) in paragraph at lines 159--159
+Underfull \hbox (badness 10000) in paragraph at lines 173--173
 [][][][]\OT1/ptm/m/n/8 A full list of sup-ported fea-tures for the cur-rent
  []
 
 
-Underfull \hbox (badness 5652) in paragraph at lines 159--159
+Underfull \hbox (badness 5652) in paragraph at lines 173--173
 \OT1/ptm/m/n/8 re-lease can be found at: https://numba.pydata.org/numba-
  []
-
-
-Underfull \vbox (badness 1635) has occurred while \output is active []
 
 
 Overfull \vbox (6.27187pt too high) has occurred while \output is active []
@@ -643,11 +650,11 @@ Overfull \hbox (18.0pt too wide) has occurred while \output is active
 | [] 
  []
 
-[3]
-<figures/numba.pdf, id=137, 460.13841pt x 306.96414pt>
+[3 </Users/sri/Documents/Papers/pyexafmm-cise/article/figures/boxing_cost_nargs.png> </Users/sri/Documents/Papers/pyexafmm-cise/article/figures/boxing_cost_types.png>]
+<figures/numba.pdf, id=123, 460.13841pt x 306.96414pt>
 File: figures/numba.pdf Graphic file (type pdf)
 <use figures/numba.pdf>
-Package pdftex.def Info: figures/numba.pdf  used on input line 168.
+Package pdftex.def Info: figures/numba.pdf  used on input line 182.
 (pdftex.def)             Requested size: 460.13728pt x 306.96338pt.
  (/Users/sri/Documents/Papers/pyexafmm-cise/article/nested_function.py)
 Overfull \vbox (7.9474pt too high) has occurred while \output is active []
@@ -656,6 +663,9 @@ Overfull \vbox (7.9474pt too high) has occurred while \output is active []
 Overfull \vbox (6.27187pt too high) has occurred while \output is active []
 
  [4]
+Underfull \vbox (badness 1668) has occurred while \output is active []
+
+
 Overfull \vbox (5.97588pt too high) has occurred while \output is active []
 
 
@@ -670,10 +680,10 @@ Overfull \vbox (7.9474pt too high) has occurred while \output is active []
 Overfull \vbox (6.27187pt too high) has occurred while \output is active []
 
  [6]
-<figures/software.pdf, id=334, 423.20367pt x 242.76947pt>
+<figures/software.pdf, id=342, 423.20367pt x 242.76947pt>
 File: figures/software.pdf Graphic file (type pdf)
 <use figures/software.pdf>
-Package pdftex.def Info: figures/software.pdf  used on input line 218.
+Package pdftex.def Info: figures/software.pdf  used on input line 232.
 (pdftex.def)             Requested size: 423.20264pt x 242.76886pt.
  (/Users/sri/Documents/Papers/pyexafmm-cise/article/parallel_multithreading.py)
 Overfull \vbox (5.97588pt too high) has occurred while \output is active []
@@ -684,21 +694,21 @@ Overfull \hbox (18.0pt too wide) has occurred while \output is active
  []
 
 [7]
-Underfull \hbox (badness 7613) in paragraph at lines 247--248
+Overfull \vbox (7.9474pt too high) has occurred while \output is active []
+
+
+Overfull \vbox (6.27187pt too high) has occurred while \output is active []
+
+ [8 </Users/sri/Documents/Papers/pyexafmm-cise/article/figures/software.pdf>]
+Underfull \hbox (badness 7613) in paragraph at lines 261--262
 []\OT1/ptm/m/n/10.53937 SK is sported by EP-SRC Stu-dentship
  []
 
 (/Users/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.bbl
 LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <8> not available
 (Font)              Font shape `OT1/phv/m/sl' tried instead on input line 5.
-
-Overfull \vbox (7.9474pt too high) has occurred while \output is active []
-
-
-Overfull \vbox (6.27187pt too high) has occurred while \output is active []
-
- [8 </Users/sri/Documents/Papers/pyexafmm-cise/article/figures/software.pdf>])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 265.
+)
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 279.
 
 Overfull \vbox (6.27187pt too high) has occurred while \output is active []
 
@@ -707,32 +717,30 @@ Overfull \hbox (18.0pt too wide) has occurred while \output is active
 | [] 
  []
 
-[9
-
-]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 265.
+[9]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 279.
  (/Users/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 265.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 265.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 279.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 279.
 Package rerunfilecheck Info: File `pyexafmm.out' has not changed.
 (rerunfilecheck)             Checksum: C0692FD58A9BF95D60CF62811083F2BD;904.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 265.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 279.
  ) 
 Here is how much of TeX's memory you used:
- 9874 strings out of 480608
- 146070 string characters out of 5903630
- 610659 words of memory out of 5000000
- 25439 multiletter control sequences out of 15000+600000
+ 9891 strings out of 480608
+ 146506 string characters out of 5903630
+ 618659 words of memory out of 5000000
+ 25451 multiletter control sequences out of 15000+600000
  598480 words of font info for 142 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  38i,10n,40p,1461b,1390s stack positions out of 5000i,500n,10000p,200000b,80000s
 pdfTeX warning (dest): name{section*.10} has been referenced but does not exist, replaced by a fixed one
 
-{/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/urw/courier/ucrro8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/urw/helvetic/uhvbo8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on /Users/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.pdf (9 pages, 255740 bytes).
+{/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/urw/courier/ucrro8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/urw/helvetic/uhvbo8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on /Users/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.pdf (9 pages, 276907 bytes).
 PDF statistics:
- 477 PDF objects out of 1000 (max. 8388607)
- 394 compressed objects within 4 object streams
- 112 named destinations out of 1000 (max. 500000)
- 131 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 491 PDF objects out of 1000 (max. 8388607)
+ 402 compressed objects within 5 object streams
+ 114 named destinations out of 1000 (max. 500000)
+ 141 words of extra memory for PDF output out of 10000 (max. 10000000)
 

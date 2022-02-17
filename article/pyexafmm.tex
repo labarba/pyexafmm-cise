@@ -124,7 +124,7 @@ def multithreading(a):
 \markboth{Department Head}{Paper title}
 
 \begin{abstract}
-    Numba is a game changing compiler for high performance computing with Python. The machine code it produces runs outside of the single-threaded Python interpreter, and can therefore fully utilize the resources of modern CPUs. This means support for parallel multithreading and auto vectorization if available, just like in a compiled language such as C++ or Fortran. In this paper we present PyExaFMM, a fully multithreaded Numba implementation of the Fast Multipole Method, an algorithm which relies on a non-linear data structure and contains a significant amount of data organization. We find that designing highly performant Numba code can be as challenging as writing in a compiled language, and that there is a significant runtime cost from the interaction between Numba compiled code and the Python interpreter.
+    Numba is a game changing compiler for high performance computing with Python. The machine code it produces runs outside of the single-threaded Python interpreter, and can therefore fully utilize the resources of modern CPUs. This means support for parallel multithreading and auto vectorization if available, just like in a compiled language such as C++ or Fortran. In this paper document our experience with Numba as we developed PyExaFMM, a fully multithreaded Numba implementation of the Fast Multipole Method, an algorithm with a a non-linear data structure and a significant amount of data organization. We find that designing highly performant Numba code for complex algorithms can be as challenging as writing in a compiled language.
 \end{abstract}
 
 \maketitle
@@ -136,7 +136,7 @@ As the actual number-crunching happens outside of the interpreter, the GIL only 
 
 This is the context in which Numba was introduced \cite{Lam2015}. It is a compiler that specifically targets and optimizes Python code written with Numpy's $n$-dimensional array, or `ndarray', data structure. Its power comes from the ability to generate multithreaded architecture optimized compiled code while \textit{only writing Python}. The promise of Numba is the ability to develop applications with speed that can rival C++ or Fortran, while retaining the simplicity and productivity of working in Python. We put this promise to the test by developing PyExaFMM\footnote{https://github.com/exafmm/pyexafmm}, an implementation of the Kernel Independent Particle Fast Multipole Method [FMM] \cite{Ying2004,Greengard1987}, in three dimensions. Efficient implementations of this algorithm are complicated by its reliance on a tree data structure and a series of operations which each require significant data organization and careful memory allocation. These features made PyExaFMM an excellent test case to see whether Numba could free us as Computational Scientists from the complexities of compiled languages.
 
-We begin with an overview of Numba's design and its major pitfalls. After introducing the data structures and computations involved in the FMM, we provide an overview of how we implemented our software's data structures, algorithms and application programming interface [API] to optimally use Numba.
+We begin with an overview of Numba's design and its major undocumented pitfalls. After introducing the data structures and computations involved in the FMM, we provide an overview of how we implemented our software's data structures, algorithms and application programming interface [API] to optimally use Numba.
 
 \section{NUMBA}
 
@@ -150,7 +150,21 @@ Figure (\ref{fig:numba}) illustrates the program execution path when a Numba dec
 
 The Numba runtime interacts with the Python interpreter dynamically, and control over program execution is passed back and forth between the two. There is a cost to this interaction from having to `unbox' Python objects into types compatible with the compiled machine code, and `box' the outputs of the compiled functions back into Python compatible objects. This process doesn't involve re-allocating memory, however pointers to memory locations have to be converted and placed in a type compatible with either Numba compiled code or Python. 
 
-The cost of this can be seen in Table ([REFERENCE TO BOX BENCHMARK TABLE]), where we illustrate the cost of boxing and unboxing functions of with increasing numbers of array arguments \footnote{All experiments are taken with an AMD Ryzen Threadripper 3970X 32-Core processor running Python 3.8.5 and Numba 0.53.0}. Table ([REFERENCE BOX BENCHMARK FOR DIFFERENT TYPES]) illustrates the cost of boxing different Python types into Numba compatible types. Software written with Numba has to account for this cost, and minimize the interactions between Python and Numba.
+The boxing costs as a function of the number of arguments, and as a function of input type are illustrated in figure (\ref{fig:boxing_cost_nargs}) and figure (\ref{fig:boxing_cost_types}), respectively \footnote{All experiments are taken with an AMD Ryzen Threadripper 3970X 32-Core processor running Python 3.8.5 and Numba 0.53.0}. In these experiments we pass arguments through compiled Numba functions that simply return None, and just unbox the data. We check the compiled code to ensure that Numba is performing unboxing. We then compare the relative cost of unboxing with the cost of multiplying two $\mathbb{R}^{1000x1000}$ float 64 matrices, or equivalently $1e6$ floating point operations. We see that different types entail different costs, with Numba strongly optimized for numerical arrays in comparison to lists, dictionaries or strings.
+
+% Smaller figure
+\begin{figure}
+	\centerline{\includegraphics[width=8cm]{figures/boxing_cost_nargs.png}}
+	\caption{Each argument is a 1D vector containing 1000 64 bit floats.}
+	\label{fig:boxing_cost_nargs}
+\end{figure}
+
+% Smaller figure
+\begin{figure}
+	\centerline{\includegraphics[width=8cm]{figures/boxing_cost_types.png}}
+	\caption{The float and integer arrays consist of 1000 64 bit elements, the string consists of 1000 unicode characters, and the dictionary has integer keys, and elements consisting of an 64 bit integer array of length 1000, the list consists of 1000 64 bit integers.}
+	\label{fig:boxing_cost_types}
+\end{figure}
 
 \lstinputlisting[float=t, caption={An example of using Numba in a Python function operating on ndarrays.}\label{code:loop_fusion}]{loop_fusion.py}
 
@@ -209,7 +223,7 @@ This contrasts with object oriented design, where although code is organized aro
 
 Octrees can either be `pointer based' \cite{Wang2021}, or `linear' \cite{Sundar2007}. A pointer based octree, as in uses objects to represent each node, with fields for a unique id, contained particles, associated expansion coefficients, potentials, and pointers to their parent and sibling nodes. This makes searching for neighbors and siblings easy, as one has to just follow pointers. The linear octree implemented by PyExaFMM represents nodes by a unique id stored in a 1D vector, all other data such as expansion coefficients, particle data, and calculated potentials, are also stored in 1D vectors. Data is looked up by creating indices to tie a node's unique id to the associated data. This is an example of how Numba can affect design decisions, and may make software more complex, despite the data structure being simpler.
 
-Figure (\ref{fig:design}) illustrates PyExaFMM's design. There is only a single Python object, `Fmm', which acts as the API. It initializes ndarrays for expansion coefficients and calculated potentials, and its methods interface with Numba compiled functions for the FMM operators and their associated data manipulation functions. The operator implementations are kept separate from each other, meaning that we have to pass control between Python and Numba at least eight times, however this allows us to unit test each operator and its associated functions separately. 
+Figure (\ref{fig:design}) illustrates PyExaFMM's design. There is only a single Python object, `Fmm', which acts as the API. It initializes ndarrays for expansion coefficients and calculated potentials, and its methods interface with Numba compiled functions for the FMM operators and their associated data manipulation functions. The operator implementations are kept separate from each other, meaning that we have to pass control between Python and Numba at least eight times, however this allows us to unit test each operator and its associated functions separately.
 
 This structure has strong parallels with software designs that arise from traditional methods of achieving performance with Python by interfacing with a compiled language such as C or Fortran. The benefit of writing in Numba is that we can continue to write in Python. Though as seen above, performant performant Numba code is only superficially Pythonic, sharing a common syntax, but in practice resulting in data structures and methods that are written in non-standard ways.
 
@@ -236,7 +250,7 @@ The P2P, P2M, P2L, M2P, L2P and near field operators are parallelized over their
 
 The L2P and P2M operators only use each target node's associated data, whereas for the near field operator the source nodes are from its U list, the size of which is a priori unknown. Therefore we allocate enough memory to store up to 60 nodes worth of source charges, and source positions for each target, corresponding to the maximum size of the U list. This strategy is too expensive in terms of memory to repeat for the M2L and M2P operators, as their interaction lists can potentially be much larger, at 189 and 148 nodes respectively. For example, allocating an array large enough to store the maximum possible number of coordinates for source particles in double precision for the M2P operator with $|W|=148$ with an $n_crit=150$ requires $\sim 17$GB. For these operators, we simply perform a parallel loop over the target nodes at each given level for the M2L, and over the leaf nodes for the M2P, looking up the relevant data from the linear tree. We also don't implement the cache-optimal strategy for the P2L operator, the interaction list is at most 19 nodes, and we found in practice that it did not benefit from it significantly. The M2M and L2L operators are parallelized over all nodes at each given level. The the matrices involved in these operators can be precomputed and scaled at each level \cite{Wang2021}, therefore their application is highly optimized.
 
-Multithreading in this way means that we call the P2P, P2M, M2P, L2P and near field operators just once during the algorithm, the M2L is called $d-2$ times, and the M2M and L2L are called $d$ times where $d$ is the depth of the octree. This minimizes the number of times we pass control between Python and Numba for this algorithm while still keeping the operator implementations separate.
+Multithreading in this way means that we call the P2P, P2M, M2P, L2P and near field operators just once during the algorithm, the M2L is called $d-2$ times, and the M2M and L2L are called $d$ times where $d$ is the depth of the octree. This minimizes the number of times we pass control between Python and Numba for this algorithm while still keeping the operator implementations separate. The (un)boxing cost of FMM operators is shown in figure [UNBOXING COST OF FMM OPERATORS]
 
 \section{CONCLUSION}
 
@@ -250,7 +264,7 @@ SK is sported by EPSRC Studentship 2417009.
 
 \bibliographystyle{ieeetr}
 
-\begin{IEEEbiography}{Srinath Kailasa}{\,}is a PhD student in Mathematics at University College London. His background is Physics and Computer Science, with an MPhys from Durham and an MSc from UCL. His research interests are centered around applying mathematics and computation to problems in science and engineering. Contact him at srinath.kailasa.18@ucl.ac.uk.
+\begin{IEEEbiography}{Srinath Kailasa}{\,}is a PhD student in Mathematics at University College London.
 \end{IEEEbiography}
 
 \begin{IEEEbiography}{Tingyu Wang}{\,}is a PhD student in Mechanical Engineering at the George Washington University. Contact him at twang66@email.gwu.edu.
@@ -259,7 +273,7 @@ SK is sported by EPSRC Studentship 2417009.
 \begin{IEEEbiography}{Lorena. A. Barba}{\,}is a Professor of Mechanical and Aerospace Engineering at the George Washington University.  Contact her at labarba@email.gwu.edu.
 \end{IEEEbiography}
 
-\begin{IEEEbiography}{Timo Betcke}{\,} is Professor of Computational Mathematics at University College London. Is the lead investigator of the Bempp project, an open-source boundary element library. He studied Engineering in Germany as Undergraduate and then completed a PhD in Oxford in Numerical Analysis. From 2005 to 2006 he had various research positions until he became a Lecturer at UCL in 2011. Since 2018 he is a full Professor in the Department of Mathematics at UCL.
+\begin{IEEEbiography}{Timo Betcke}{\,} is Professor of Computational Mathematics at University College London.
 \end{IEEEbiography}
 
 \end{document}
