@@ -250,29 +250,34 @@ In order to achieve an appropriate load balance such that the cost of creating a
 
 The P2P, P2M, P2L, M2P, L2P and near field operators all rely on the P2P operator and are parallelized over their targets, the leaf nodes.
 
-For the L2P operator we encourage cache locality for the P2P step, and keep the data structures passed to Numba as simple as possible, by allocating 1D vectors for the source positions, target positions and the source expansion coefficients, such that all the data required to apply an operator to single target node is adjacent in memory. By storing a vector of `index pointers', that bookend the data corresponding to each target in these 1D vectors, we can form parallel for loops over each target to compute the P2P that encourages cache-locality in the CPU. In order to to this, we have to first iterate through the target nodes and their interaction lists if relevant, and lookup their associated data to fill the vectors cache local vectors. Table (\ref{tab:l2p_cache}) shows the speedup achieved with this strategy for typical experimental parameters.
+For the L2P operator we encourage cache locality for the P2P step, and keep the data structures passed to Numba as simple as possible, by allocating 1D vectors for the source positions, target positions and the source expansion coefficients, such that all the data required to apply an operator to single target node is adjacent in memory. By storing a vector of `index pointers', that bookend the data corresponding to each target in these 1D vectors, we can form parallel for loops over each target to compute the P2P that encourages cache-locality in the CPU. In order to to this, we have to first iterate through the target nodes and their interaction lists if relevant, and lookup their associated data to fill the vectors cache local vectors. Figure (\ref{fig:l2p_cache}) shows the speedup achieved with this strategy increases with the number of calculations in each parallel thread.
 
-\begin{table}
-    \caption{Speedup of L2P using cache local strategy, in comparison to a naive iteration over the octree's leaves.}
-    \label{table}
-    \begin{tabular*}{16.5pc}{@{}p{25pt}|p{25pt}|p{10pt}|p{44pt}|p{20pt}}
-    $n_{leaves}$ &
-    $n_{crit}$ &
-    $p$ &
-    runtime (ms) &
-     speedup \\
-    \hline \hline
-    32768 & 150 & 6 & 23 & 2.5 \\
-    32768 & 150 & 8 & 23 & 2.5 \\
-    32768 & 150 & 10 & 23 & 2.5 \\
-    \hline
-    32768 & 100 & 6 & 23 & 2.5 \\
-    32768 & 150 & 6 & 23 & 2.5 \\
-    32768 & 200 & 6 & 23 & 2.5 \\
 
-    \end{tabular*}
-    \label{tab:l2p_cache}
-    \end{table}
+ % Smaller figure
+\begin{figure}
+	\centerline{\includegraphics[width=8cm]{figures/speedup.png}}
+    \caption{Max speedup of L2P using cache local strategy compared to a naive parallel iteration over the octree's leaves. Computed over seven trials over $32768$ leaves, with $n_{crit}=150$.}
+	\label{fig:l2p_cache}
+\end{figure}
+
+
+% \begin{table}
+
+%     \centering
+%     \label{table}
+%     \begin{tabular*}{9.5pc}{@{}p{10pt}|p{44pt}|p{20pt}}
+%     $p$ &
+%     runtime (ms) &
+%      speedup \\
+%     \hline \hline
+%     6 & $392$ & 1.06 \\
+%     7 & $561$ & 1.06 \\
+%     8 & $733$ & 1.08 \\
+%     9 & $938$ & 1.09 \\
+%     10 & $1127 $ & 1.13 \\
+%     \end{tabular*}
+%     \label{tab:l2p_cache}
+%     \end{table}
 
 Due to their large interaction lists, this strategy too expensive in terms of memory for the near field, M2L and M2P operators. Allocating an array large enough to store the maximum possible number of source particle coordinates in double precision for the M2P operator, with $|W|=148$ and $n_crit=150$, requires $\sim 17$GB, and a runtime cost for memory allocations that exceeds the computation time. Instead, for the M2L we perform a parallel loop over the target nodes at each given level, and over the leaf nodes for the M2P and near field, looking up the relevant data from the linear tree as needed. For the P2L the interaction list of the P2L is at most 19 nodes, and the P2M must also calculate a check potential, cancelling out any speedup from cache locality for these operators.
 
@@ -281,8 +286,6 @@ The M2M and L2L operators are parallelized over all nodes at each given level. T
 Multithreading in this way means that we call the P2P, P2M, M2P, L2P and near field operators just once during the algorithm, the M2L is called $d-2$ times, and the M2M and L2L are called $d$ times where $d$ is the depth of the octree.
 
 This minimizes the number of times we pass control between Python and Numba for this algorithm while still keeping the operator implementations separate. The boxing and unboxing cost of all the operators is shown in figure [UNBOXING COST OF FMM OPERATORS, INCLUDE TIME SPENT IN THE INTERPRETER],
-
-
 
 
 \section{CONCLUSION}
