@@ -279,14 +279,11 @@ For the L2P operator we encourage cache locality for the P2P step, and keep the 
 %     \label{tab:l2p_cache}
 %     \end{table}
 
-Due to their large interaction lists, this strategy too expensive in terms of memory for the near field, M2L and M2P operators. Allocating an array large enough to store the maximum possible number of source particle coordinates in double precision for the M2P operator, with $|W|=148$ and $n_crit=150$, requires $\sim 17$GB, and a runtime cost for memory allocations that exceeds the computation time. Instead, for the M2L we perform a parallel loop over the target nodes at each given level, and over the leaf nodes for the M2P and near field, looking up the relevant data from the linear tree as needed. For the P2L the interaction list of the P2L is at most 19 nodes, and the P2M must also calculate a check potential, cancelling out any speedup from cache locality for these operators.
+Due to their large interaction lists, this strategy too expensive in terms of memory for the near field, M2L and M2P operators. Allocating an array large enough to store the maximum possible number of source particle coordinates in double precision for the M2P operator, with $|W|=148$ and $n_{crit}=150$, requires $\sim 17$GB, and a runtime cost for memory allocations that exceeds the computation time. Instead, for the M2L we perform a parallel loop over the target nodes at each given level, and over the leaf nodes for the M2P and near field, looking up the relevant data from the linear tree as needed. For the P2L the interaction list of the P2L is at most 19 nodes, and the P2M must also calculate a check potential, cancelling out any speedup from cache locality for these operators.
 
-The M2M and L2L operators are parallelized over all nodes at each given level. The matrices involved in these operators can be precomputed and scaled at each level \cite{Wang2021}, therefore their application is highly optimized.
+The matrices involved in the M2M and M2L operators can be precomputed and scaled at each level \cite{Wang2021}, and can the operations for a given level can be performed once, their application is highly optimized.
 
-Multithreading in this way means that we call the P2P, P2M, M2P, L2P and near field operators just once during the algorithm, the M2L is called $d-2$ times, and the M2M and L2L are called $d$ times where $d$ is the depth of the octree.
-
-This minimizes the number of times we pass control between Python and Numba for this algorithm while still keeping the operator implementations separate. The boxing and unboxing cost of all the operators is shown in figure [UNBOXING COST OF FMM OPERATORS, INCLUDE TIME SPENT IN THE INTERPRETER],
-
+Multithreading in this way means that we call the P2P, P2M, M2P, L2P and near field operators just once during the algorithm, the M2L is called $d-2$ times, and the M2M and L2L are called $d$ times where $d$ is the depth of the octree. Figure () illustrates the boxing cost of each FMM operator. We see that though the interaction is cheap, it's not free, and there's a significant penalty for passing between Python and Numba
 
 \section{CONCLUSION}
 
