@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.5.4)  18 FEB 2022 12:46
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.5.4)  18 FEB 2022 12:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -756,8 +756,6 @@ Underfull \hbox (badness 7613) in paragraph at lines 297--298
  []
 
 (./pyexafmm.bbl
-Underfull \vbox (badness 3098) has occurred while \output is active []
-
 LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <8> not available
 (Font)              Font shape `OT1/phv/m/sl' tried instead on input line 5.
 )
@@ -817,7 +815,7 @@ urw/courier/ucrro8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic
 xmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/
 type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times
 /utmri8a.pfb>
-Output written on pyexafmm.pdf (9 pages, 294931 bytes).
+Output written on pyexafmm.pdf (9 pages, 295626 bytes).
 PDF statistics:
  532 PDF objects out of 1000 (max. 8388607)
  443 compressed objects within 5 object streams
