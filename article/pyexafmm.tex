@@ -175,9 +175,11 @@ Since its first release Numba has been extended to compile most functionality fr
 
 Additionally, not every supported feature behaves in a way a Python programmer would expect, which has an impact on program design. An example of this arises when using Python dictionaries, which are central to Python, but are only partially supported by Numba. As they are untyped, and can have any Python objects as members, they don't neatly fit into a Numba compatible type. Programmers can declare a Numba compatible `typed dictionary', where the keys and values are constrained to Numba compatible types, and pass it to a Numba decorated function at low cost. However, using a Numba dictionary from the Python interpreter is \textit{always slower} than an ordinary Python dictionary due to the (un)boxing cost when getting and setting any item.
 
-Another example of Numba's framework-like behavior arises when implementing algorithms that share data, and have multiple logical steps. To avoid repeatedly paying the (un)boxing cost, we are forced write nested functions as in listing (\ref{code:nested_function}) which are called as minimally as possible. Indeed, nested functions have the tendency to grow long when writing performant Numba code in order to minimize the interaction surface between Numba and Python. Therefore, performant Numba code can look quite un-Pythonic. Numba encourages fewer user created objects, performance critical sections written in terms of loops over simple array based data structures - reminiscent of C, and long nested functions which are more difficult to unit test. [THIS HAS TO BE FIXED AND CLARIFIED!¬!!!!!!!!!!]
+Another example of Numba's framework-like behavior arises when implementing algorithms that share data, and have multiple logical steps as in listing (\ref{code:nested_function}). Numba's compiler doesn't distinguish between \lstinline{algorithm1} and \lstinline{algorithm2}, and both pay a cost to call subroutines defined outside of their function body, running in $308 \pm 1 \mu s$ and $306 \pm 1 \mu s$\footnote{Statistics calculated over seven trials}, respectively. However, the nested function in \lstinline{algorithm3} is interpreted as a single function body by Numba, and runs in just $2.64 \pm 0.07 \mu s$. This an example of an \textit{inlining} optimization being taken by LLVM, and generalizes to less trivial examples.
 
-Though Numba is advertised as an easy way of injecting performance into your program via a simple decorator it has its own learning curve. Achieving performance requires a programmer to be somewhat familiar with the internals of its implementation (fig. \ref{fig:numba}), and potentially have to radically change the design of their algorithms and data structures to avoid back and forth between the Numba runtime and the Python interpreter.
+Nested functions in Numba have the tendency to grow long in order to minimize the number of interactions between Numba and Python. Therefore, performant Numba code can look quite un-Pythonic. Numba encourages fewer user created objects, performance critical sections written in terms of loops over simplet array based data structures - reminiscent of C, and long nested functions which are more difficult to unit test.
+
+Though Numba is advertised as an easy way of injecting performance into your program via a simple decorator it has its own learning curve. Achieving performance requires a programmer to be somewhat familiar with the internals of its implementation (fig. (\ref{fig:numba})), and potentially have to radically change the design of their algorithms and data structures to avoid back and forth between the Numba runtime and the Python interpreter.
 
 \begin{figure*}
     \centerline{\includegraphics {figures/numba.pdf}}
@@ -185,7 +187,7 @@ Though Numba is advertised as an easy way of injecting performance into your pro
     \label{fig:numba}
 \end{figure*}
 
-\lstinputlisting[float=t, caption={An example of using typed dictionaries within a nested function.}\label{code:nested_function}]{nested_function.py}
+\lstinputlisting[float=t, caption={Three ways of writing a trivial algorithm that passes around a vector, while performing some compuations.}\label{code:nested_function}]{nested_function.py}
 
 \section{THE FAST MULTIPOLE METHOD}
 
