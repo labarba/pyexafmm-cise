@@ -203,7 +203,7 @@ The algorithm relies on a hierarchical octree data structure to discretize the p
 
 \section{COMPUTATIONAL STRUCTURE OF FMM OPERATORS}
 
-The computational complexities of KIFMM operators are defined by a user specified $n_{crit}$, which is the maximum allowed number of particles in a leaf node, $n_e$ and $n_c$ which are the numbers of quadrature points on the \textit{check} and \textit{equivalent} surfaces respectively (see sec. 3 \cite{Ying2004}). The parameters $n_e$ and $n_c$ are quadratically related to the expansion order, i.e. $p \sim n_e^2$. Typical values for $n_{crit}$ used are $\sim 100$. Notice the depth of the octree is defined $n_{crit}$, and hence by the particle distribution.
+The computational complexities of KIFMM operators are defined by a user specified $n_{crit}$, which is the maximum allowed number of particles in a leaf node, $n_e$ and $n_c$ which are the numbers of quadrature points on the \textit{check} and \textit{equivalent} surfaces respectively (see sec. 3 \cite{Ying2004}). The parameters $n_e$ and $n_c$ are quadratically related to the expansion order, i.e. $n_e \sim 6p^2$. Typical values for $n_{crit}$ used are $\sim 100$. Notice the depth of the octree is defined $n_{crit}$, and hence by the particle distribution.
 
 The near field, P2M, P2L, M2P, and L2P operate independently over the leaf nodes. The M2L operates independently on all nodes at a given level, from level 2 to the leaf level, during the top-down traversal. The M2M is applied to each node during the bottom-up traversal, and the L2L is applied to each node during the top-down traversal.
 
@@ -225,7 +225,7 @@ This contrasts with object oriented design, where although code is organized aro
 
 Octrees can either be `pointer based' \cite{Wang2021}, or `linear' \cite{Sundar2007}. A pointer based octree, as in uses objects to represent each node, with fields for a unique id, contained particles, associated expansion coefficients, potentials, and pointers to their parent and sibling nodes. This makes searching for neighbors and siblings easy, as one has to just follow pointers. The linear octree implemented by PyExaFMM represents nodes by a unique id stored in a 1D vector, all other data such as expansion coefficients, particle data, and calculated potentials, are also stored in 1D vectors. Data is looked up by creating indices to tie a node's unique id to the associated data. This is an example of how Numba can affect design decisions, and may make software more complex, despite the data structure being simpler.
 
-Figure (\ref{fig:design}) illustrates PyExaFMM's design. There is only a single Python object, `Fmm', which acts as the API. It initializes ndarrays for expansion coefficients and calculated potentials, and its methods interface with Numba compiled functions for the FMM operators and their associated data manipulation functions. The operator implementations are kept separate from each other, meaning that we have to pass control between Python and Numba at least eight times, however this allows us to unit test each operator and its associated functions separately.
+Figure (\ref{fig:design}) illustrates PyExaFMM's design. There is only a single Python object, `Fmm', which acts as the API. It initializes ndarrays for expansion coefficients and calculated potentials, and its methods interface with Numba compiled functions for the FMM operators and their associated data manipulation functions. When sharing data we prefer nested functions, however we keep the operator implementations are kept separate from each other, which allows us to unit test them separately. This means that we must have at least one interaction between Numba and the Python interpreter for each operator. The most performant implementation would be a single Numba routine that interacts with Python just once, however this would sacrifice other principles of clean code such as modularity, and unit testing.
 
 This structure has strong parallels with software designs that arise from traditional methods of achieving performance with Python by interfacing with a compiled language such as C or Fortran. The benefit of writing in Numba is that we can continue to write in Python. Though as seen above, performant Numba code may only be superficially Pythonic through its shared syntax.
 
@@ -263,8 +263,8 @@ For the L2P operator we encourage cache locality for the P2P step, and keep the 
      speedup \\
     \hline \hline
     32768 & 150 & 6 & 23 & 2.5 \\
-     & 150 & 8 & 23 & 2.5 \\
-     & 150 & 10 & 23 & 2.5 \\
+    32768 & 150 & 8 & 23 & 2.5 \\
+    32768 & 150 & 10 & 23 & 2.5 \\
     \hline
     32768 & 100 & 6 & 23 & 2.5 \\
     32768 & 150 & 6 & 23 & 2.5 \\
@@ -281,7 +281,7 @@ The M2M and L2L operators are parallelized over all nodes at each given level. T
 Multithreading in this way means that we call the P2P, P2M, M2P, L2P and near field operators just once during the algorithm, the M2L is called $d-2$ times, and the M2M and L2L are called $d$ times where $d$ is the depth of the octree.
 
 This minimizes the number of times we pass control between Python and Numba for this algorithm while still keeping the operator implementations separate. The boxing and unboxing cost of all the operators is shown in figure [UNBOXING COST OF FMM OPERATORS, INCLUDE TIME SPENT IN THE INTERPRETER],
-we see that ...
+
 
 
 
