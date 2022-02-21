@@ -1,14 +1,14 @@
 # Fdb version 3
-["bibtex pyexafmm"] 1645444505 "pyexafmm.aux" "pyexafmm.bbl" "pyexafmm" 1645455101
+["bibtex pyexafmm"] 1645444505 "pyexafmm.aux" "pyexafmm.bbl" "pyexafmm" 1645456244
   "/usr/local/texlive/2020/texmf-dist/bibtex/bst/base/ieeetr.bst" 1292289607 18361 1a00e58565e7f19bf2b3e1bfb82254ae ""
-  "pyexafmm.aux" 1645455101 6438 c5cb6d96e8a440568706af5a7be15ed3 "pdflatex"
+  "pyexafmm.aux" 1645456244 6438 c5cb6d96e8a440568706af5a7be15ed3 "pdflatex"
   "pyexafmm.bib" 1645443451 26927 88a3c293c62012a2ea9c88019b6ebb52 ""
   (generated)
-  "pyexafmm.bbl"
   "pyexafmm.blg"
-["pdflatex"] 1645455100 "/Users/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.tex" "/Users/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.pdf" "pyexafmm" 1645455101
-  "/Users/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.aux" 1645455101 6438 c5cb6d96e8a440568706af5a7be15ed3 ""
-  "/Users/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.tex" 1645455099 30933 8a89066f2651e88ea095bf3a788477dc ""
+  "pyexafmm.bbl"
+["pdflatex"] 1645456243 "/Users/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.tex" "/Users/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.pdf" "pyexafmm" 1645456244
+  "/Users/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.aux" 1645456244 6438 c5cb6d96e8a440568706af5a7be15ed3 ""
+  "/Users/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.tex" 1645456242 30932 4bbd5959e124694072bfacf0aad4978f ""
   "/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2020/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2020/texmf-dist/fonts/tfm/adobe/courier/pcrb7t.tfm" 1136768653 960 4ab65358b8406f30ef5496c8c096d22b ""
@@ -167,15 +167,15 @@
   "loop_fusion.py" 1645443451 494 a30f0cfd393c326331bcdbcad99cf564 ""
   "nested_function.py" 1645443451 1368 d4539bd0971541f079fee1f44c100f08 ""
   "parallel_multithreading.py" 1645443451 316 f0c0d5377ed2e1ab475f10a17564ef6a ""
-  "pyexafmm.aux" 1645455101 6438 c5cb6d96e8a440568706af5a7be15ed3 "pdflatex"
-  "pyexafmm.bbl" 1645454961 1690 dc084771fb50e96f20da646b04fc7015 "bibtex pyexafmm"
-  "pyexafmm.out" 1645455101 904 c0692fd58a9bf95d60cf62811083f2bd "pdflatex"
-  "pyexafmm.tex" 1645455099 30933 8a89066f2651e88ea095bf3a788477dc ""
+  "pyexafmm.aux" 1645456244 6438 c5cb6d96e8a440568706af5a7be15ed3 "pdflatex"
+  "pyexafmm.bbl" 1645455106 1690 dc084771fb50e96f20da646b04fc7015 "bibtex pyexafmm"
+  "pyexafmm.out" 1645456244 904 c0692fd58a9bf95d60cf62811083f2bd "pdflatex"
+  "pyexafmm.tex" 1645456242 30932 4bbd5959e124694072bfacf0aad4978f ""
   "upmath.sty" 1643809223 5601 0c0145178f8621c759713dc3e50b9f9b ""
   (generated)
-  "pyexafmm.pdf"
-  "pyexafmm.log"
   "pyexafmm.aux"
+  "pyexafmm.pdf"
   "pyexafmm.out"
-  "/Users/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.log"
   "/Users/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.pdf"
+  "/Users/sri/Documents/Papers/pyexafmm-cise/article/pyexafmm.log"
+  "pyexafmm.log"
