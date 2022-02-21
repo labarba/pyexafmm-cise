@@ -31,8 +31,7 @@ def step_2(data):
 def algorithm1(data):
     # Pays the un(boxing) cost to exchange
     # data with interpreter
-    step_1(data)
-    step_2(data)
+    step_1(data); step_2(data)
 
 @numba.njit
 def algorithm2():
@@ -40,8 +39,7 @@ def algorithm2():
     # Python type.
     data = dict()
     data['initial'] = np.ones(100)
-    step_1(data)
-    step_2(data)
+    step_1(data); step_2(data)
     return data
 
 @numba.njit
@@ -62,6 +60,5 @@ def algorithm3():
         a @ a
         data['step_2'] =  data['step_1']
 
-    step_1(data)
-    step_2(data)
+    step_1(data); step_2(data)
     return data
