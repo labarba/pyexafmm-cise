@@ -1,0 +1,15 @@
+{
+    "experiment": "n_crit_150_p_6",
+    "npoints": 1000000,
+    "data_type": "random",
+    "order_equivalent": 6,
+    "order_check": 6,
+    "kernel": "laplace",
+    "backend": "numba",
+    "alpha_inner": 1.05,
+    "alpha_outer": 2.9,
+    "max_level": 10,
+    "max_points": 150,
+    "target_rank": 150,
+    "precision": "double"
+}

@@ -1,0 +1,1041 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="157.95363mm"
+   height="92.973297mm"
+   viewBox="0 0 157.95363 92.973297"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.1 (c3084ef, 2021-09-22)"
+   sodipodi:docname="numba.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="1.4420133"
+     inkscape:cx="306.5159"
+     inkscape:cy="165.7405"
+     inkscape:window-width="1920"
+     inkscape:window-height="1080"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="g156070"
+     fit-margin-left="1"
+     fit-margin-right="1"
+     fit-margin-top="1"
+     fit-margin-bottom="1" />
+  <defs
+     id="defs2"><rect
+   x="416.71146"
+   y="191.34871"
+   width="8.387846"
+   height="13.315663"
+   id="rect132121" />
+<rect
+   x="283.97046"
+   y="170.58121"
+   width="136.26604"
+   height="107.91872"
+   id="rect107295" />
+<rect
+   x="33.112854"
+   y="24.684128"
+   width="316.67929"
+   height="177.60532"
+   id="rect38760" />
+<rect
+   x="261.53091"
+   y="185.4492"
+   width="219.52747"
+   height="122.04776"
+   id="rect8081" />
+<rect
+   x="33.112854"
+   y="24.684128"
+   width="316.67929"
+   height="177.60532"
+   id="rect53697" />
+
+	
+	
+</defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     style="display:inline"
+     transform="translate(-29.458225,-19.974233)">
+    <text
+       xml:space="preserve"
+       transform="scale(0.26458333)"
+       id="text8079"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect8081);fill:#000000;fill-opacity:1;stroke:none" />
+    <text
+       xml:space="preserve"
+       transform="matrix(0.15546572,0,0,0.15546572,7.6474952,12.076237)"
+       id="text38758"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect38760);fill:#000000;fill-opacity:1;stroke:none" />
+    <text
+       xml:space="preserve"
+       transform="matrix(0.15546572,0,0,0.15546572,129.01067,8.3227373)"
+       id="text53689"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect53697);fill:#000000;fill-opacity:1;stroke:none" />
+    <text
+       xml:space="preserve"
+       transform="scale(0.26458333)"
+       id="text107293"
+       style="font-size:8px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect107295)" />
+    <text
+       xml:space="preserve"
+       transform="scale(0.26458333)"
+       id="text132119"
+       style="font-size:8px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect132121)" />
+    <g
+       id="g149705">
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:8.66943px;line-height:0;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.216735"
+         x="31.562132"
+         y="26.506586"
+         id="text1787"><tspan
+           sodipodi:role="line"
+           id="tspan1785"
+           style="font-size:2.07288px;line-height:1.25;stroke-width:0.216735"
+           x="31.562132"
+           y="26.506586">1 @numba.njit(cache=True)</tspan><tspan
+           sodipodi:role="line"
+           style="font-size:2.07288px;line-height:1.25;stroke-width:0.216735"
+           x="31.562132"
+           y="29.697525"
+           id="tspan1789">2 def foo(a, b):</tspan><tspan
+           style="font-size:2.07288px;line-height:1.25;stroke-width:0.216735"
+           sodipodi:role="line"
+           id="tspan19379"
+           x="31.562132"
+           y="32.888462">3    ....</tspan><tspan
+           style="line-height:1.25;stroke-width:0.216735"
+           sodipodi:role="line"
+           id="tspan19381"
+           x="31.562132"
+           y="41.497795"> </tspan></text>
+      <rect
+         style="opacity:0.99;fill:none;stroke:#000000;stroke-width:0.176389;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect22584"
+         width="31.898403"
+         height="10.27792"
+         x="30.546419"
+         y="23.891481" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:2.07288px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.155466"
+         x="30.406122"
+         y="22.559258"
+         id="text23900"><tspan
+           sodipodi:role="line"
+           id="tspan23898"
+           style="font-size:2.07288px;stroke-width:0.155466"
+           x="30.406122"
+           y="22.559258">numbafied_library.py</tspan></text>
+      <g
+         id="g85680"
+         transform="translate(23.443088,3.1261514)"
+         style="stroke-width:0.176389;stroke-miterlimit:4;stroke-dasharray:none">
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:8.66943px;line-height:0;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.176389;stroke-miterlimit:4;stroke-dasharray:none"
+           x="18.968481"
+           y="41.603832"
+           id="text1787-9"><tspan
+             style="font-size:2.07288px;line-height:0.95;stroke-width:0.176389;stroke-miterlimit:4;stroke-dasharray:none"
+             sodipodi:role="line"
+             id="tspan81290"
+             x="18.968481"
+             y="41.603832">&gt;&gt;&gt; foo(a, b)</tspan><tspan
+             style="line-height:1.25;stroke-width:0.176389;stroke-miterlimit:4;stroke-dasharray:none"
+             sodipodi:role="line"
+             id="tspan81292"
+             x="18.968481"
+             y="49.902233"> </tspan></text>
+        <rect
+           style="opacity:0.99;fill:none;stroke:#000000;stroke-width:0.150667;stroke-miterlimit:4;stroke-dasharray:none"
+           id="rect22584-3"
+           width="22.384455"
+           height="4.3574414"
+           x="18.123367"
+           y="38.956116" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:2.07288px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.176389;stroke-miterlimit:4;stroke-dasharray:none"
+           x="17.797293"
+           y="37.656502"
+           id="text23900-6"><tspan
+             sodipodi:role="line"
+             id="tspan23898-4"
+             style="font-size:2.07288px;stroke-width:0.176389;stroke-miterlimit:4;stroke-dasharray:none"
+             x="17.797293"
+             y="37.656502">Python Interpreter</tspan></text>
+      </g>
+      <rect
+         style="fill:#00ff00;stroke:none;stroke-width:0.0166422"
+         id="rect33278"
+         width="0.20925322"
+         height="9.4911766"
+         x="57.086697"
+         y="55.599289"
+         transform="matrix(0.24990657,0.96826996,0.96118304,-0.27591153,0,0)" />
+      <path
+         sodipodi:type="star"
+         style="opacity:0.99;fill:#00ff00;fill-rule:evenodd;stroke:none"
+         id="path33280"
+         inkscape:flatsided="true"
+         sodipodi:sides="3"
+         sodipodi:cx="188.61926"
+         sodipodi:cy="350.29294"
+         sodipodi:r1="29.790663"
+         sodipodi:r2="14.895331"
+         sodipodi:arg1="0.4993465"
+         sodipodi:arg2="1.5465441"
+         inkscape:rounded="0"
+         inkscape:randomized="0.03"
+         transform="matrix(0.07636945,0.00442111,0.02596426,-0.05486979,54.5611,55.439857)"
+         inkscape:transform-center-x="1.6981012"
+         inkscape:transform-center-y="2.1887213"
+         d="m 214.84849,364.47965 -52.43463,0.49685 24.96762,-45.06408 z" />
+      <rect
+         style="fill:#ff0000;stroke:none;stroke-width:0.0257473"
+         id="rect33872"
+         width="0.32373723"
+         height="14.683872"
+         x="-10.458486"
+         y="82.434158"
+         transform="matrix(0.44662797,-0.89471976,0.88235774,0.47057923,0,0)" />
+      <path
+         sodipodi:type="star"
+         style="opacity:0.99;fill:#ff0000;fill-rule:evenodd;stroke:none"
+         id="path33874"
+         inkscape:flatsided="true"
+         sodipodi:sides="3"
+         sodipodi:cx="188.61926"
+         sodipodi:cy="350.29294"
+         sodipodi:r1="29.790663"
+         sodipodi:r2="14.895331"
+         sodipodi:arg1="0.4993465"
+         sodipodi:arg2="1.5465441"
+         inkscape:rounded="0"
+         inkscape:randomized="0.03"
+         transform="matrix(0.07560856,0.01162693,0.01393152,0.05908257,63.093837,32.68069)"
+         inkscape:transform-center-x="1.5840148"
+         inkscape:transform-center-y="2.222174"
+         d="m 214.84849,364.47965 -52.43463,0.49685 24.96762,-45.06408 z" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:8.66943px;line-height:0;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.216735"
+         x="84.493896"
+         y="36.364384"
+         id="text53665"><tspan
+           style="font-size:2.07288px;line-height:1.25;stroke-width:0.216735"
+           sodipodi:role="line"
+           x="84.493896"
+           y="36.364384"
+           id="tspan63899">Python Byte Code</tspan><tspan
+           style="line-height:1.25;stroke-width:0.216735"
+           sodipodi:role="line"
+           id="tspan53663"
+           x="84.493896"
+           y="44.973717"> </tspan></text>
+      <rect
+         style="opacity:0.99;fill:none;stroke:#000000;stroke-width:0.176389;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect53667"
+         width="20.348501"
+         height="5.4785938"
+         x="83.554489"
+         y="33.474514" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:2.07288px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.155466"
+         x="83.335373"
+         y="32.543045"
+         id="text53671"><tspan
+           sodipodi:role="line"
+           id="tspan53669"
+           style="font-size:2.07288px;stroke-width:0.155466"
+           x="83.335373"
+           y="32.543045">numbafied_library.pyc</tspan></text>
+      <rect
+         style="opacity:0.99;fill:none;stroke:#000000;stroke-width:0.176389;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect69487"
+         width="54.748741"
+         height="8.7129784"
+         x="131.57492"
+         y="26.30875" />
+      <text
+         xml:space="preserve"
+         style="font-size:2.11667px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583"
+         x="131.97441"
+         y="24.813164"
+         id="text71529"><tspan
+           sodipodi:role="line"
+           id="tspan71527"
+           style="stroke-width:0.264583"
+           x="131.97441"
+           y="24.813164">Numba Front End</tspan></text>
+      <g
+         id="g72153"
+         transform="matrix(-0.10203341,-0.57866021,0.57866021,-0.10203341,103.5389,83.243691)"
+         style="fill:#00ff00;stroke:none">
+        <rect
+           style="fill:#00ff00;stroke:none;stroke-width:0.0481024"
+           id="rect72149"
+           width="0.60482305"
+           height="27.433186"
+           x="-78.94091"
+           y="20.481508"
+           transform="matrix(-0.99963925,-0.02685849,9.2412403e-5,1,0,0)" />
+        <path
+           sodipodi:type="star"
+           style="opacity:0.99;fill:#00ff00;fill-rule:evenodd;stroke:none"
+           id="path72151"
+           inkscape:flatsided="true"
+           sodipodi:sides="3"
+           sodipodi:cx="188.61926"
+           sodipodi:cy="350.29294"
+           sodipodi:r1="29.790663"
+           sodipodi:r2="14.895331"
+           sodipodi:arg1="0.4993465"
+           sodipodi:arg2="1.5465441"
+           inkscape:rounded="0"
+           inkscape:randomized="0.03"
+           transform="matrix(-0.04308133,0.1228542,0.07757112,0.06823058,59.690359,5.1619029)"
+           inkscape:transform-center-x="1.6981012"
+           inkscape:transform-center-y="2.1887213"
+           d="m 214.84849,364.47965 -52.43463,0.49685 24.96762,-45.06408 z" />
+      </g>
+      <g
+         id="g72451"
+         transform="matrix(0.05555374,0,0,0.05555374,56.096601,88.360489)"
+         style="fill:#000000;stroke-width:1.80006;stroke-miterlimit:4;stroke-dasharray:none">
+        <path
+           d="M 172.50188,85.132426 H 119.3773 c -3.44367,0 -6.23401,2.790344 -6.23401,6.234012 v 53.125422 c 0,3.44366 2.79117,6.23401 6.23401,6.23401 h 53.12458 c 3.44367,0 6.23401,-2.79035 6.23401,-6.23401 V 91.366438 c 0,-3.442837 -2.79034,-6.234012 -6.23401,-6.234012 z m -6.23401,53.125414 H 125.61131 V 97.60045 h 40.65656 z"
+           id="path72392"
+           style="fill:none;stroke:#000000;stroke-width:1.80006;stroke-miterlimit:4;stroke-dasharray:none" />
+        <path
+           d="m 225.62606,124.16316 c 3.44367,0 6.23401,-2.79034 6.23401,-6.23401 0,-3.44367 -2.79034,-6.23401 -6.23401,-6.23401 H 205.29902 V 97.60045 h 20.32704 c 3.44367,0 6.23401,-2.790344 6.23401,-6.234012 0,-3.443668 -2.79034,-6.234012 -6.23401,-6.234012 H 205.29902 V 64.803729 c 0,-3.443668 -2.79034,-6.234012 -6.23401,-6.234012 h -20.3287 V 38.242683 c 0,-3.443668 -2.79034,-6.234012 -6.23401,-6.234012 -3.44367,0 -6.23401,2.790344 -6.23401,6.234012 V 58.569717 H 152.1736 V 38.242683 c 0,-3.443668 -2.79034,-6.234012 -6.23401,-6.234012 -3.44367,0 -6.23401,2.790344 -6.23401,6.234012 V 58.569717 H 125.61173 V 38.242683 c 0,-3.443668 -2.79035,-6.234012 -6.23402,-6.234012 -3.44367,0 -6.23401,2.790344 -6.23401,6.234012 V 58.569717 H 92.815001 c -3.443668,0 -6.234012,2.791175 -6.234012,6.234012 V 85.132426 H 66.253124 c -3.443668,0 -6.234012,2.790344 -6.234012,6.234012 0,3.443668 2.790344,6.234012 6.234012,6.234012 h 20.327865 v 14.09469 H 66.253124 c -3.443668,0 -6.234012,2.79034 -6.234012,6.23401 0,3.44367 2.790344,6.23401 6.234012,6.23401 h 20.327865 v 14.09468 H 66.253124 c -3.443668,0 -6.234012,2.79035 -6.234012,6.23402 0,3.44366 2.790344,6.23401 6.234012,6.23401 h 20.327865 v 20.32869 c 0,3.44367 2.790344,6.23402 6.234012,6.23402 H 113.1437 v 20.32703 c 0,3.44367 2.79117,6.23401 6.23401,6.23401 3.44367,0 6.23402,-2.79034 6.23402,-6.23401 v -20.32703 h 14.09385 v 20.32703 c 0,3.44367 2.79034,6.23401 6.23401,6.23401 3.44367,0 6.23401,-2.79034 6.23401,-6.23401 v -20.32703 h 14.09469 v 20.32703 c 0,3.44367 2.79034,6.23401 6.23401,6.23401 3.44367,0 6.23401,-2.79034 6.23401,-6.23401 v -20.32703 h 20.3287 c 3.44367,0 6.23401,-2.79035 6.23401,-6.23402 v -20.32869 h 20.32704 c 3.44367,0 6.23401,-2.79035 6.23401,-6.23401 0,-3.44367 -2.79034,-6.23402 -6.23401,-6.23402 H 205.29902 V 124.16316 Z M 192.831,164.82055 H 99.049013 V 71.037741 H 192.831 Z"
+           id="path72394"
+           style="fill:none;stroke:#000000;stroke-width:1.80006;stroke-miterlimit:4;stroke-dasharray:none" />
+        <g
+           id="g72398"
+           style="fill:#000000;stroke-width:1.80006;stroke-miterlimit:4;stroke-dasharray:none">
+</g>
+        <g
+           id="g72400"
+           style="fill:#000000;stroke-width:1.80006;stroke-miterlimit:4;stroke-dasharray:none">
+</g>
+        <g
+           id="g72402"
+           style="fill:#000000;stroke-width:1.80006;stroke-miterlimit:4;stroke-dasharray:none">
+</g>
+        <g
+           id="g72404"
+           style="fill:#000000;stroke-width:1.80006;stroke-miterlimit:4;stroke-dasharray:none">
+</g>
+        <g
+           id="g72406"
+           style="fill:#000000;stroke-width:1.80006;stroke-miterlimit:4;stroke-dasharray:none">
+</g>
+        <g
+           id="g72408"
+           style="fill:#000000;stroke-width:1.80006;stroke-miterlimit:4;stroke-dasharray:none">
+</g>
+        <g
+           id="g72410"
+           style="fill:#000000;stroke-width:1.80006;stroke-miterlimit:4;stroke-dasharray:none">
+</g>
+        <g
+           id="g72412"
+           style="fill:#000000;stroke-width:1.80006;stroke-miterlimit:4;stroke-dasharray:none">
+</g>
+        <g
+           id="g72414"
+           style="fill:#000000;stroke-width:1.80006;stroke-miterlimit:4;stroke-dasharray:none">
+</g>
+        <g
+           id="g72416"
+           style="fill:#000000;stroke-width:1.80006;stroke-miterlimit:4;stroke-dasharray:none">
+</g>
+        <g
+           id="g72418"
+           style="fill:#000000;stroke-width:1.80006;stroke-miterlimit:4;stroke-dasharray:none">
+</g>
+        <g
+           id="g72420"
+           style="fill:#000000;stroke-width:1.80006;stroke-miterlimit:4;stroke-dasharray:none">
+</g>
+        <g
+           id="g72422"
+           style="fill:#000000;stroke-width:1.80006;stroke-miterlimit:4;stroke-dasharray:none">
+</g>
+        <g
+           id="g72424"
+           style="fill:#000000;stroke-width:1.80006;stroke-miterlimit:4;stroke-dasharray:none">
+</g>
+        <g
+           id="g72426"
+           style="fill:#000000;stroke-width:1.80006;stroke-miterlimit:4;stroke-dasharray:none">
+</g>
+      </g>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:8.66943px;line-height:0.15;font-family:sans-serif;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.216735"
+         x="47.560543"
+         y="104.7598"
+         id="text72457"><tspan
+           style="font-size:2.07288px;stroke-width:0.216735"
+           sodipodi:role="line"
+           id="tspan72455"
+           x="47.560543"
+           y="104.7598">Run Optimized Machine Code </tspan><tspan
+           style="stroke-width:0.216735"
+           sodipodi:role="line"
+           x="47.560543"
+           y="107.46087"
+           id="tspan109211"><tspan
+             style="font-size:2.07288px;stroke-width:0.216735"
+             id="tspan114145">For Your Hardware: ARM, AMD, </tspan></tspan><tspan
+           style="stroke-width:0.216735"
+           sodipodi:role="line"
+           x="47.560543"
+           y="110.16193"
+           id="tspan114151"><tspan
+   style="font-size:2.07288px;stroke-width:0.216735"
+   id="tspan114153">Intel, PTX etc</tspan> </tspan></text>
+      <rect
+         style="opacity:0.99;fill:none;stroke:#000000;stroke-width:0.176389;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect72459"
+         width="34.475246"
+         height="9.9973402"
+         x="46.819424"
+         y="101.86199" />
+      <rect
+         style="fill:#ff0000;stroke:none;stroke-width:0.010951"
+         id="rect77961"
+         width="0.22430117"
+         height="3.8339641"
+         x="5.7307029"
+         y="-104.90641"
+         transform="matrix(0.87104185,-0.49120881,-0.50021242,-0.86590273,0,0)" />
+      <path
+         sodipodi:type="star"
+         style="opacity:0.99;fill:#ff0000;fill-rule:evenodd;stroke:none"
+         id="path77963"
+         inkscape:flatsided="true"
+         sodipodi:sides="3"
+         sodipodi:cx="188.61926"
+         sodipodi:cy="350.29294"
+         sodipodi:r1="29.790663"
+         sodipodi:r2="14.895331"
+         sodipodi:arg1="0.4993465"
+         sodipodi:arg2="1.5465441"
+         inkscape:rounded="0"
+         inkscape:randomized="0.03"
+         transform="matrix(-0.01417117,-0.07517324,-0.05951895,-0.01193028,78.522982,101.90781)"
+         inkscape:transform-center-x="-0.20832013"
+         inkscape:transform-center-y="3.0766817"
+         d="m 214.84849,364.47965 -52.43463,0.49685 24.96762,-45.06408 z" />
+      <text
+         xml:space="preserve"
+         style="font-size:2.11667px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583"
+         x="133.42316"
+         y="29.9335"
+         id="text86872"><tspan
+           sodipodi:role="line"
+           id="tspan86870"
+           style="stroke-width:0.264583"
+           x="133.42316"
+           y="29.9335">1) Analyze Python Bytecode To Create Numba's</tspan><tspan
+           sodipodi:role="line"
+           style="stroke-width:0.264583"
+           x="133.42316"
+           y="32.579338"
+           id="tspan86876">Internal 'Intermediate Representation'</tspan></text>
+      <g
+         id="g95591"
+         style="stroke:#501616"
+         transform="matrix(0.71644346,0,0,0.89648514,25.295434,19.71798)">
+        <rect
+           style="opacity:0.99;fill:#ffffff;stroke:#501616;stroke-width:0.2;stroke-miterlimit:4;stroke-dasharray:0.1, 0.1;stroke-dashoffset:0"
+           id="rect89410"
+           width="16.211531"
+           height="8.3843565"
+           x="26.926266"
+           y="56.190006" />
+        <path
+           style="fill:none;stroke:#501616;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.1, 0.1;stroke-dashoffset:0;stroke-opacity:1"
+           d="m 19.139216,60.414157 7.787049,4.160203"
+           id="path94990" />
+        <path
+           style="fill:none;stroke:#501616;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.1, 0.1;stroke-dashoffset:0;stroke-opacity:1"
+           d="m 19.139216,52.029803 7.787049,4.160201"
+           id="path94992" />
+        <path
+           style="fill:none;stroke:#501616;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.1, 0.1;stroke-dashoffset:0;stroke-opacity:1"
+           d="m 35.350746,52.029803 7.787049,4.160201"
+           id="path94994" />
+        <path
+           style="fill:none;stroke:#501616;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.1, 0.1;stroke-dashoffset:0;stroke-opacity:1"
+           d="m 19.139216,52.029803 v 8.513673"
+           id="path95269" />
+        <path
+           style="fill:none;stroke:#501616;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.1, 0.1;stroke-dashoffset:0;stroke-opacity:1"
+           d="M 18.993196,52.029803 H 35.417728"
+           id="path95271" />
+      </g>
+      <text
+         xml:space="preserve"
+         style="font-size:1.34542px;line-height:1.25;font-family:sans-serif;fill:#000000;stroke-width:0.168178"
+         x="45.463886"
+         y="72.598984"
+         id="text90790"><tspan
+           sodipodi:role="line"
+           id="tspan90788"
+           style="fill:#000000;stroke-width:0.168178"
+           x="45.463886"
+           y="72.598984">Box Native </tspan><tspan
+           sodipodi:role="line"
+           style="fill:#000000;stroke-width:0.168178"
+           x="45.463886"
+           y="74.280762"
+           id="tspan92526">Outputs into </tspan><tspan
+           sodipodi:role="line"
+           style="fill:#000000;stroke-width:0.168178"
+           x="45.463886"
+           y="75.962532"
+           id="tspan95929">Python Objects</tspan></text>
+      <g
+         id="g148626"
+         transform="translate(-1.7645483,4.2643251)">
+        <path
+           style="fill:none;stroke:#501616;stroke-width:0.160285;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.0801424, 0.0801424;stroke-dashoffset:0;stroke-opacity:1"
+           d="m 92.024968,57.088734 5.57898,3.72956"
+           id="path97289" />
+        <path
+           style="fill:none;stroke:#501616;stroke-width:0.176389;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.0881945, 0.0881945;stroke-dashoffset:0;stroke-opacity:1"
+           d="m 92.024968,49.572285 5.57898,3.729559"
+           id="path97291" />
+        <path
+           style="fill:none;stroke:#501616;stroke-width:0.176389;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.0881945, 0.0881945;stroke-dashoffset:0;stroke-opacity:1"
+           d="m 92.024968,49.572285 v 7.632381"
+           id="path97295" />
+        <path
+           style="fill:none;stroke:#501616;stroke-width:0.176389;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.0881945, 0.0881945;stroke-dashoffset:0;stroke-opacity:1"
+           d="M 92.053232,49.523332 102.07794,43.735557"
+           id="path97297" />
+        <path
+           style="fill:none;stroke:#501616;stroke-width:0.176389;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.0881945, 0.0881945;stroke-dashoffset:0;stroke-opacity:1"
+           d="M 97.632067,53.253142 107.6309,47.48031"
+           id="path97307" />
+        <path
+           style="fill:none;stroke:#501616;stroke-width:0.159044;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.0795222, 0.0795222;stroke-dashoffset:0;stroke-opacity:1"
+           d="M 109.21859,53.301844 V 60.81655"
+           id="path97313" />
+        <path
+           style="fill:none;stroke:#501616;stroke-width:0.196882;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.0984412, 0.0984412;stroke-dashoffset:0;stroke-opacity:1"
+           d="M 109.11962,60.818294 H 97.603948"
+           id="path97315" />
+        <path
+           style="fill:none;stroke:#501616;stroke-width:0.159063;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.0795314, 0.0795314;stroke-dashoffset:0;stroke-opacity:1"
+           d="m 97.603948,53.301844 v 7.51645"
+           id="path97317" />
+        <path
+           style="fill:none;stroke:#501616;stroke-width:0.176389;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.0881945, 0.0881945;stroke-dashoffset:0;stroke-opacity:1"
+           d="M 109.11211,53.314864 H 97.596431"
+           id="path97325" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#path97291"
+           id="use97807"
+           transform="translate(10.052972,-5.836728)"
+           width="100%"
+           height="100%" />
+        <use
+           x="0"
+           y="0"
+           xlink:href="#path97291"
+           id="use97809"
+           transform="matrix(0.94286236,0,0,0.94286236,17.085016,3.0604953)"
+           width="100%"
+           height="100%"
+           style="stroke-width:0.187078;stroke-miterlimit:4;stroke-dasharray:0.0935391, 0.0935391;stroke-dashoffset:0" />
+        <text
+           xml:space="preserve"
+           style="font-size:1.4352px;line-height:1.25;font-family:sans-serif;fill:#000000;stroke-width:0.179401"
+           x="97.997025"
+           y="55.994656"
+           id="text97897"><tspan
+             sodipodi:role="line"
+             id="tspan97891"
+             style="fill:#000000;stroke-width:0.179401"
+             x="97.997025"
+             y="55.994656">Unbox Python </tspan><tspan
+             sodipodi:role="line"
+             style="fill:#000000;stroke-width:0.179401"
+             x="97.997025"
+             y="57.788654"
+             id="tspan97893">Inputs into </tspan><tspan
+             sodipodi:role="line"
+             style="fill:#000000;stroke-width:0.179401"
+             x="97.997025"
+             y="59.582657"
+             id="tspan97895">Native Objects</tspan></text>
+      </g>
+      <rect
+         style="opacity:0.99;fill:none;stroke:#000000;stroke-width:0.168055;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect114953"
+         width="49.650116"
+         height="8.7213125"
+         x="131.21118"
+         y="44.34737" />
+      <text
+         xml:space="preserve"
+         style="font-size:2.11667px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583"
+         x="133.01694"
+         y="47.981453"
+         id="text114961"><tspan
+           sodipodi:role="line"
+           style="stroke-width:0.264583"
+           x="133.01694"
+           y="47.981453"
+           id="tspan114957">2) Perform Type Inference From Function's </tspan><tspan
+           sodipodi:role="line"
+           style="stroke-width:0.264583"
+           x="133.01694"
+           y="50.627289"
+           id="tspan115323">Input Types</tspan><tspan
+           sodipodi:role="line"
+           style="stroke-width:0.264583"
+           x="133.01694"
+           y="53.273129"
+           id="tspan114959" /></text>
+      <g
+         id="g119122"
+         transform="matrix(0.20096658,0.55215115,0.55215115,-0.20096658,80.143136,19.391474)"
+         style="fill:#ff0000;stroke:none">
+        <rect
+           style="fill:#ff0000;stroke:none;stroke-width:0.0303691"
+           id="rect119118"
+           width="0.38185093"
+           height="17.319756"
+           x="-79.06176"
+           y="28.109621"
+           transform="matrix(-0.99963925,-0.02685849,9.2412403e-5,1,0,0)" />
+        <path
+           sodipodi:type="star"
+           style="opacity:0.99;fill:#ff0000;fill-rule:evenodd;stroke:none"
+           id="path119120"
+           inkscape:flatsided="true"
+           sodipodi:sides="3"
+           sodipodi:cx="188.61926"
+           sodipodi:cy="350.29294"
+           sodipodi:r1="29.790663"
+           sodipodi:r2="14.895331"
+           sodipodi:arg1="0.4993465"
+           sodipodi:arg2="1.5465441"
+           inkscape:rounded="0"
+           inkscape:randomized="0.03"
+           transform="matrix(-0.04308133,0.1228542,0.07757112,0.06823058,59.816631,2.6475237)"
+           inkscape:transform-center-x="1.6981012"
+           inkscape:transform-center-y="2.1887213"
+           d="m 214.84849,364.47965 -52.43463,0.49685 24.96762,-45.06408 z" />
+      </g>
+      <rect
+         style="fill:#ff0000;stroke:none;stroke-width:0.0318036"
+         id="rect119124"
+         width="0.39988771"
+         height="18.137856"
+         x="164.41736"
+         y="-25.93239"
+         transform="matrix(0.87914222,0.47655949,-0.50008003,0.86597919,0,0)" />
+      <path
+         sodipodi:type="star"
+         style="opacity:0.99;fill:#ff0000;fill-rule:evenodd;stroke:none"
+         id="path119126"
+         inkscape:flatsided="true"
+         sodipodi:sides="3"
+         sodipodi:cx="188.61926"
+         sodipodi:cy="350.29294"
+         sodipodi:r1="29.790663"
+         sodipodi:r2="14.895331"
+         sodipodi:arg1="0.4993465"
+         sodipodi:arg2="1.5465441"
+         inkscape:rounded="0"
+         inkscape:randomized="0.03"
+         transform="matrix(-0.01417117,0.07517325,-0.05951895,0.01193028,171.40816,54.455655)"
+         inkscape:transform-center-x="2.1317763"
+         inkscape:transform-center-y="1.641319"
+         d="m 214.84849,364.47965 -52.43463,0.49685 24.96762,-45.06408 z" />
+      <g
+         id="g168742"
+         transform="translate(22.421729,22.836946)">
+        <rect
+           style="opacity:0.99;fill:none;stroke:#000000;stroke-width:0.178169;stroke-miterlimit:4;stroke-dasharray:none"
+           id="rect119142"
+           width="57.389961"
+           height="9.7938032"
+           x="102.3524"
+           y="76.641312" />
+        <text
+           xml:space="preserve"
+           style="font-size:2.11667px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583"
+           x="102.74229"
+           y="75.136124"
+           id="text119146"><tspan
+             sodipodi:role="line"
+             id="tspan119144"
+             style="stroke-width:0.264583"
+             x="102.74229"
+             y="75.136124">Numba Back End</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:2.11667px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583"
+           x="104.06449"
+           y="79.685608"
+           id="text119152"><tspan
+             sodipodi:role="line"
+             style="stroke-width:0.264583"
+             x="104.06449"
+             y="79.685608"
+             id="tspan119150">Combine Type Information with Intermediate</tspan><tspan
+             sodipodi:role="line"
+             style="stroke-width:0.264583"
+             x="104.06449"
+             y="82.331444"
+             id="tspan128151">Representation and Use LLVM to Create Optimized </tspan><tspan
+             sodipodi:role="line"
+             style="stroke-width:0.264583"
+             x="104.06449"
+             y="84.97728"
+             id="tspan133102">Machine Code For Your Architecture </tspan></text>
+      </g>
+      <rect
+         style="fill:#00ff00;stroke:none;stroke-width:0.0107634"
+         id="rect122204"
+         width="0.22430041"
+         height="3.7037039"
+         x="48.346878"
+         y="-54.977882"
+         transform="matrix(0.9999522,0.00977777,-2.5392643e-4,-0.99999997,0,0)" />
+      <path
+         sodipodi:type="star"
+         style="opacity:0.99;fill:#00ff00;fill-rule:evenodd;stroke:none"
+         id="path122206"
+         inkscape:flatsided="true"
+         sodipodi:sides="3"
+         sodipodi:cx="188.61926"
+         sodipodi:cy="350.29294"
+         sodipodi:r1="29.790663"
+         sodipodi:r2="14.895331"
+         sodipodi:arg1="0.4993465"
+         sodipodi:arg2="1.5465441"
+         inkscape:rounded="0"
+         inkscape:randomized="0.03"
+         transform="matrix(0.02531403,-0.07218753,-0.04557978,-0.0400914,59.65138,78.132688)"
+         inkscape:transform-center-x="1.6981012"
+         inkscape:transform-center-y="2.1887213"
+         d="m 214.84849,364.47965 -52.43463,0.49685 24.96762,-45.06408 z" />
+      <rect
+         style="fill:#ff0000;stroke:none;stroke-width:0.0415605"
+         id="rect134414"
+         width="0.52256745"
+         height="23.702288"
+         x="120.00035"
+         y="-67.753456"
+         transform="matrix(0.36713548,0.93016748,-0.93972423,0.34193329,0,0)" />
+      <path
+         sodipodi:type="star"
+         style="opacity:0.99;fill:#ff0000;fill-rule:evenodd;stroke:none"
+         id="path134416"
+         inkscape:flatsided="true"
+         sodipodi:sides="3"
+         sodipodi:cx="188.61926"
+         sodipodi:cy="350.29294"
+         sodipodi:r1="29.790663"
+         sodipodi:r2="14.895331"
+         sodipodi:arg1="0.4993465"
+         sodipodi:arg2="1.5465441"
+         inkscape:rounded="0"
+         inkscape:randomized="0.03"
+         transform="matrix(-0.05917618,0.04847699,-0.0532628,-0.02911892,114.10961,98.423566)"
+         inkscape:transform-center-x="1.6981012"
+         inkscape:transform-center-y="2.1887213"
+         d="m 214.84849,364.47965 -52.43463,0.49685 24.96762,-45.06408 z" />
+      <rect
+         style="fill:#00ff00;stroke:none;stroke-width:0.0108583"
+         id="rect134420"
+         width="0.22430079"
+         height="3.7693596"
+         x="-158.34444"
+         y="34.164135"
+         transform="matrix(-0.99995049,-0.00995108,2.4950349e-4,0.99999997,0,0)" />
+      <path
+         sodipodi:type="star"
+         style="opacity:0.99;fill:#00ff00;fill-rule:evenodd;stroke:none"
+         id="path134422"
+         inkscape:flatsided="true"
+         sodipodi:sides="3"
+         sodipodi:cx="188.61926"
+         sodipodi:cy="350.29294"
+         sodipodi:r1="29.790663"
+         sodipodi:r2="14.895331"
+         sodipodi:arg1="0.4993465"
+         sodipodi:arg2="1.5465441"
+         inkscape:rounded="0"
+         inkscape:randomized="0.03"
+         transform="matrix(-0.02531403,0.07218753,0.04557978,0.0400914,147.05215,13.123402)"
+         inkscape:transform-center-x="1.6981012"
+         inkscape:transform-center-y="2.1887213"
+         d="m 214.84849,364.47965 -52.43463,0.49685 24.96762,-45.06408 z" />
+      <text
+         xml:space="preserve"
+         style="font-size:2.11667px;line-height:1.25;font-family:sans-serif;stroke:none;stroke-width:0.264583"
+         x="37.790737"
+         y="59.553509"
+         id="text141423"><tspan
+           sodipodi:role="line"
+           id="tspan141421"
+           style="fill:#000000;stroke:none;stroke-width:0.264583"
+           x="37.790737"
+           y="59.553509">Hand Back Control </tspan><tspan
+           sodipodi:role="line"
+           style="fill:#000000;stroke:none;stroke-width:0.264583"
+           x="37.790737"
+           y="62.199345"
+           id="tspan141425">To Python Interpreter</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:2.11667px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583"
+         x="67.052818"
+         y="43.525524"
+         id="text146213"><tspan
+           sodipodi:role="line"
+           style="fill:#000000;stroke-width:0.264583"
+           x="67.052818"
+           y="43.525524"
+           id="tspan146211">Hand Control To </tspan><tspan
+           sodipodi:role="line"
+           style="fill:#000000;stroke-width:0.264583"
+           x="67.052818"
+           y="46.17136"
+           id="tspan147103">Numba Runtime</tspan></text>
+      <rect
+         style="fill:#00ff00;stroke:none;stroke-width:0.0391601"
+         id="rect155854"
+         width="0.40007469"
+         height="27.486347"
+         x="105.98917"
+         y="-113.63714"
+         transform="matrix(0.04068268,0.99917212,-1,-6.0978335e-5,0,0)" />
+      <path
+         sodipodi:type="star"
+         style="opacity:0.99;fill:#00ff00;fill-rule:evenodd;stroke:none"
+         id="path155856"
+         inkscape:flatsided="true"
+         sodipodi:sides="3"
+         sodipodi:cx="188.61926"
+         sodipodi:cy="350.29294"
+         sodipodi:r1="29.790663"
+         sodipodi:r2="14.895331"
+         sodipodi:arg1="0.4993465"
+         sodipodi:arg2="1.5465441"
+         inkscape:rounded="0"
+         inkscape:randomized="0.03"
+         transform="matrix(-0.07218754,0.02531403,-0.0400914,-0.04557978,116.79629,117.21957)"
+         inkscape:transform-center-x="1.3656963"
+         inkscape:transform-center-y="3.0672381"
+         d="m 214.84849,364.47965 -52.43463,0.49685 24.96762,-45.06408 z" />
+      <g
+         id="g156070"
+         transform="translate(96.521319,39.250048)"
+         style="stroke-width:0.176389;stroke-miterlimit:4;stroke-dasharray:none">
+        <g
+           id="g160213">
+          <g
+             id="g160202">
+            <text
+               xml:space="preserve"
+               style="font-style:normal;font-weight:normal;font-size:8.66943px;line-height:0;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.176389;stroke-miterlimit:4;stroke-dasharray:none"
+               x="15.854352"
+               y="42.019051"
+               id="text156062"><tspan
+                 style="font-size:2.07288px;line-height:0.95;stroke-width:0.176389;stroke-miterlimit:4;stroke-dasharray:none"
+                 sodipodi:role="line"
+                 x="15.854352"
+                 y="42.019051"
+                 id="tspan161120">Find/Store Function With </tspan><tspan
+                 style="font-size:2.07288px;line-height:0.95;stroke-width:0.176389;stroke-miterlimit:4;stroke-dasharray:none"
+                 sodipodi:role="line"
+                 x="15.854352"
+                 y="44.899055"
+                 id="tspan161127">This Type Signature to Avoid </tspan><tspan
+                 style="font-size:2.07288px;line-height:0.95;stroke-width:0.176389;stroke-miterlimit:4;stroke-dasharray:none"
+                 sodipodi:role="line"
+                 x="15.854352"
+                 y="47.779064"
+                 id="tspan163681">Re-Compilation</tspan><tspan
+                 style="line-height:1.25;stroke-width:0.176389;stroke-miterlimit:4;stroke-dasharray:none"
+                 sodipodi:role="line"
+                 id="tspan156060"
+                 x="15.854352"
+                 y="56.077465"> </tspan></text>
+            <rect
+               style="opacity:0.99;fill:none;stroke:#000000;stroke-width:0.264898;stroke-miterlimit:4;stroke-dasharray:none"
+               id="rect156064"
+               width="31.820219"
+               height="9.4754066"
+               x="15.066354"
+               y="39.636059" />
+            <text
+               xml:space="preserve"
+               style="font-size:2.11667px;line-height:1.25;font-family:sans-serif;stroke-width:0.0466696"
+               x="21.585781"
+               y="42.591549"
+               id="text170923"><tspan
+                 sodipodi:role="line"
+                 id="tspan170921"
+                 style="stroke-width:0.0466696"></tspan></text>
+          </g>
+          <text
+             xml:space="preserve"
+             style="font-style:normal;font-weight:normal;font-size:2.07288px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.176389;stroke-miterlimit:4;stroke-dasharray:none"
+             x="16.136423"
+             y="38.279327"
+             id="text156068"><tspan
+               sodipodi:role="line"
+               id="tspan156066"
+               style="font-size:2.07288px;stroke-width:0.176389;stroke-miterlimit:4;stroke-dasharray:none"
+               x="16.136423"
+               y="38.279327">Numba Cache</tspan></text>
+        </g>
+      </g>
+      <rect
+         style="fill:#00ff00;stroke:none;stroke-width:0.0439358"
+         id="rect160223"
+         width="0.40026763"
+         height="34.582825"
+         x="171.94868"
+         y="65.35318"
+         transform="matrix(0.99869039,-0.05116153,-4.8465438e-5,1,0,0)" />
+      <path
+         sodipodi:type="star"
+         style="opacity:0.99;fill:#00ff00;fill-rule:evenodd;stroke:none"
+         id="path160225"
+         inkscape:flatsided="true"
+         sodipodi:sides="3"
+         sodipodi:cx="188.61926"
+         sodipodi:cy="350.29294"
+         sodipodi:r1="29.790663"
+         sodipodi:r2="14.895331"
+         sodipodi:arg1="0.4993465"
+         sodipodi:arg2="1.5465441"
+         inkscape:rounded="0"
+         inkscape:randomized="0.03"
+         transform="matrix(0.02531403,0.07218754,-0.04557978,0.0400914,183.03155,64.805268)"
+         inkscape:transform-center-x="1.3656963"
+         inkscape:transform-center-y="3.0672381"
+         d="m 214.84849,364.47965 -52.43463,0.49685 24.96762,-45.06408 z" />
+      <g
+         id="g174287">
+        <rect
+           style="fill:#00ff00;stroke:none;stroke-width:0.010951"
+           id="rect168339"
+           width="0.22430117"
+           height="3.8339641"
+           x="3.044518"
+           y="-104.92927"
+           transform="matrix(0.87104185,-0.49120881,-0.50021242,-0.86590273,0,0)" />
+        <path
+           sodipodi:type="star"
+           style="opacity:0.99;fill:#00ff00;fill-rule:evenodd;stroke:none"
+           id="path168341"
+           inkscape:flatsided="true"
+           sodipodi:sides="3"
+           sodipodi:cx="188.61926"
+           sodipodi:cy="350.29294"
+           sodipodi:r1="29.790663"
+           sodipodi:r2="14.895331"
+           sodipodi:arg1="0.4993465"
+           sodipodi:arg2="1.5465441"
+           inkscape:rounded="0"
+           inkscape:randomized="0.03"
+           transform="matrix(-0.01417117,-0.07517324,-0.05951895,-0.01193028,76.194636,103.24708)"
+           inkscape:transform-center-x="-0.20832013"
+           inkscape:transform-center-y="3.0766817"
+           d="m 214.84849,364.47965 -52.43463,0.49685 24.96762,-45.06408 z" />
+      </g>
+      <rect
+         style="fill:#ff0000;stroke:none;stroke-width:0.0107634"
+         id="rect168361"
+         width="0.22430041"
+         height="3.7037039"
+         x="51.033054"
+         y="-54.955948"
+         transform="matrix(0.9999522,0.00977777,-2.5392643e-4,-0.99999997,0,0)" />
+      <path
+         sodipodi:type="star"
+         style="opacity:0.99;fill:#ff0000;fill-rule:evenodd;stroke:none"
+         id="path168363"
+         inkscape:flatsided="true"
+         sodipodi:sides="3"
+         sodipodi:cx="188.61926"
+         sodipodi:cy="350.29294"
+         sodipodi:r1="29.790663"
+         sodipodi:r2="14.895331"
+         sodipodi:arg1="0.4993465"
+         sodipodi:arg2="1.5465441"
+         inkscape:rounded="0"
+         inkscape:randomized="0.03"
+         transform="matrix(0.02531403,-0.07218753,-0.04557978,-0.0400914,62.337422,78.137019)"
+         inkscape:transform-center-x="1.6981012"
+         inkscape:transform-center-y="2.1887213"
+         d="m 214.84849,364.47965 -52.43463,0.49685 24.96762,-45.06408 z" />
+      <rect
+         style="fill:#00ff00;stroke:none;stroke-width:0.010951"
+         id="rect173777"
+         width="0.22430117"
+         height="3.8339641"
+         x="68.963844"
+         y="-149.51674"
+         transform="matrix(0.87104185,-0.49120881,-0.50021242,-0.86590273,0,0)" />
+      <path
+         sodipodi:type="star"
+         style="opacity:0.99;fill:#00ff00;fill-rule:evenodd;stroke:none"
+         id="path173779"
+         inkscape:flatsided="true"
+         sodipodi:sides="3"
+         sodipodi:cx="188.61926"
+         sodipodi:cy="350.29294"
+         sodipodi:r1="29.790663"
+         sodipodi:r2="14.895331"
+         sodipodi:arg1="0.4993465"
+         sodipodi:arg2="1.5465441"
+         inkscape:rounded="0"
+         inkscape:randomized="0.03"
+         transform="matrix(-0.01417117,-0.07517324,-0.05951895,-0.01193028,155.91634,109.47534)"
+         inkscape:transform-center-x="-0.20832013"
+         inkscape:transform-center-y="3.0766817"
+         d="m 214.84849,364.47965 -52.43463,0.49685 24.96762,-45.06408 z" />
+    </g>
+  </g>
+</svg>
