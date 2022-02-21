@@ -262,8 +262,7 @@ Figure (\ref{fig:cpu_wall}) compares the time spent within each Numba-compiled o
 
 \section{CONCLUSION}
 
-In developing PyExaFMM we found that achieving performance with Numba is not trivial.
-Achieving optimal multithreaded performance requires careful consideration of the algorithm being accelerated, details of Numba's backend implementation, as well as a design that suits Numba's data oriented framework. This is arguably more software development expertise than many in Numba's target audience can be reasonably expected to possess, making achieving performance with Numba as complex as with a compiled language. Despite this, Numba is a remarkable tool. Projects which value Python's simple cross platform builds, as well as large open source ecosystem, and only contain a small number of isolated performance bottlenecks, would benefit the most from a Numba implementation.
+Achieving optimal multithreaded performance with Numba requires careful consideration of the algorithm being accelerated, details of Numba's backend implementation, as well as a design that suits Numba's data oriented framework. This is arguably more software development expertise than many in Numba's intended target audience can be reasonably expected to possess. Despite this, Numba is a remarkable tool. Projects which value Python's simple cross platform builds, as well as large open source ecosystem, and only contain a small number of isolated performance bottlenecks, would benefit the most from a Numba implementation.
 
 \section{ACKNOWLEDGMENT}
 
