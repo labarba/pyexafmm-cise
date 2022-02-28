@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.21)  25 FEB 2022 08:45
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.21)  28 FEB 2022 10:06
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -744,7 +744,7 @@ Underfull \hbox (badness 1888) in paragraph at lines 163--164
 \OT1/ptm/m/n/10.53937 cre-ated ob-jects, per-for-mance crit-i-cal sec-tions
  []
 
-<figures/numba.pdf, id=139, 460.13841pt x 306.96414pt>
+<figures/numba.pdf, id=141, 460.13841pt x 306.96414pt>
 File: figures/numba.pdf Graphic file (type pdf)
 <use figures/numba.pdf>
 Package pdftex.def Info: figures/numba.pdf  used on input line 168.
@@ -772,7 +772,7 @@ Overfull \vbox (6.27187pt too high) has occurred while \output is active []
 
 
 [6]
-<figures/software.pdf, id=367, 423.20367pt x 242.76947pt>
+<figures/software.pdf, id=369, 423.20367pt x 242.76947pt>
 File: figures/software.pdf Graphic file (type pdf)
 <use figures/software.pdf>
 Package pdftex.def Info: figures/software.pdf  used on input line 218.
@@ -786,7 +786,7 @@ Overfull \hbox (18.0pt too wide) has occurred while \output is active
  []
 
 [7]
-<figures/speedup.png, id=391, 425.59pt x 281.05pt>
+<figures/speedup.png, id=393, 425.59pt x 281.05pt>
 File: figures/speedup.png Graphic file (type png)
 <use figures/speedup.png>
 Package pdftex.def Info: figures/speedup.png  used on input line 242.
@@ -799,7 +799,7 @@ Overfull \vbox (6.27187pt too high) has occurred while \output is active []
 
 
 [8 <./figures/software.pdf> <./figures/speedup.png>]
-<figures/cpu_wall.png, id=431, 433.62pt x 289.08pt>
+<figures/cpu_wall.png, id=433, 433.62pt x 289.08pt>
 File: figures/cpu_wall.png Graphic file (type png)
 <use figures/cpu_wall.png>
 Package pdftex.def Info: figures/cpu_wall.png  used on input line 258.
@@ -864,10 +864,10 @@ usr/local/texlive/2020/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb></usr/lo
 cal/texlive/2020/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texliv
 e/2020/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2020/tex
 mf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on pyexafmm.pdf (9 pages, 428856 bytes).
+Output written on pyexafmm.pdf (9 pages, 429048 bytes).
 PDF statistics:
- 544 PDF objects out of 1000 (max. 8388607)
- 452 compressed objects within 5 object streams
+ 546 PDF objects out of 1000 (max. 8388607)
+ 454 compressed objects within 5 object streams
  146 named destinations out of 1000 (max. 500000)
  141 words of extra memory for PDF output out of 10000 (max. 10000000)
 
