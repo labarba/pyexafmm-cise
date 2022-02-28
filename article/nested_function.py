@@ -11,6 +11,11 @@ data = numba.typed.Dict.empty(
 
 data['initial'] = np.ones(100)
 
+# Functions marked with 'njit' rather than
+# 'jit' decorator, to force Numba to run in
+# no Python mode, dissallowing the compilation
+# of Python code it is not specialized for.
+
 # Subroutine 1
 @numba.njit
 def step_1(data):
