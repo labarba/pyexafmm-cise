@@ -9,7 +9,7 @@ data = numba.typed.Dict.empty(
     value_type=numba.core.types.float64[:]
 )
 
-data['initial'] = np.ones(100)
+data['v'] = np.ones(100)
 
 # Functions marked with 'njit' rather than
 # 'jit' decorator, to force Numba to run in
@@ -21,15 +21,15 @@ data['initial'] = np.ones(100)
 def step_1(data):
     # An example allocation & calculation
     a = np.random.rand(100, 100)
-    a @ a
-    data['step_1'] = data['initial']
+    b = a @ a
+    data['step_1'] = data['v']
 
 # Subroutine 2
 @numba.njit
-def step_2(data):
+def step_2(v):
     # An example allocation & calculation
-    a = np.random.rand(100, 100)
-    a @ a
+    A = np.random.rand(100, 100)
+    B = A @ A
     data['step_2'] =  data['step_1']
 
 @numba.njit
@@ -40,10 +40,10 @@ def algorithm1(data):
 
 @numba.njit
 def algorithm2():
-    # only pays the boxing cost to return a
+    # Only pays the boxing cost to return a
     # Python type.
     data = dict()
-    data['initial'] = np.ones(100)
+    data['v'] = np.ones(100)
     step_1(data); step_2(data)
     return data
 
@@ -51,18 +51,17 @@ def algorithm2():
 def algorithm3():
     # Numba interprets subroutines as a
     # part of a **single** function body.
-
     data = dict()
-    data['initial'] = np.ones(100)
+    data['v'] = np.ones(100)
 
     def step_1(data):
-        a = np.random.rand(100, 100)
-        a @ a
-        data['step_1'] = data['initial']
+        A = np.random.rand(100, 100)
+        B = A @ A
+        data['step_1'] = data['v']
 
     def step_2(data):
-        a = np.random.rand(100, 100)
-        a @ a
+        A = np.random.rand(100, 100)
+        B = A @ A
         data['step_2'] =  data['step_1']
 
     step_1(data); step_2(data)
