@@ -267,7 +267,7 @@ Multithreading in this way means that we call the P2P, P2M, M2P, L2P and near fi
 
 Figure (\ref{fig:cpu_wall}) compares the time spent within each Numba-compiled operator (`CPU time') to the total runtime (`wall time') of each operator. The results are computed over five trials over $32768$ leaves, with $n_{crit}=150$ and $p=6$, for a random distribution of $1e6$ charges distributed on the surface of a sphere representing a typical FMM problem. The mean size of the interaction lists are $|U|=11$, $|V|=42$, $|X|=3$, $|W|=3$, and the entire algorithm is computed in $5.95 \pm 0.02 s$, with an additional $9.00 \pm 0.01 s$ for operator pre-computations for a given dataset, which is unachievable in ordinary single-threaded interpreted Python.
 
-The wall time includes the time to (un)box data, organize inputs for Numba compiled functions, and pass control between Numba and Python. Except for the L2P which has a different parallelization strategy that requires significant data organization that must take place within the GIL restricted Python interpreter, the runtime costs are less than 5 \% of each operator's total wall time, implying that we are nearly always running multithreaded code and that the CPU is nearly fully utilized. 
+The wall time includes the time to (un)box data, organize inputs for Numba compiled functions, and pass control between Numba and Python. Except for the L2P which has a different parallelization strategy that requires significant data organization that must take place within the GIL restricted Python interpreter, the runtime costs are less than 5 \% of each operator's total wall time, implying that we are nearly always running multithreaded code and utilizing all available CPU cores. 
 
  % Smaller figure
  \begin{figure}
