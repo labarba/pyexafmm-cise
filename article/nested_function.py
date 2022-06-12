@@ -26,7 +26,7 @@ def step_1(data):
 
 # Subroutine 2
 @numba.njit
-def step_2(v):
+def step_2(data):
     # An example allocation & calculation
     A = np.random.rand(100, 100)
     B = A @ A
