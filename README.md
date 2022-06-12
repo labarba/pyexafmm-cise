@@ -34,3 +34,11 @@ e.g. for a test parametrized with a file named `test.json`
 ```bash
 fmm generate-test-data -c test && fmm compute-operators -c test
 ```
+
+# Compile manuscript
+
+Requires latex.
+
+```bash
+cd article && sh compile.sh
+```
