@@ -159,7 +159,7 @@ An example of Numba's framework-like behavior arises when implementing algorithm
 The runtimes of all three implementations are shown in table (\ref{tab:boxing_inlining}) for three contrasting problem sizes, and shows how inlining can have a significant impact on runtime for this algorithm. This example is designed to illustrate how small changes to writing style can impact the performance of an algorithm written with Numba. We emphasize that the speedup obtained from inlining is dependent on the size of the data being operated on as well as the program logic. Other factors such as memory latency for large data, or the passing of execution control between Python and Numba, with small data are may become more significant. Indeed the experiment with $A \in \mathbb{R}^{1000 \times 1000}$ and $v \in \mathbb{R}^{1000}$, we observe that inlining is still the dominant factor in performance difference and is even more prominent than with the smaller dataset. With $A \in \mathbb{R}^{1 \times 1}$ and $v \in \mathbb{R}^1$, we see that the instantiation of the result dictionary from within a Numba function is now a significant part of total runtime.
 
 \begin{table}
-    \caption{ Testing the effect of inlining and unboxing on dense matrix vector products in double precision with implementations from listing (\ref{code:nested_function}).}
+    \caption{ Testing the effect of inlining and (un)boxing on dense matrix vector products in double precision with implementations from listing (\ref{code:nested_function}).}
     \label{table}
     \small
     \begin{tabular*}{17.5pc}{|@{}p{40pt}|p{50pt}<{\raggedright}|p{50pt}<{\raggedright}|@{}}
