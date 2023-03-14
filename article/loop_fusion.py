@@ -8,14 +8,12 @@ import numpy as np
 # object mode
 @numba.jit
 def loop_fusion(a):
-    """
-    An example of loop fusion, an
-    optimization that Numba is able
-    to perform on a user's behalf.
-    When it recognizes that they are
-    operating similarly on a single
-    data structure
-    """
+    # An example of loop fusion, an
+    # optimization that Numba is able
+    # to perform on a user's behalf
+    # when it recognizes that they are
+    # operating similarly on a single
+    # data structure
     for i in range(10):
         a[i] += 1
 
