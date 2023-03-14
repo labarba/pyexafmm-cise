@@ -1,3 +1,4 @@
+
 import numba
 import numpy as np
 
@@ -6,7 +7,7 @@ import numpy as np
 # disallows Numba from running in
 # object mode
 @numba.jit
-def loop_fusion(A):
+def loop_fusion(a):
     """
     An example of loop fusion, an
     optimization that Numba is able
@@ -16,9 +17,9 @@ def loop_fusion(A):
     data structure
     """
     for i in range(10):
-        A[i] += 1
+        a[i] += 1
 
     for i in range(10):
-        A[i] *= 5
+        a[i] *= 5
 
-    return A
+    return a
