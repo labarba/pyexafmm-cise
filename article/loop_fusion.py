@@ -21,3 +21,4 @@ def loop_fusion(a):
         a[i] *= 5
 
     return a
+

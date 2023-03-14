@@ -1,3 +1,4 @@
+
 import numpy as np
 import numba
 import numba.core
@@ -13,7 +14,7 @@ data['v'] = np.ones(100)
 
 # Functions marked with 'njit' rather than
 # 'jit' decorator, to force Numba to run in
-# no Python mode, dissallowing the 
+# no Python mode, dissallowing the
 # compilation of Python code it is not
 # specialized for.
 
@@ -67,3 +68,4 @@ def algorithm3():
 
     step_1(data); step_2(data)
     return data
+
