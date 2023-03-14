@@ -2,7 +2,7 @@
 import numba
 import numpy as np
 
-# optionally the decorator can take
+# Optionally the decorator can take
 # the option nopython=True, which
 # disallows Numba from running in
 # object mode
