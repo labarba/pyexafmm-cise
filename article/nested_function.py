@@ -35,7 +35,7 @@ def step_2(data):
 
 @numba.njit
 def algorithm1(data):
-    # Pays the un(boxing) cost to exchange
+    # Pays the (un)boxing cost to exchange
     # data with interpreter
     step_1(data); step_2(data)
 
