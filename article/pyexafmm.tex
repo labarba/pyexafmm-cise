@@ -33,20 +33,18 @@
 import numba
 import numpy as np
 
-# optionally the decorator can take
+# Optionally the decorator can take
 # the option nopython=True, which
 # disallows Numba from running in
 # object mode
 @numba.jit
 def loop_fusion(a):
-    """
-    An example of loop fusion, an
-    optimization that Numba is able
-    to perform on a user's behalf.
-    When it recognizes that they are
-    operating similarly on a single
-    data structure
-    """
+    # An example of loop fusion, an
+    # optimization that Numba is able
+    # to perform on a user's behalf
+    # when it recognizes that they are
+    # operating similarly on a single
+    # data structure
     for i in range(10):
         a[i] += 1
 
@@ -54,53 +52,94 @@ def loop_fusion(a):
         a[i] *= 5
 
     return a
+
 \end{filecontents*}
 
 \begin{filecontents*}{nested_function.py}
-
 import numpy as np
 import numba
 import numba.core
 import numba.typed
 
-
-# Dictionary instance created at runtime
-results = numba.typed.Dict.empty(
+# Initialize in Python interpreter
+data = numba.typed.Dict.empty(
     key_type=numba.core.types.unicode_type,
     value_type=numba.core.types.float64[:]
 )
 
+data['v'] = np.ones(100)
+
+# Functions marked with 'njit' rather than
+# 'jit' decorator, to force Numba to run in
+# no Python mode, dissallowing the 
+# compilation of Python code it is not
+# specialized for.
+
+# Subroutine 1
 @numba.njit
-def nested(input, results):
-    # This function expects a
-    # typed dictionary as an
-    # argument to store results
+def step_1(data):
+    # An example allocation & calculation
+    a = np.random.rand(100, 100)
+    b = a @ a
+    data['step_1'] = data['v']
 
-    def step1(a):
-        # first step of algorithm
-        # store results in dictionary
-        ...
+# Subroutine 2
+@numba.njit
+def step_2(data):
+    # An example allocation & calculation
+    A = np.random.rand(100, 100)
+    B = A @ A
+    data['step_2'] =  data['step_1']
 
-    def step2(a):
-        # second step of algorithm
-        # store results in dictionary
-        ...
+@numba.njit
+def algorithm1(data):
+    # Pays the (un)boxing cost to exchange
+    # data with interpreter
+    step_1(data); step_2(data)
 
-    return results
+@numba.njit
+def algorithm2():
+    # Only pays the boxing cost to return a
+    # Python type.
+    data = dict()
+    data['v'] = np.ones(100)
+    step_1(data); step_2(data)
+    return data
 
+@numba.njit
+def algorithm3():
+    # Numba interprets subroutines as a
+    # part of a **single** function body.
+    data = dict()
+    data['v'] = np.ones(100)
+
+    def step_1(data):
+        A = np.random.rand(100, 100)
+        B = A @ A
+        data['step_1'] = data['v']
+
+    def step_2(data):
+        A = np.random.rand(100, 100)
+        B = A @ A
+        data['step_2'] =  data['step_1']
+
+    step_1(data); step_2(data)
+    return data
+    
 \end{filecontents*}
 
 \begin{filecontents*}{parallel_multithreading.py}
-
 import numba
 import numpy as np
 
 @numba.njit(cache=True, parallel=True)
-def multithreading(a):
-
-	for i in numba.prange(10):
-		a[i] *= 10
-
+def multithreading(A):
+    # Numpy is configured to run single
+    # threaded to avoid thread 
+    # oversubscription from the interaction 
+    # between Numba and Numpy threads.
+    for _ in numba.prange(10):
+            B = A @ A
 \end{filecontents*}
 
 
