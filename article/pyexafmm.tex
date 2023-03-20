@@ -13,6 +13,13 @@
 \usepackage{parcolumns}
 \usepackage{booktabs}
 
+\newcommand\blfootnote[1]{%
+  \begingroup
+  \renewcommand\thefootnote{}\footnote{#1}%
+  \addtocounter{footnote}{-1}%
+  \endgroup
+}
+
 \newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
 
 \jvol{XX}
@@ -169,7 +176,7 @@ def multithreading(A):
 \end{abstract}
 
 \maketitle
-\chapterinitial{Python}\footnote{We refer here to CPython, the popular C-language implementation of Python dominant in computational science.} is designed for memory safety and programmer productivity. Its simplicity allows computational scientists to spend more time on science, and less time tackling software quirks, memory errors, and incompatible dependencies, which all conspire to drain productivity.
+\chapterinitial{Python}\footnote{We refer here to CPython, the popular C-language implementation of Python dominant in computational science.}is designed for memory safety and programmer productivity. Its simplicity allows computational scientists to spend more time on science, and less time tackling software quirks, memory errors, and incompatible dependencies, which all conspire to drain productivity.\blfootnote{For the purpose of open access, the author has applied a Creative Commons Attribution (CC BY) license to any Author Accepted Manuscript version arising} 
 The downside is that code runs through an interpreter and is restricted to a single thread via a software construction called the Global Interpreter Lock (GIL). Libraries for high-performance computational science can bypass the GIL by using Python's C interface to call extensions built in C or other compiled languages, which can be multithreaded or compiled to target special hardware features. Popular examples of this approach include NumPy and SciPy, which have together helped to propel Python's popularity in computational science by providing high-performance data structures for numerical data as well as interfaces for compiled implementations of common algorithms for numerical linear algebra, differential equation solvers, and machine learning, among others.
 As the actual number crunching happens outside of the interpreter, the GIL only becomes a bottleneck to performance if a program must repeatedly pass control between the interpreter and non-Python code. This is  typical when an optimized compiled language implementation of your desired algorithm doesn't exist in the Python open source ecosystem, or if a lot of data organization needs to happen within the interpreter to form the input for an optimized NumPy or SciPy code. Previously, an unlucky developer would have had to tackle these issues by writing a compiled-language implementation and connecting it to their Python package, relegating Python's role to an interface. Many computational scientists may lack the software skills or interest in developing and maintaining complex codebases that couple multiple languages.
 
