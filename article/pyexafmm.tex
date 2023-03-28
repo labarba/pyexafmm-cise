@@ -94,8 +94,8 @@ def step_1(data):
 @numba.njit
 def step_2(data):
     # An example allocation & calculation
-    A = np.random.rand(100, 100)
-    B = A @ A
+    a = np.random.rand(100, 100)
+    b = a @ a
     data['step_2'] =  data['step_1']
 
 @numba.njit
@@ -121,13 +121,13 @@ def algorithm3():
     data['v'] = np.ones(100)
 
     def step_1(data):
-        A = np.random.rand(100, 100)
-        B = A @ A
+        a = np.random.rand(100, 100)
+        b = a @ a
         data['step_1'] = data['v']
 
     def step_2(data):
-        A = np.random.rand(100, 100)
-        B = A @ A
+        a = np.random.rand(100, 100)
+        b = a @ a
         data['step_2'] =  data['step_1']
 
     step_1(data); step_2(data)
@@ -146,7 +146,7 @@ def multithreading(A):
     # oversubscription from the interaction 
     # between Numba and Numpy threads.
     for _ in numba.prange(10):
-            B = A @ A
+            b = a @ a
 \end{filecontents*}
 
 
@@ -202,7 +202,7 @@ Since its first release Numba has been extended to cover most of NumPy's functio
 
 An example of Numba's framework-like behavior arises when implementing algorithms that share data, and have multiple logical steps as in listing (\ref{code:nested_function}). This listing shows three implementations of the same logic: a function that generates a random matrix $A \in \mathbb{R}^{100 \times 100}$ and multiplies it with itself, and also writes an input vector $v \in \mathbb{R}^{100}$ to a Numba dictionary. Data of this size is chosen to reflect the typical amount of computation in a task parallelized by PyExaFMM. 
 
-The implementations \lstinline{algorithm1} and \lstinline{algorithm2} aren't distinguished by the Numba compiler, and both pay a cost to call subroutines defined outside of their function body. However, \lstinline{algorithm1} pays a small additional (un)boxing cost in order to manipulate a globally defined Numba compatible dictionary, in comparison to a locally defined one in \lstinline{algorithm2}. The \textit{nested} function in \lstinline{algorithm3} differs from the other two implementation, by defining its sub-routines within its function body, rather than calling externally defined functions. This is an example of an inlining optimization, which LLVM is capable of picking up at compile time. Inlining optimizations are a beneficial technique as they reduces function call overhead and encourages code locality, ultimately enhancing execution speed and overall program performance. However, here Numba optimizes out the matrix vector product as it's not being stored in a result that is later used in the program. This is reflected in the runtimes of all three implementations, shown in table (\ref{tab:boxing_inlining}) for different problem sizes \footnote{All experiments in this work were taken on an AMD Ryzen Threadripper 3970X 32-Core processor running Python 3.8.5 and Numba 0.53.0}. This example is designed to illustrate how arbitrary changes to writing style can impact the behaviour of Numba code. 
+The implementations \lstinline{algorithm1} and \lstinline{algorithm2} aren't distinguished by the Numba compiler, and both pay a cost to call subroutines defined outside of their function body. The \textit{nested} function in \lstinline{algorithm3} differs from the other two implementation, by defining its sub-routines within its function body, rather than calling externally defined functions. This is an example of an inlining optimization, which LLVM is capable of picking up at compile time. Inlining optimizations are a beneficial technique as they reduces function call overhead and encourages code locality, ultimately enhancing execution speed and overall program performance. However, here Numba optimizes out the matrix vector product as it's not being stored in a result that is later used in the program. This is reflected in the runtimes of all three implementations, shown in table (\ref{tab:boxing_inlining}) for different problem sizes \footnote{All experiments in this work were taken on an AMD Ryzen Threadripper 3970X 32-Core processor running Python 3.8.5 and Numba 0.53.0}. This example is designed to illustrate how arbitrary changes to writing style can impact the behaviour of Numba code. 
 
 \begin{table}
     \caption{ Testing the effect of the different implementations of computing dense matrix-vector products in double precision with some data storage from listing (\ref{code:nested_function}). }
