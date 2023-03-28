@@ -13,7 +13,7 @@ data['v'] = np.ones(100)
 
 # Functions marked with 'njit' rather than
 # 'jit' decorator, to force Numba to run in
-# no Python mode, dissallowing the 
+# no Python mode, dissallowing the
 # compilation of Python code it is not
 # specialized for.
 
@@ -29,8 +29,8 @@ def step_1(data):
 @numba.njit
 def step_2(data):
     # An example allocation & calculation
-    A = np.random.rand(100, 100)
-    B = A @ A
+    a = np.random.rand(100, 100)
+    b = a @ a
     data['step_2'] =  data['step_1']
 
 @numba.njit
@@ -56,14 +56,15 @@ def algorithm3():
     data['v'] = np.ones(100)
 
     def step_1(data):
-        A = np.random.rand(100, 100)
-        B = A @ A
+        a = np.random.rand(100, 100)
+        b = a @ a
         data['step_1'] = data['v']
 
     def step_2(data):
-        A = np.random.rand(100, 100)
-        B = A @ A
+        a = np.random.rand(100, 100)
+        b = a @ a
         data['step_2'] =  data['step_1']
 
     step_1(data); step_2(data)
     return data
+
