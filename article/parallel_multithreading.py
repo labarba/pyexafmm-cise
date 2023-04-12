@@ -9,4 +9,4 @@ def multithreading(A):
     # oversubscription from the interaction
     # between Numba and Numpy threads.
     for _ in numba.prange(10):
-            B = A @ A
+            b = a @ a
