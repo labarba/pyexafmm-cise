@@ -74,65 +74,48 @@ data = numba.typed.Dict.empty(
     value_type=numba.core.types.float64[:]
 )
 
-data['v'] = np.ones(100)
 
-# Functions marked with 'njit' rather than
-# 'jit' decorator, to force Numba to run in
-# no Python mode, dissallowing the 
-# compilation of Python code it is not
-# specialized for.
+data['initial'] = np.ones(N)
 
-# Subroutine 1
 @numba.njit
 def step_1(data):
-    # An example allocation & calculation
-    a = np.random.rand(100, 100)
-    b = a @ a
-    data['step_1'] = data['v']
-
-# Subroutine 2
+    a = np.random.rand(N, N)
+    data['a'] = (a @ a)[0,:]
+    
 @numba.njit
 def step_2(data):
-    # An example allocation & calculation
-    a = np.random.rand(100, 100)
-    b = a @ a
-    data['step_2'] =  data['step_1']
+    b = np.random.rand(N, N)
+    data['b'] = (b @ b)[0,:]
 
 @numba.njit
 def algorithm1(data):
-    # Pays the (un)boxing cost to exchange
-    # data with interpreter
-    step_1(data); step_2(data)
-
+    step_1(data)
+    step_2(data)
+    
 @numba.njit
 def algorithm2():
-    # Only pays the boxing cost to return a
-    # Python type.
     data = dict()
-    data['v'] = np.ones(100)
-    step_1(data); step_2(data)
+    data['initial'] = np.ones(N)
+    step_1(data)
+    step_2(data)
     return data
 
 @numba.njit
 def algorithm3():
-    # Numba interprets subroutines as a
-    # part of a **single** function body.
     data = dict()
-    data['v'] = np.ones(100)
-
+    data['initial'] = np.ones(N)
+    
     def step_1(data):
-        a = np.random.rand(100, 100)
-        b = a @ a
-        data['step_1'] = data['v']
+        a = np.random.rand(N, N)
+        data['a'] = (a @ a)[0,:]
 
     def step_2(data):
-        a = np.random.rand(100, 100)
-        b = a @ a
-        data['step_2'] =  data['step_1']
-
-    step_1(data); step_2(data)
-    return data
+        b = np.random.rand(N, N)
+        data['b'] = (b @ b)[0,:]
     
+    step_1(data)
+    step_2(data)
+    return data
 \end{filecontents*}
 
 \begin{filecontents*}{parallel_multithreading.py}
@@ -172,37 +155,35 @@ def multithreading(A):
 \markboth{Department Head}{Paper title}
 
 \begin{abstract}
-   Numba is a game-changing compiler for high-performance computing with Python. It produces machine code that runs outside of the single-threaded Python interpreter and that fully utilizes the resources of modern CPUs. This means support for parallel multithreading and auto vectorization if available, as with compiled languages such as C++ or Fortran. In this article we document our experience developing PyExaFMM, a multithreaded Numba implementation of the Fast Multipole Method, an algorithm with a non-linear data structure and a large amount of data organization. We find that designing performant Numba code for complex algorithms can be as challenging as writing in a compiled language.
+   Numba is a game-changing compiler for high-performance computing with Python. It produces machine code that runs outside of the single-threaded Python interpreter and that fully utilizes the resources of modern CPUs. This means support for parallel multithreading and auto-vectorization if available, as with compiled languages such as C++ or Fortran. In this article we document our experience developing PyExaFMM, a multithreaded Numba implementation of the Fast Multipole Method, an algorithm with a non-linear data structure and a large amount of data organization. We find that designing performant Numba code for complex algorithms can be as challenging as writing in a compiled language.
 \end{abstract}
 
 \maketitle
 \chapterinitial{Python}\footnote{We refer here to CPython, the popular C-language implementation of Python dominant in computational science.}is designed for memory safety and programmer productivity. Its simplicity allows computational scientists to spend more time on science, and less time tackling software quirks, memory errors, and incompatible dependencies, which all conspire to drain productivity.\blfootnote{For the purpose of open access, the author has applied a Creative Commons Attribution (CC BY) license to any Author Accepted Manuscript version arising} 
 The downside is that code runs through an interpreter and is restricted to a single thread via a software construction called the Global Interpreter Lock (GIL). Libraries for high-performance computational science can bypass the GIL by using Python's C interface to call extensions built in C or other compiled languages, which can be multithreaded or compiled to target special hardware features. Popular examples of this approach include NumPy and SciPy, which have together helped to propel Python's popularity in computational science by providing high-performance data structures for numerical data as well as interfaces for compiled implementations of common algorithms for numerical linear algebra, differential equation solvers, and machine learning, among others.
-As the actual number crunching happens outside of the interpreter, the GIL only becomes a bottleneck to performance if a program must repeatedly pass control between the interpreter and non-Python code. This is  typical when an optimized compiled language implementation of your desired algorithm doesn't exist in the Python open source ecosystem, or if a lot of data organization needs to happen within the interpreter to form the input for an optimized NumPy or SciPy code. Previously, an unlucky developer would have had to tackle these issues by writing a compiled-language implementation and connecting it to their Python package, relegating Python's role to an interface. Many computational scientists may lack the software skills or interest in developing and maintaining complex codebases that couple multiple languages.
+As the actual number crunching happens outside of the interpreter, the GIL only becomes a bottleneck to performance if a program must repeatedly pass control between the interpreter and non-Python code. This is  typical when an optimized compiled language implementation of your desired algorithm doesn't exist in the Python open-source ecosystem, or if a lot of data organization needs to happen within the interpreter to form the input for an optimized NumPy or SciPy code. Previously, an unlucky developer would have had to tackle these issues by writing a compiled-language implementation and connecting it to their Python package, relegating Python's role to an interface. Many computational scientists may lack the software skills or interest in developing and maintaining complex codebases that couple multiple languages.
 
-This scenario is where Numba comes in \cite{Lam2015}. It is a compiler that targets and optimizes Python code written with NumPy's $n$-dimensional array data structure, the ndarray. Its power derives from generating  compiled code optimized for multithreaded architecture from pure Python. Numba promises the ability to develop applications that can rival C++ or Fortran in performance, while retaining the simplicity and productivity of working in Python. We put this promise to the test with PyExaFMM, an implementation of the three-dimensional kernel-independent fast multipole method (FMM) \cite{Ying2004,Greengard1987}. PyExaFMM is open source,\footnote{\url{https://github.com/exafmm/pyexafmm}} as are the scripts and Jupyter notebooks used to run the experiments in this paper.\footnote{\url{https://github.com/betckegroup/pyexafmm-cise}} Efficient implementations of this algorithm are complicated by its reliance on a tree data structure and a series of operations that each require major data organization and careful memory allocation. These features made PyExaFMM an excellent test case to see whether Numba could free us from the complexities of developing in low-level languages.
+This scenario is where Numba comes in \cite{Lam2015}. It is a compiler that targets and optimizes Python code written with NumPy's $n$-dimensional array data structure, the ndarray. Its power derives from generating  compiled code optimized for multithreaded architecture from pure Python. Numba promises the ability to develop applications that can rival C++ or Fortran in performance, while retaining the simplicity and productivity of working in Python. We put this promise to the test with PyExaFMM, an implementation of the three-dimensional kernel-independent fast multipole method (FMM) \cite{Ying2004,Greengard1987}. PyExaFMM is open-source,\footnote{\url{https://github.com/exafmm/pyexafmm}} as are the scripts and Jupyter notebooks used to run the experiments in this paper.\footnote{\url{https://github.com/betckegroup/pyexafmm-cise}} Efficient implementations of this algorithm are complicated by its reliance on a tree data structure and a series of operations that each require major data organization and careful memory allocation. These features made PyExaFMM an excellent test case to see whether Numba could free us from the complexities of developing in low-level languages.
 
-We begin with an overview of Numba's design and its major pitfalls. After introducing the data structures and computations involved in the FMM, we provide an overview of how we implemented our software's data structures, algorithms and application programming interface (API) to optimally use Numba.
+We begin with an overview of Numba's design and its major pitfalls. After introducing the data structures and computations involved in the FMM, we provide an overview of how we implemented our software's data structures, algorithms, and application programming interface (API) to optimally use Numba.
 
 \section{BRIEF OVERVIEW OF NUMBA}
 
-Numba is built using the LLVM compiler infrastructure\footnote{\url{https://llvm.org/}} to target a subset of Python code using ndarrays. LLVM provides an API for generating machine code for different hardware architectures such as CPUs and GPUs and is also able to analyze code for hardware-level optimizations such as auto vectorization, automatically applying them if they are available on the target hardware \cite{Lattner2004}. LLVM-generated code may be multithreaded, bypassing the GIL.  Numba uses the metadata provided by ndarrays describing their dimensionality, type and layout to generate code that takes advantage of the hierarchical caches available in modern CPUs \cite{Lam2015}. Altogether, this allows code generated by Numba to run significantly faster than ordinary Python code, and often be competitive with code generated from compiled languages such as C++ or Fortran. 
+Numba is built using the LLVM compiler infrastructure\footnote{\url{https://llvm.org/}} to target a subset of Python code using ndarrays. LLVM provides an API for generating machine code for different hardware architectures such as CPUs and GPUs and is also able to analyze code for hardware-level optimizations such as auto-vectorization, automatically applying them if they are available on the target hardware \cite{Lattner2004}. LLVM-generated code may be multithreaded, bypassing the GIL.  Numba uses the metadata provided by ndarrays describing their dimensionality, type, and layout to generate code that takes advantage of the hierarchical caches available in modern CPUs \cite{Lam2015}. Altogether, this allows code generated by Numba to run significantly faster than ordinary Python code, and often be competitive with code generated from compiled languages such as C++ or Fortran. 
 
 From a programmer's perspective, using Numba (at least naively) doesn't involve a significant code rewrite. Python functions are simply marked for compilation with a special decorator; see listings (\ref{code:loop_fusion}), (\ref{code:nested_function}) and (\ref{code:parallel_multithreading}) for example syntax. This encapsulates the appeal of Numba: the ability to generate high-performance code for different hardware targets from Python, letting Numba take care of optimizations, would allow for significantly faster workflows than is possible with a compiled language.
 
 Figure (\ref{fig:numba}) illustrates the program execution path when a Numba-decorated function is called from the Python interpreter. We see that Numba doesn't replace the Python interpreter. If a marked function is called at runtime, program execution is handed to Numba's runtime, which compiles the function on-the-fly with a type signature matching the input arguments. This is the origin of the term `just in time' (JIT) to describe such compilers.
 
-The Numba runtime interacts with the Python interpreter dynamically, and control over program execution is passed back and forth between the two. This interaction is at the cost of having to `unbox' Python objects into types compatible with the compiled machine code, and `box' the outputs of the compiled functions back into Python-compatible objects. This process doesn't involve re-allocating memory, however pointers to memory locations have to be converted and placed in a type compatible with either Numba compiled code or Python.
+The Numba runtime interacts with the Python interpreter dynamically, and control over program execution is passed back and forth between the two. This interaction is at the cost of having to `unbox' Python objects into types compatible with the compiled machine code, and `box' the outputs of the compiled functions back into Python-compatible objects. This process doesn't involve reallocating memory, however, pointers to memory locations have to be converted and placed in a type compatible with either Numba-compiled code or Python.
 
 \lstinputlisting[float=t, caption={An example of using Numba in a Python function operating on ndarrays.}\label{code:loop_fusion}]{loop_fusion.py}
 
 \section{PITFALLS OF NUMBA}\label{sec:pitfalls}
 
-Since its first release Numba has been extended to cover most of NumPy's functionality, as well as the majority of Python's basic features and standard library modules\footnote{A list of supported features for the current release can be found at \url{https://numba.readthedocs.io/en/stable/reference/pysupported.html}}. If Numba is unable to find a suitable Numba type for each Python type in a decorated function, or it sees a Python feature it doesn't yet support, it runs in `object mode', handling all unknown quantities as generic Python objects. To ensure a seamless experience, this is silent to the user, unless explicitly marked to run in `no Python' mode. Object mode is often no faster than vanilla Python, leaving the programmer to understand when and where Numba works. As Numba influences the way Python is written it's perhaps more akin to a programming framework than just a compiler.
+Since its first release, Numba has been extended to cover most of NumPy's functionality, as well as the majority of Python's basic features and standard library modules\footnote{A list of supported features for the current release can be found at \url{https://numba.readthedocs.io/en/stable/reference/pysupported.html}}. If Numba is unable to find a suitable Numba type for each Python type in a decorated function, or it sees a Python feature it doesn't yet support, it runs in `object mode', handling all unknown quantities as generic Python objects. To ensure a seamless experience, this is silent to the user, unless explicitly marked to run in `no Python' mode. Object mode is often no faster than vanilla Python, leaving the programmer to understand when and where Numba works. As Numba influences the way Python is written it's perhaps more akin to a programming framework than just a compiler.
 
-An example of Numba's framework-like behavior arises when implementing algorithms that share data, and have multiple logical steps as in listing (\ref{code:nested_function}). This listing shows three implementations of the same logic: a function that generates a random matrix $A \in \mathbb{R}^{100 \times 100}$ and multiplies it with itself, and also writes an input vector $v \in \mathbb{R}^{100}$ to a Numba dictionary. Data of this size is chosen to reflect the typical amount of computation in a task parallelized by PyExaFMM. 
-
-The implementations \lstinline{algorithm1} and \lstinline{algorithm2} aren't distinguished by the Numba compiler, and both pay a cost to call subroutines defined outside of their function body. The \textit{nested} function in \lstinline{algorithm3} differs from the other two implementation, by defining its sub-routines within its function body, rather than calling externally defined functions. This is an example of an inlining optimization, which LLVM is capable of picking up at compile time. Inlining optimizations are a beneficial technique as they reduces function call overhead and encourages code locality, ultimately enhancing execution speed and overall program performance. However, here Numba optimizes out the matrix vector product as it's not being stored in a result that is later used in the program. This is reflected in the runtimes of all three implementations, shown in table (\ref{tab:boxing_inlining}) for different problem sizes \footnote{All experiments in this work were taken on an AMD Ryzen Threadripper 3970X 32-Core processor running Python 3.8.5 and Numba 0.53.0}. This example is designed to illustrate how arbitrary changes to writing style can impact the behaviour of Numba code. 
+An example of Numba's framework-like behavior arises when implementing algorithms that share data, and have multiple logical steps as in listing (\ref{code:nested_function}). This listing shows three implementations of the same logic: the initialization of a dictionary with some data followed by two matrix multiplications, from which a column of each is stored in the dictionary. The runtimes of all three implementations are shown in table (\ref{tab:boxing_inlining}) for different problem sizes \footnote{All experiments in this work were taken on an AMD Ryzen Threadripper 3970X 32-Core processor running Python 3.8.5 and Numba 0.53.0}. This example is designed to illustrate how arbitrary changes to writing style can impact the behavior of Numba code. The behavior is likely due to the initialization of a dictionary from within a calling Numba function, rather than an external dictionary. However, the optimizations taken by Numba are presented opaquely to a user.
 
 \begin{table}
     \caption{ Testing the effect of the different implementations of computing dense matrix-vector products in double precision with some data storage from listing (\ref{code:nested_function}). }
@@ -212,29 +193,27 @@ The implementations \lstinline{algorithm1} and \lstinline{algorithm2} aren't dis
     \\
     Algorithm & Matrix Dimension & Time ($\mu$s) \\
     \hline
-     1 & $\mathbb{R}^{1 \times 1}$ &       $1.74  \pm 0.01$     \\
-      & $\mathbb{R}^{100 \times 100}$ &   $308  \pm 1$  \\
-      & $\mathbb{R}^{1000 \times 1000}$ & $27100 \pm 200$  \\
+     1 & $\mathbb{R}^{1 \times 1}$ &       $1.55  \pm 0.01$     \\
+      & $\mathbb{R}^{100 \times 100}$ &   $304  \pm 3$  \\
+      & $\mathbb{R}^{1000 \times 1000}$ & $29100 \pm 234$  \\
     \hline
-     2 & $\mathbb{R}^{1 \times 1}$ &       $2.94  \pm 0.01$     \\
-      & $\mathbb{R}^{100 \times 100}$ &   $306   \pm 1$ \\
-      & $\mathbb{R}^{1000 \times 1000}$ & $27100 \pm 200$\\
+     2 & $\mathbb{R}^{1 \times 1}$ &       $2.73  \pm 0.01$     \\
+      & $\mathbb{R}^{100 \times 100}$ &   $312   \pm 3$ \\
+      & $\mathbb{R}^{1000 \times 1000}$ & $25700 \pm 92$\\
     \hline
-     3 & $\mathbb{R}^{1 \times 1}$ &        $2.61  \pm 0.01$ \\
-      & $\mathbb{R}^{100 \times 100}$ &    $2.64  \pm 0.07$ \\
-      & $\mathbb{R}^{1000 \times 1000}$ &  $2.84  \pm 0.07$  \\
+     3 & $\mathbb{R}^{1 \times 1}$ &        $2.72  \pm 0.01$ \\
+      & $\mathbb{R}^{100 \times 100}$ &    $312  \pm 1$ \\
+      & $\mathbb{R}^{1000 \times 1000}$ &  $25700  \pm 140$  \\
       \\
     
-    \multicolumn{3}{@{}p{17.5pc}@{}}{ The matrix vector product is optimized out by the compiler in Algorithm 3. Algorithm 1  pays a boxing and unboxing cost to pass between Numba and Python, operating on a result dictionary defined in Python. Algorithm 2 and 3 only pay the boxing cost to pack a result obtained in Numba into a Python type as they create a result dictionary within Numba.}
+    % \multicolumn{3}{@{}p{17.5pc}@{}}{ There can be substantial differences for the same logical operations in Numba compiled code. }
     \end{tabular*}
     \label{tab:boxing_inlining}
 \end{table}
 
-% A performant Numba code in which the number of interactions between Numba and Python are minimized, and inlined code is maximized, could look decidedly un-Pythonic. Additionally, unit testing such code is difficult to its lack of modularity. Numba can be seen to encourage few user-created objects, performance-critical sections written in terms of loops over simple array based data structures, and potentially long nested functions in order to achieve performance.
+Furthermore, not every supported feature from Python behaves in a way an ordinary Python programmer would expect, which has an impact on program design. An example of this arises when using Python dictionaries, which are central to Python, but are only partially supported by Numba. As they are untyped and can have any Python objects as members, they don't neatly fit into a Numba-compatible type. Programmers can declare a Numba-compatible `typed dictionary', where the keys and values are constrained to Numba-compatible types, and can pass it to a Numba decorated function at low cost. However, using a Numba dictionary from the Python interpreter is \textit{always slower} than an ordinary Python dictionary due to the (un)boxing cost when getting and setting any item.
 
-Not every supported feature from Python behaves in a way an ordinary Python programmer would expect, which has an impact on program design. An example of this arises when using Python dictionaries, which are central to Python, but are only partially supported by Numba. As they are untyped, and can have any Python objects as members, they don't neatly fit into a Numba-compatible type. Programmers can declare a Numba-compatible `typed dictionary', where the keys and values are constrained to Numba-compatible types, and can pass it to a Numba decorated function at low cost. However, using a Numba dictionary from the Python interpreter is \textit{always slower} than an ordinary Python dictionary due to the (un)boxing cost when getting and setting any item.
-
-Therefore, though Numba is advertised as an easy way of injecting performance into your program via simple decorators, it has its own learning curve. Achieving performance requires a programmer to be familiar with the internals of its implementation and potential discrepancies that arise when translating between Python and the LLVM-generated code, which may lead to significant alterations in the design of algorithms and data structures. A performant Numba code in which the number of interactions between Numba and Python are minimized, and inlined code is maximized, could look decidedly un-Pythonic. Additionally, unit testing such code is difficult to its lack of modularity. Numba can be seen to encourage few user-created objects, performance-critical sections written in terms of loops over simple array based data structures, and potentially long nested functions in order to achieve performance.
+Therefore, though Numba is advertised as an easy way of injecting performance into your program via simple decorators, it has its own learning curve. Achieving performance requires a programmer to be familiar with the internals of its implementation and potential discrepancies that arise when translating between Python and the LLVM-generated code, which may lead to significant alterations in the design of algorithms and data structures. 
 
 \begin{figure*}
     \centerline{\includegraphics {figures/numba.pdf}}
@@ -242,11 +221,11 @@ Therefore, though Numba is advertised as an easy way of injecting performance in
     \label{fig:numba}
 \end{figure*}
 
-\lstinputlisting[caption={Three ways of writing a trivial algorithm that passes around a vector, while performing some computations.}\label{code:nested_function}]{nested_function.py}
+\lstinputlisting[caption={Three ways of writing an algorithm performs some computations and saves the results to a dictionary.}\label{code:nested_function}]{nested_function.py}
 
 \section{THE FAST MULTIPOLE METHOD}
 
-The particle FMM is an approximation algorithm for $N$-body problems, in which $N$ source particles interact with $N$ target particles \cite{Greengard1987}. Consider the calculation of electrostatic potentials in 3D, which we use as our reference problem. Given a set of $N$ charged particles with charge $q_i$ at positions $x_i$, the potential, $\phi_j$, at a given target particle at $x_j$ due to all other particles, excluding self interaction, can be written as
+The particle FMM is an approximation algorithm for $N$-body problems, in which $N$ source particles interact with $N$ target particles \cite{Greengard1987}. Consider the calculation of electrostatic potentials in 3D, which we use as our reference problem. Given a set of $N$ charged particles with charge $q_i$ at positions $x_i$, the potential, $\phi_j$, at a given target particle at $x_j$ due to all other particles, excluding self-interaction, can be written as
 
 \begin{equation}
     \phi_j = \sum_{i=1, i \neq j}^{N} \frac{q_i}{4 \pi| x_i-x_j |},
@@ -269,7 +248,7 @@ The near-field operator applies the P2P between the charges contained in the tar
 
 The P2L, P2M and M2L involve creating local and multipole expansions, and rely on a matrix-vector product related to the number of source nodes being compressed, which for the P2L and M2L operators are defined by the size of the target node's interaction lists. These matrix -ector products have complexities of the form $O(k \cdot n_e^2)$ where $k = |X| = 19$ for the P2L, $k = |V| = 189$ for the M2L, and $k = 1$ for the P2M. Additionally, the P2L and P2M have to calculate `check potentials' \cite{Ying2004} that require $O(19 \cdot n_{crit} \cdot n_c)$ and $O(n_{crit} \cdot n_c)$ calculations, respectively. The M2M and L2L operators both involve translating expansions between nodes and their eight children, and rely on a matrix-vector product of $O(n_e^2)$.
 
-The structure of the FMM's operators expose natural parallelism. The P2P is embarrassingly parallel over each target, as are the M2L, M2P, P2L and near-field operators over their interaction lists. The near-field, L2P, M2P, P2L and P2M operators are also embarrassingly parallel over the leaf nodes, as are the M2L, M2M and L2L over the nodes at a given level.
+The structure of the FMM's operators exposes natural parallelism. The P2P is embarrassingly parallel over each target, as are the M2L, M2P, P2L and near-field operators over their interaction lists. The near-field, L2P, M2P, P2L and P2M operators are also embarrassingly parallel over the leaf nodes, as are the M2L, M2M and L2L over the nodes at a given level.
 
 \section{DATA-ORIENTED DESIGN OF PYEXAFMM}
 
@@ -305,14 +284,14 @@ This creates \emph{oversubscription}, where the number of active threads exceeds
 
 The P2M, P2L, M2P, L2P and near-field operators all rely on the P2P operator, as this computes Equation \eqref{eq:laplace_kernel} over their respective sources and targets, parallelized over their targets, the leaf nodes.
 
-For the L2P operator we encourage cache locality for the P2P step, and keep the data structures passed to Numba as simple as possible, by allocating 1D vectors for the source positions, target positions and the source expansion coefficients, such that all the data required to apply an operator to a single target node is adjacent in memory. By storing a vector of index pointers that bookend the data corresponding to each target in these 1D vectors, we can form parallel for-loops over each target to compute the P2P encouraging cache-locality in the CPU. In order to to this, we have to first iterate through the target nodes, and lookup the associated data to fill the cache local vectors.
-The speedup achieved with this strategy, in comparison to a naive parallel iteration over the L2P's targets, increases with the number of calculations in each thread and hence the expansion order $p$. In an experiment with 32,768 leaves, $n_{crit} = 150$ and $p=10$, our strategy is $13\%$ faster. This is a realistic FMM setup with approximately $10^6$ randomly distributed particles.
+For the L2P operator we encourage cache locality for the P2P step, and keep the data structures passed to Numba as simple as possible, by allocating 1D vectors for the source positions, target positions and the source expansion coefficients, such that all the data required to apply an operator to a single target node is adjacent in memory. By storing a vector of index pointers that bookend the data corresponding to each target in these 1D vectors, we can form parallel for-loops over each target to compute the P2P encouraging cache locality in the CPU. In order to do this, we have to first iterate through the target nodes and look up the associated data to fill the cache local vectors.
+The speedup achieved with this strategy, in comparison to a naive parallel iteration over the L2P's targets, increases with the number of calculations in each thread and hence the expansion order $p$. In an experiment with 32,768 leaves, $n_{crit} = 150$ and $p=10$, our strategy is $13\%$ faster. This is a realistic FMM setup with approximately $10^6$ randomly distributed particles on the surface of a sphere.
 
-The previous strategy is too expensive in terms of memory for the near-field, M2L and M2P operators, due to their large interaction lists. For example, allocating an array large enough to store the maximum possible number of source particle coordinates in double precision for the M2P operator, with $|W|=148$ and $n_{crit}=150$, requires $\sim 17$GB, and a runtime cost for memory allocations that exceeds the computation time. Instead, for the M2L we perform a parallel loop over the target nodes at each given level, and over the leaf nodes for the M2P and near field, looking up the relevant data from the linear tree as needed. The P2L interaction list of each target is at most 19 nodes, while the P2M must also calculate a check potential, cancelling out any speedup from cache locality for these operators.
+The previous strategy is too expensive in terms of memory for the near-field, M2L and M2P operators, due to their large interaction lists. For example, allocating an array large enough to store the maximum possible number of source particle coordinates in double precision for the M2P operator, with $|W|=148$ and $n_{crit}=150$, requires $\sim 17$GB for the above experiment, and a runtime cost for memory allocations that exceeds the computation time. Instead, for the M2L we perform a parallel loop over the target nodes at each given level, and over the leaf nodes for the M2P and near field, looking up the relevant data from the linear tree as needed. The P2L interaction list of each target is at most 19 nodes, while the P2M must also calculate a check potential, canceling out any speedup from cache locality for these operators.
 
 The matrices involved in the M2M and L2L operators can be precomputed and scaled at each level \cite{Wang2021}, and their application is parallelized over all nodes at a given level.
 
-Multithreading in this way means that we call the P2P, P2M, M2P, L2P and near-field operators once during the algorithm, the M2L and L2L are called $d-2$ times, and the M2M is called $d$ times, where $d$ is the depth of the octree. This is the minimum number of calls while keeping the operator implementations separate for unit testing.
+Multithreading in this way means that we call the P2M, M2P, L2P and near-field operators once during the algorithm, the M2L and L2L are called $d-2$ times, and the M2M is called $d$ times, where $d$ is the depth of the octree. This is the minimum number of calls while keeping the operator implementations separate for unit testing.
 
 Figure (\ref{fig:cpu_wall}) compares the time spent within each Numba-compiled operator (`CPU time') to the total runtime (`wall time') of each operator. The results are computed over five trials with 32,768 leaves,  $n_{crit}=150$ and $p=6$, for a random distribution of $10^6$ charges distributed on the surface of a sphere, representing a typical FMM setup. The mean sizes of the interaction lists are $|U|=11$, $|V|=42$, $|X|=3$, $|W|=3$, and the entire algorithm is computed in $5.95 \pm 0.02 s$, with an additional $9.00 \pm 0.01 s$ for operator pre-computations for a given dataset---a speed that is unachievable in ordinary single-threaded interpreted Python.
 
@@ -327,7 +306,7 @@ The wall time includes the time to (un)box data, organize inputs for Numba compi
 
 \section{CONCLUSION}
 
-To achieve optimal multithreaded performance with Numba, careful consideration of the algorithm, Numba's backend implementation, and a data-oriented design are required. The pitfalls illustrated above demonstrate the need for care when adapting code to achieve performance with Numba. While Numba is marketed as a simple way to enhance performance of Python code with a decorator, implementing complex algorithms requires significant software development expertise. This level of expertise may exceed the capabilities of Numba's target audience.
+To achieve optimal multithreaded performance with Numba, careful consideration of the algorithm, Numba's backend implementation, and a data-oriented design are required. The pitfalls illustrated above demonstrate the potential need for care when adapting code to achieve performance with Numba. While Numba is marketed as a simple way to enhance performance of Python code with a decorator, implementing complex algorithms requires significant software development expertise. This level of expertise may exceed the capabilities of Numba's target audience.
 
 Nevertheless, Numba is truly a remarkable tool. For projects that prioritize Python's expressiveness, simple cross-platform builds, and a vast open-source ecosystem, having only a few isolated performance bottlenecks, Numba is a game-changer. By writing solely in Python, our PyExaFMM project remains concise, with just 4901 lines of code. Best of all, we can effortlessly deploy it cross-platform with Conda and distribute our software through popular Python channels, avoiding the need to create and maintain a separate Python interface, a tedious and time-consuming task commonly associated with compiled language packages for computational science.
 We encourage readers to explore this powerful tool and engage with the Numba community, which continues to push the boundaries of high-performance computing in the Python ecosystem.
@@ -343,7 +322,7 @@ SK is supported by EPSRC Studentship 2417009. TB is supported by EPSRC Grants EP
 \begin{IEEEbiography}{Srinath Kailasa}{\,}is a PhD student in Mathematics at University College London. Contact him at srinath.kailasa.18@ucl.ac.uk.
 \end{IEEEbiography}
 
-\begin{IEEEbiography}{Tingyu Wang}{\,} has a PhD in Mechanical Engineering from the George Washington University, and is a Senior Software Engineer at Nvidia. Contact him at tingyu.wang6@gmail.com.
+\begin{IEEEbiography}{Tingyu Wang}{\,} has a PhD in Mechanical Engineering from the George Washington University, and is a Senior Software Engineer at NVIDIA. Contact him at tingyu.wang6@gmail.com.
 \end{IEEEbiography}
 
 \begin{IEEEbiography}{Lorena. A. Barba}{\,} is a Professor of Mechanical and Aerospace Engineering in the School of Engineering and Applied Science at the George Washington University (GWU), Washington, DC. Her research interests include computational fluid dynamics, high-performance computing, aerodynamics and biophysics. Barba received a Ph.D. in Aeronautics from the California Institute of Technology and a B.Sc. and PEng in Mechanical Engineering from Universidad T\'ecnica Federico Santa Mar\`ia in Chile. She is a member of IEEE CS, SIAM, AIAA and ACM. Contact her at labarba@gwu.edu.
